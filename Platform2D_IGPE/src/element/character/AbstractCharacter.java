@@ -9,6 +9,9 @@ public abstract class AbstractCharacter implements Character {
 	private Direction direction = Direction.STOP;
 	private int height;
 	private int width;
+	private final double VELOCITY_X = 0.3;
+	private final double VELOCITY_Y = 0.5;
+	
 	
 	public AbstractCharacter(Position position, int life, int damage, int height, int width){
 		this.position = position;
@@ -16,18 +19,6 @@ public abstract class AbstractCharacter implements Character {
 		this.life = life;
 		this.height = height;
 		this.width = width;
-	}
-	
-	@Override
-	public void hurt() {
-		life--;
-	}
-
-	@Override
-	public boolean isDead() {
-		if(life == 0)
-			return true;
-		return false;
 	}
 
 	@Override
@@ -76,13 +67,26 @@ public abstract class AbstractCharacter implements Character {
 	}
 
 	@Override
+	public void hurt() {
+		life--;
+	}
+
+	@Override
+	public boolean isDead() {
+		if(life == 0)
+			return true;
+		return false;
+	}
+
+	@Override
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 
 	@Override
 	public void jump() {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -101,4 +105,9 @@ public abstract class AbstractCharacter implements Character {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

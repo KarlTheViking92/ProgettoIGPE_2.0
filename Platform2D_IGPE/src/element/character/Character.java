@@ -18,4 +18,7 @@ public interface Character {
 	public abstract void doubleJump();
 	public abstract void shoot();
 	public abstract void hit();
+	
+	public abstract void update();
+	
 }

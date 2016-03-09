@@ -1,4 +1,4 @@
-package logic;
+package element;
 
 public class Position {
 	private double x,y;

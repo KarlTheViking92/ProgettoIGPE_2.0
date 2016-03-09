@@ -1,6 +1,6 @@
-package element;
+package element.block;
 
-import logic.Position;
+import element.Position;
 
 public abstract class Block {
 	public final static int HEIGHT = 10;

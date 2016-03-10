@@ -12,6 +12,15 @@ public abstract class AbstractCharacter implements Character {
 	private final double VELOCITY_X = 0.3;
 	private final double VELOCITY_Y = 0.5;
 	
+	private boolean jumping = false, falling = false;
+	
+	// jumping
+	private double jumpSpeed = 5;
+	private double currentJumpSpeed = jumpSpeed;
+	
+	// falling
+	private double maxFallSpeed = 5;
+	private double currentFallSpeed = 0.1;
 	
 	public AbstractCharacter(Position position, int life, int damage, int height, int width){
 		this.position = position;
@@ -86,6 +95,9 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public void jump() {
 		// TODO Auto-generated method stub
+		
+		jumping = true;
+		
 
 	}
 
@@ -107,7 +119,41 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		
+		double X;
+		switch(direction){
+		case LEFT:
+			X = position.getX() - VELOCITY_X;
+			position.setX(X);
+			break;
+		
+		case RIGHT:	
+			X = position.getX() + VELOCITY_X;
+			position.setX(X);
+			
+			break;
+		default:
+			break;
+		}
+		
+		// poi ti finisco
+		
+	/*	if(jumping){       
+			double Y = position.getY() + currentJumpSpeed;
+			position.setY(Y);
+			currentJumpSpeed += 0.1;
+			
+			if(currentJumpSpeed <= 0){
+				currentJumpSpeed = jumpSpeed;
+				jumping = false;
+				falling = true;
+			}
+		}
+		
+		if(falling){
+			double Y = position.getY() - currentFallSpeed;
+		}
+		*/
 		
 	}
 }

@@ -2,7 +2,7 @@ package element.block;
 
 import element.Position;
 
-public class SpeedUpBlock extends Block {
+public class SpeedUpBlock extends AbstractBlock {
 
 	int speed;
 	

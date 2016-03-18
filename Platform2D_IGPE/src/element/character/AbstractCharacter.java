@@ -9,8 +9,8 @@ public abstract class AbstractCharacter implements Character {
 	private Direction direction = Direction.STOP;
 	private int height;
 	private int width;
-	private final double VELOCITY_X = 0.3;
-	private final double VELOCITY_Y = 0.5;
+	private final float VELOCITY_X = 0.3f;
+	private final float VELOCITY_Y = 0.5f;
 	
 	private boolean jumping = false, falling = false;
 	
@@ -120,7 +120,7 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public void update() {
 		
-		double X;
+		float X;
 		switch(direction){
 		case LEFT:
 			X = position.getX() - VELOCITY_X;

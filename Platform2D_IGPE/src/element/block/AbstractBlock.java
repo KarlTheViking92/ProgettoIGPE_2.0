@@ -1,6 +1,5 @@
 package element.block;
 
-import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
 
 import element.Position;
 
@@ -33,7 +32,7 @@ public class AbstractBlock implements Block {
 		System.out.println("4 parte "+ (position.getY() + HEIGHT) + " > " + y);
 		
 		
-		if (position.getX() < x + (width / 2) && position.getY() < y + (height / 2) && position.getX() + WIDTH > x
+		if (position.getX() + WIDTH > x
 				&& position.getY() + HEIGHT > y) {
 			return true;
 		}
@@ -47,6 +46,5 @@ public class AbstractBlock implements Block {
 
 	public static void main(String[] args) {
 		StandardBlock s = new StandardBlock(new Position(0, 0));
-		System.out.println("Collision " + s.collision(9, 9, 10, 10));
 	}
 }

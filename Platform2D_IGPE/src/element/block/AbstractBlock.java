@@ -8,7 +8,8 @@ public class AbstractBlock implements Block {
 	private final int WIDTH = 10;
 	private final int HEIGHT = 10;
 	private Position position;
-
+	
+	
 	public AbstractBlock(Position position) {
 		this.position = position;
 	}

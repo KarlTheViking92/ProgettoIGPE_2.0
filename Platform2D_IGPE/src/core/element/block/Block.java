@@ -1,4 +1,4 @@
-package element.block;
+package core.element.block;
 
 public interface Block  {
 	public abstract double getX();

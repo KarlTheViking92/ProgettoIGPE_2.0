@@ -1,6 +1,6 @@
-package element.block;
+package core.element.block;
 
-import element.Position;
+import core.element.Position;
 
 public class SuperJumpBlock extends AbstractBlock {
 

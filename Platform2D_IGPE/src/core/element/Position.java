@@ -1,4 +1,4 @@
-package element;
+package core.element;
 
 public class Position {
 

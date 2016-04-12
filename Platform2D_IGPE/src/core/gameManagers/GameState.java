@@ -1,4 +1,4 @@
-package gameManagers;
+package core.gameManagers;
 
 import javafx.scene.input.KeyCode;
 

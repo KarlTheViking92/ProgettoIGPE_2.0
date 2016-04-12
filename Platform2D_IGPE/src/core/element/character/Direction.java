@@ -1,4 +1,4 @@
-package element.character;
+package core.element.character;
 
 public enum Direction {
 	LEFT,RIGHT,STOP

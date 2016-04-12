@@ -1,6 +1,6 @@
-package element.character;
+package core.element.character;
 
-import element.Position;
+import core.element.Position;
 
 public class Player extends AbstractCharacter{
 

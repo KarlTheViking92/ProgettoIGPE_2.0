@@ -1,4 +1,4 @@
-package gameManagers;
+package core.gameManagers;
 
 public class GameLoop implements Runnable {
 

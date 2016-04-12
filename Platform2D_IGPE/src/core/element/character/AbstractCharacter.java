@@ -1,5 +1,5 @@
-package element.character;
-import element.Position;
+package core.element.character;
+import core.element.Position;
 
 public abstract class AbstractCharacter implements Character {
 

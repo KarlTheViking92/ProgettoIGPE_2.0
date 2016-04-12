@@ -1,10 +1,10 @@
-package element.block;
+package core.element.block;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import element.Position;
+import core.element.Position;
 
 public class BlockFactory {
 

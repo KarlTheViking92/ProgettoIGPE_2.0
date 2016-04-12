@@ -7,6 +7,8 @@ public class AbstractBlock implements Block {
 
 	private final int WIDTH = 10;
 	private final int HEIGHT = 10;
+	
+	// TODO posizione da fare intera probabilmente
 	private Position position;
 	
 	

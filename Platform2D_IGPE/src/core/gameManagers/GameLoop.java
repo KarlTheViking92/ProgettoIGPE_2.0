@@ -7,12 +7,15 @@ public class GameLoop implements Runnable {
 	private boolean isRunning = false;
 	private double frameCap = 1.0 / 60.0;
 
-	public GameLoop() {
-		// TODO Auto-generated constructor stub
+	GameManager manager;
 
+	public GameLoop(GameManager manager) {
+		this.manager = manager;
+
+		// TODO Auto-generated constructor stub
 		// missing game class to update
 	}
-	
+
 	public void start() {
 
 		if (isRunning)
@@ -58,7 +61,7 @@ public class GameLoop implements Runnable {
 
 				if (frameTime >= 1) {
 					frameTime = 0;
-					System.out.println(frames);
+					System.out.println("frames: " + frames);
 					frames = 0;
 				}
 
@@ -69,7 +72,7 @@ public class GameLoop implements Runnable {
 				// render game
 				// update window
 				// clean screen
-				
+
 				frames++;
 
 			} else {

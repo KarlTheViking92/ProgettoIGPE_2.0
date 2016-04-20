@@ -9,7 +9,7 @@ public class GameStateManager {
 	
 	// vedere se implementato meglio come stack di stati?
 	
-//	private List<GameState> states; 
+	//	private List<GameState> states; 
 	
 	
 	public GameStateManager() {

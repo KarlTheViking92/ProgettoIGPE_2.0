@@ -27,14 +27,9 @@ public class AbstractBlock implements Block {
 	// il punto in esame appartiene al blocco?
 	protected boolean collide(double x, double y, int height, int width) {
 
-//		System.out.println("1 parte " + position.getX() + " < " + (x + (width / 2)));
-//		System.out.println("2 parte " + position.getY() + "  < " + (y + (height / 2)));
-//		System.out.println("3 parte " + (position.getX() + WIDTH) + " > " + x);
-//		System.out.println("4 parte " + (position.getY() + HEIGHT) + " > " + y);
-
 		if ((this.position.getX() + WIDTH) < x)
 			return false;
-		if (this.position.getX() > (x + width) )
+		if (this.position.getX() > (x + width))
 			return false;
 		if ((this.position.getY() + HEIGHT) < y)
 			return false;

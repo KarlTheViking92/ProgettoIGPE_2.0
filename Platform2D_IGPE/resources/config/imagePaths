@@ -1,0 +1,11 @@
+1 resources/images/block/test.png
+5 resources/images/block/StandardBlock.png
+6 resources/images/block/CheckPointBlock.png
+7 resources/images/block/CloudBlock.png
+8 resources/images/block/EndingLevelBlock.png
+9 resources/images/block/GhostBlock.png
+10 resources/images/block/MoveableBlock.png
+11 resources/images/block/SpeedUpBlock.png
+12 resources/images/block/SuperJumpBlock.png
+13 resources/images/block/TrapBlock.png
+14 resources/images/block/WaterBlock.png

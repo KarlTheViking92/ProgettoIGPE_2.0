@@ -13,7 +13,7 @@ public class MainMapEditor extends Application {
 		
 //		AnchorPane anchor = new AnchorPane();
 		
-		map = new MapEditor(30,40);
+		map = new MapEditor(10,10);
 //		anchor.setTopAnchor(map, 0.0);
 //		anchor.setBottomAnchor(map, 0.0);
 //		anchor.setLeftAnchor(map, 0.0);

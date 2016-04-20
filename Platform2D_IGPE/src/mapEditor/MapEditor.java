@@ -72,6 +72,7 @@ public class MapEditor extends GridPane {
 		this.scrollEditor = new ScrollPane(editorPane);
 		this.scrollEditor.setVbarPolicy(ScrollBarPolicy.NEVER);
 		this.scrollEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
+		this.scrollEditor.setPannable(true);
 		rightPane.setTopAnchor(scrollEditor, 0.0);
 		rightPane.setLeftAnchor(scrollEditor, 0.0);
 		rightPane.setRightAnchor(scrollEditor, 0.0);

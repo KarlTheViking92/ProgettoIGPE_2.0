@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
@@ -27,22 +28,23 @@ public class ChoiceObject extends VBox {
 	private VBox vboxChoice;
 	private HBox hboxScroll;
 	private Pane pane;
-	private Pane paneScrollPane;
 	private List<AbstractObject> listVBox;
-	private ScrollPane scrollChoice;
+	// private ScrollPane scrollChoice;
 	private AbstractObject objectSelected;
 
 	public ChoiceObject(List<AbstractObject> listVBox, MapEditor mapEditor) {
 		this.pane = new Pane();
-		this.mapEditor = mapEditor;
-		// this.setAlignment(Pos.TOP_CENTER);
-		this.paneScrollPane = new Pane();
+		this.pane.setPrefSize(1000, 1000);
 		this.vboxChoice = new VBox();
-		this.hboxScroll = new HBox(10);
-		this.listVBox = listVBox;
+		// this.scrollChoice = new ScrollPane();
 
-		this.scrollChoice = new ScrollPane();
-		// this.setPrefSize(500, 100);
+		this.mapEditor = mapEditor;
+		this.listVBox = listVBox;
+		this.setSpacing(5);
+		this.hboxScroll = new HBox(10);
+		hboxScroll.setBackground(new Background(new BackgroundFill(Color.DARKSALMON, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.hboxScroll.setAlignment(Pos.CENTER_LEFT);
+		this.setPadding(new Insets(10));
 		this.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.getChildren().add(vboxChoice);
 		addObjectEditor();
@@ -50,36 +52,41 @@ public class ChoiceObject extends VBox {
 		vboxChoice.setSpacing(10);
 		vboxChoice.setPadding(new Insets(5.0));
 		vboxChoice.setAlignment(Pos.TOP_CENTER);
-
 		this.setAlignment(Pos.TOP_CENTER);
+
 		Rectangle r3 = new Rectangle(50, 50);
 		r3.setFill(Color.CYAN);
 		this.getChildren().add(r3);
-		choiceMenuListener();
+		Rectangle r6 = new Rectangle(50, 50);
+		r6.setFill(Color.CYAN);
+		this.getChildren().add(r6);
+		Rectangle r4 = new Rectangle(50, 50);
+		r4.setFill(Color.BLUE);
+		hboxScroll.getChildren().add(r4);
+		Rectangle r5 = new Rectangle(50, 50);
+		r5.setFill(Color.BLUE);
+		hboxScroll.getChildren().add(r5);
+		choiceMenuListener(r3);
+		choiceMenuListener(r6);
 		focusScroll();
 	}
 
-	private void choiceMenuListener() {
-		vboxChoice.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	private void choiceMenuListener(Node n) {
+		n.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				// System.out.println("Evento target eliana
-				// "+event.getTarget());
 
-				if (event.getTarget() instanceof AbstractObject) {
-					// setChoice(((AbstractObject) objectSelected).getCode());
+				// choice = ((Rectangle) event.getTarget()).getCode();
 
-					choice = ((AbstractObject) event.getTarget()).getCode();
+				System.out.println("choice " + choice);
 
-					System.out.println("choice " + choice);
-					System.out.println("x rettangolo " + event.getX());
-					x = (int) event.getX();// il 50 è la dimensione del
-											// rettangolo
-					y = (int) event.getY();
-					scroll();
-					choiceObjectListener();
-				}
+				x = (int) event.getSceneX();
+				y = (int) event.getSceneY();
+				System.out.println(event.getSceneX() + "  " + event.getSceneY());
+				scroll();
+				// choiceObjectListener();
+
 			}
 		});
 	}
@@ -98,52 +105,54 @@ public class ChoiceObject extends VBox {
 	}
 
 	private void scroll() {
-		if (!this.getChildren().contains(scrollChoice))
-			mapEditor.addObject(pane);
-		pane.setPrefSize(1000, 1000);
+		Pane scrollChoice = new Pane();
+		scrollChoice.setBackground(new Background(new BackgroundFill(Color.FUCHSIA, CornerRadii.EMPTY, Insets.EMPTY)));
+		System.out.println("hash code " + scrollChoice.hashCode());
+		System.out.println("children " + pane.getChildren().size());
+
+		mapEditor.addObject(pane);
 		pane.setVisible(true);
-		// pane.setBackground(new Background(new
-		// BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+//		pane.setBackground(new Background(new BackgroundFill(Color.FUCHSIA, CornerRadii.EMPTY, Insets.EMPTY)));
 		if (!pane.getChildren().contains(scrollChoice)) {
+			scrollChoice.setPrefSize(500, 100);
+			addBlock();	
+			scrollChoice.setLayoutX(x);
+			scrollChoice.setLayoutY(y);
+			scrollChoice.setPadding(new Insets(10));
+			// scrollChoice.setPrefSize(1000, 100);
+//			scrollChoice.setHbarPolicy(ScrollBarPolicy.NEVER);
+//			scrollChoice.setVbarPolicy(ScrollBarPolicy.NEVER);
+			scrollChoice.getChildren().add(hboxScroll);
 			pane.getChildren().add(scrollChoice);
-			addPaneAtScrollPane();
-		}
-		scrollChoice.setLayoutX(x);
-		scrollChoice.setLayoutY(y);
-		scrollChoice.setPrefSize(1000, 100);
-		scrollChoice.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scrollChoice.setVbarPolicy(ScrollBarPolicy.NEVER);
+			scrollChoice.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					pane.getChildren().clear();
+					pane.setVisible(false);
+				}
+			});
+			// addPaneAtScrollPane();
+		} else
+			System.out.println("sono io che non disegno");
+
 	}
 
-	private void addPaneAtScrollPane() {
-		scrollChoice.setContent(paneScrollPane);
-		paneScrollPane.setPrefSize(1000, 100);
-		// paneScrollPane.setBackground(new Background(new
-		// BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-		paneScrollPane.getChildren().add(hboxScroll);
-		addBlock();
-	}
 
 	// controllo sul cursore/scrollpane
-	private boolean containsPoint(Point2D point) {
-		if (point.getX() > scrollChoice.getLayoutX()
-				&& point.getX() < scrollChoice.getLayoutX() + scrollChoice.getPrefWidth()
-				&& point.getY() > scrollChoice.getLayoutY()
-				&& point.getY() < scrollChoice.getLayoutY() + scrollChoice.getPrefHeight())
-			return true;
-
-		return false;
-	}
+	// private boolean containsPoint(Point2D point) {
+	// if (point.getX() > scrollChoice.getLayoutX()
+	// && point.getX() < scrollChoice.getLayoutX() + scrollChoice.getPrefWidth()
+	// && point.getY() > scrollChoice.getLayoutY()
+	// && point.getY() < scrollChoice.getLayoutY() +
+	// scrollChoice.getPrefHeight())
+	// return true;
+	//
+	// return false;
+	// }
 
 	private void focusScroll() {
-		pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-			@Override
-			public void handle(MouseEvent event) {
-				if (!containsPoint(new Point2D(event.getX(), event.getY())))
-					pane.setVisible(false);
-			}
-		});
 	}
 
 	public void addBlock() {
@@ -156,7 +165,6 @@ public class ChoiceObject extends VBox {
 		// listVBox.add(new MyBlock(2,this));
 
 		// vboxChoice.getChildren().addAll(listVBox);
-		System.out.println("vbox size " + vboxChoice.getChildren().size());
 	}
 
 	public int getChoice() {

@@ -9,6 +9,7 @@ public abstract class AbstractCharacter implements Character {
 	private Direction direction = Direction.STOP;
 	private int height;
 	private int width;
+	private boolean shoot;
 	private final float VELOCITY_X = 0.3f;
 	private final float VELOCITY_Y = 0.5f;
 	
@@ -93,13 +94,9 @@ public abstract class AbstractCharacter implements Character {
 	}
 
 	@Override
-	public void jump() {
-		// TODO Auto-generated method stub
-		
+	public void jump() {		
 		jumping = true;
-		
-
-	}
+	}		
 
 	@Override
 	public void doubleJump() {
@@ -109,7 +106,7 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void shoot() {
-		// TODO Auto-generated method stub
+		shoot = true;
 	}
 
 	@Override
@@ -138,9 +135,9 @@ public abstract class AbstractCharacter implements Character {
 		
 		// poi ti finisco
 		
-	/*	if(jumping){       
+		/*if(jumping){       
 			double Y = position.getY() + currentJumpSpeed;
-			position.setY(Y);
+			position.setY((float) Y);
 			currentJumpSpeed += 0.1;
 			
 			if(currentJumpSpeed <= 0){
@@ -152,8 +149,10 @@ public abstract class AbstractCharacter implements Character {
 		
 		if(falling){
 			double Y = position.getY() - currentFallSpeed;
-		}
-		*/
+			position.setY((float)Y);
+			
+		}*/
+		
 		
 	}
 }

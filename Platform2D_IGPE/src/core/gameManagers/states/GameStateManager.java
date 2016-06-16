@@ -1,4 +1,4 @@
-package core.gameManagers;
+package core.gameManagers.states;
 
 import java.util.List;
 import java.util.Stack;

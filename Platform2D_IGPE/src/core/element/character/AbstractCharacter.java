@@ -1,5 +1,12 @@
 package core.element.character;
-import core.element.Position;
+
+import java.util.HashMap;
+import java.util.List;
+
+import core.World.World;
+import core.element.*;
+import core.element.block.Block;
+import javafx.scene.input.KeyCode;
 
 public abstract class AbstractCharacter implements Character {
 
@@ -7,28 +14,41 @@ public abstract class AbstractCharacter implements Character {
 	private Position position;
 	private int damage;
 	private Direction direction = Direction.STOP;
-	private int height;
-	private int width;
+
+	// private HashMap<KeyCode, Boolean> keys = new HashMap<>();
+
+	// aggiustare width e height
+	private int HEIGHT = 30;
+	private int WIDTH = 30;
+
 	private boolean shoot;
-	private final float VELOCITY_X = 0.3f;
-	private final float VELOCITY_Y = 0.5f;
-	
-	private boolean jumping = false, falling = false;
-	
+
+	private final float VELOCITY_X = 3.0f;
+	private final float VELOCITY_Y = 4.0f;
+
+	private float vx, vy;
+
+	private boolean canJump = true, jumping = false, falling = true, grounded = false;
+	private boolean right = false, moving = false;
+	private boolean doubleJump = false, canDoubleJump = true;
 	// jumping
-	private double jumpSpeed = 5;
-	private double currentJumpSpeed = jumpSpeed;
-	
+	private final double JUMPSPEED = 4;
+	private double currentJumpSpeed = JUMPSPEED;
+
 	// falling
-	private double maxFallSpeed = 5;
+	private final double MAXFALLSPEED = 5;
 	private double currentFallSpeed = 0.1;
-	
-	public AbstractCharacter(Position position, int life, int damage, int height, int width){
+
+	// World
+
+	private World world;
+
+	public AbstractCharacter(Position position, int life, int damage, World w) {
 		this.position = position;
 		this.damage = damage;
 		this.life = life;
-		this.height = height;
-		this.width = width;
+		world = w;
+
 	}
 
 	@Override
@@ -40,6 +60,10 @@ public abstract class AbstractCharacter implements Character {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
+
+	// private boolean isPressed(KeyCode k) {
+	// return keys.getOrDefault(k, false);
+	// }
 
 	@Override
 	public double getX() {
@@ -63,12 +87,12 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public int getWidth() {
-		return width;
+		return WIDTH;
 	}
 
 	@Override
 	public int getHeight() {
-		return height;
+		return HEIGHT;
 	}
 
 	@Override
@@ -83,7 +107,7 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public boolean isDead() {
-		if(life == 0)
+		if (life == 0)
 			return true;
 		return false;
 	}
@@ -93,14 +117,33 @@ public abstract class AbstractCharacter implements Character {
 		this.damage = damage;
 	}
 
+	public void setGrounded(boolean grounded) {
+		this.grounded = grounded;
+	}
+
 	@Override
-	public void jump() {		
-		jumping = true;
-	}		
+	public void jump() {
+		if (canJump) {
+			jumping = true;
+			falling = false;
+			currentFallSpeed = 0.1;
+			grounded = false;
+		}
+		canJump = false;
+	}
 
 	@Override
 	public void doubleJump() {
-		// TODO Auto-generated method stub
+		System.out.println("double jump");
+		if (canDoubleJump) {
+			if (jumping || falling) {
+				currentJumpSpeed = JUMPSPEED;
+				canDoubleJump = false;
+				jumping = false;
+				falling = false;
+				doubleJump = true;
+			}
+		}
 
 	}
 
@@ -116,43 +159,241 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void update() {
-		
-		float X;
-		switch(direction){
-		case LEFT:
-			X = position.getX() - VELOCITY_X;
-			position.setX(X);
+
+		List<Block> blocks = world.getNearBlocks();
+
+		double X = getX();
+		double Y = getY();
+		// System.out.println(" JUMPING " + jumping);
+		// System.out.println(" DOUBLEJUMPING " + doubleJump);
+		// System.out.println(" FALLING " + falling);
+		// System.out.println("GROUNDED " + grounded);
+		// System.out.println("MOVING " + moving);
+		// System.out.println(" ******************** ");
+		// System.out.println();
+		// System.out.println("controllo " + world.getNearBlocks().size() +"
+		// blocchi");
+
+		if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
+			if (!jumping && !doubleJump) {
+				falling = true;
+			}
+		}
+
+		switch (direction) {
+		case RIGHT:
+			if (!world.checkPlayerCollision(getX() + VELOCITY_X, getY())) {
+				X = position.getX() + VELOCITY_X;
+				// return;
+			}
+
+			vx = VELOCITY_X;
+			// moving = true;
 			break;
-		
-		case RIGHT:	
-			X = position.getX() + VELOCITY_X;
-			position.setX(X);
-			
+
+		case LEFT:
+			if (!world.checkPlayerCollision(getX() - VELOCITY_X, getY())) {
+				X = position.getX() - VELOCITY_X;
+			}
+			// moving = true;
+			vx = -VELOCITY_X;
+			break;
+
+		case STOP:
+			moving = false;
 			break;
 		default:
 			break;
 		}
-		
-		// poi ti finisco
-		
-		/*if(jumping){       
-			double Y = position.getY() + currentJumpSpeed;
-			position.setY((float) Y);
-			currentJumpSpeed += 0.1;
-			
-			if(currentJumpSpeed <= 0){
-				currentJumpSpeed = jumpSpeed;
+
+		if (moving) {
+			X += vx;
+		}
+
+		if (jumping) {
+			if (!world.checkPlayerCollision(getX(), getY() - currentJumpSpeed)) {
+
+				Y = position.getY() - currentJumpSpeed;
+				currentJumpSpeed -= 0.1;
+				if (currentJumpSpeed < 1) {
+					currentJumpSpeed = JUMPSPEED;
+					jumping = false;
+					falling = true;
+				}
+			} else {
+				currentJumpSpeed = JUMPSPEED;
+				vx = 0;
 				jumping = false;
 				falling = true;
+				grounded = false;
+			}
+
+		}
+
+		if (doubleJump) {
+			if (!world.checkPlayerCollision(getX(), getY() - currentJumpSpeed)) {
+				Y = position.getY() - currentJumpSpeed;
+				currentJumpSpeed -= 0.1;
+				// System.out.println("currentjumpspeed " + currentJumpSpeed);
+				if (currentJumpSpeed < 1) {
+					System.out.println("current nell if " + currentJumpSpeed);
+					currentJumpSpeed = JUMPSPEED;
+					currentFallSpeed = 0.1;
+					doubleJump = false;
+					falling = true;
+				}
+			} else {
+				currentJumpSpeed = JUMPSPEED;
+				currentFallSpeed = 0.1;
+				vx = 0;
+				doubleJump = false;
+				falling = true;
+				grounded = false;
+			}
+
+		}
+		if (falling) {
+			if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
+				Y = position.getY() + currentFallSpeed;
+
+				if (currentFallSpeed <= MAXFALLSPEED) {
+					currentFallSpeed += 0.1;
+				}
+
+			} else {
+				currentFallSpeed = 0.1;
+				currentJumpSpeed = JUMPSPEED;
+				vx = 0;
+				doubleJump = false;
+				canJump = true;
+				canDoubleJump = true;
+				falling = false;
+				grounded = true;
 			}
 		}
-		
-		if(falling){
-			double Y = position.getY() - currentFallSpeed;
-			position.setY((float)Y);
-			
-		}*/
-		
-		
+		if (!world.checkPlayerCollision(X, Y)) {
+			position.setX(X);
+			position.setY(Y);
+		} else
+			moving = false;
+
 	}
+
+	@Override
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	@Override
+	public boolean isFalling() {
+		return falling;
+	}
+
+	@Override
+	public boolean canJump() {
+		return canJump;
+	}
+
+	@Override
+	public boolean canDoubleJump() {
+		return canDoubleJump;
+	}
+
+	// @Override
+	// public void update() {
+	//
+	// List<Block> blocks = world.getNearBlocks();
+	//
+	// double X = getX();
+	// double Y = getY();
+	// // System.out.println(" JUMPING " + jumping);
+	// // System.out.println(" FALLING " + falling);
+	// // System.out.println("GROUNDED " + grounded);
+	// // System.out.println(" ******************** ");
+	// // System.out.println();
+	// // System.out.println("controllo " + world.getNearBlocks().size() +"
+	// // blocchi");
+	//
+	// if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
+	// if (!jumping) {
+	// falling = true;
+	// }
+	// }
+	//
+	// switch (direction) {
+	// case RIGHT:
+	// // if (!world.checkPlayerCollision(getX() + VELOCITY_X, getY())) {
+	// X = position.getX() + VELOCITY_X;
+	// // return;
+	//// currentSpeed_X = VELOCITY_X;
+	// // }
+	//
+	// break;
+	//
+	// case LEFT:
+	// // if (!world.checkPlayerCollision(getX() - VELOCITY_X, getY())) {
+	// // X = position.getX() - VELOCITY_X;
+	// currentSpeed_X = -VELOCITY_X;
+	// // }
+	// break;
+	//
+	//
+	// case STOP: currentSpeed_X = 0; currentSpeed_Y = 0; break;
+	//
+	// default:
+	// break;
+	// }
+	//
+	// if (jumping) {
+	//
+	// if (!world.checkPlayerCollision(getX(), getY() - currentJumpSpeed)) {
+	//
+	// Y = position.getY() - currentJumpSpeed;
+	// currentJumpSpeed -= 0.1;
+	//
+	// currentSpeed_Y = -VELOCITY_Y;
+	// // currentSpeed_Y += currentJumpSpeed;
+	// if (currentJumpSpeed < 1) {
+	// currentJumpSpeed = JUMPSPEED;
+	// jumping = false;
+	// falling = true;
+	// }
+	// } else {
+	// currentJumpSpeed = JUMPSPEED;
+	// jumping = false;
+	// falling = true;
+	// grounded = false;
+	// }
+	//
+	// }
+	// if (falling) {
+	// if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
+	// // System.out.println("NON COLLIDO");
+	// // System.out.println("current fall speed " + currentFallSpeed);
+	// Y = position.getY() + currentFallSpeed;
+	// // currentSpeed_Y += 0.1;
+	//
+	// currentSpeed_Y = VELOCITY_Y;
+	// if (currentFallSpeed <= MAXFALLSPEED) {
+	// currentFallSpeed += 0.1;
+	// }
+	//
+	// } else {
+	// // System.out.println("COLLIDO");
+	// currentFallSpeed = 0.1;
+	// currentSpeed_Y = 0;
+	// falling = false;
+	// grounded = true;
+	// // currentSpeed_X = 0;
+	// // currentSpeed_Y = 0;
+	// }
+	// }
+	//
+	// // System.out.println("NEW X POSITION: " + X);
+	// // System.out.println("NEW Y POSITION: " + Y);
+	// if (!world.checkPlayerCollision(getX() + currentSpeed_X, getY() +
+	// currentSpeed_Y)) {
+	// position.setX(X);
+	//// position.setX(getX() + currentSpeed_X);
+	// position.setY(getY() + currentSpeed_Y);
 }

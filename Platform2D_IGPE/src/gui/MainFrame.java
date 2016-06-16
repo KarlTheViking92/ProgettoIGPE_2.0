@@ -1,16 +1,34 @@
 package gui;
 
-import core.gameManagers.GameLoop;
+import core.World.World;
 import core.gameManagers.GameManager;
+import gui.event.KeyboardPressedEvent;
+import gui.event.KeyboardReleasedEvent;
+import gui.singlePlayer.SinglePlayerPane;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Orientation;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MainFrame extends Application {
 
+	private Rectangle2D screen = Screen.getPrimary().getBounds();
+	
+	static ImageProvider imgs = ImageProvider.getInstance();
+	
 	GameManager manager;
-
+	
+	SinglePlayerPane singlePlayer;
+	
+	ParallelCamera camera = new ParallelCamera();
+	
 	@Override
 	public void init() throws Exception {
 		// TODO Auto-generated method stub
@@ -20,13 +38,54 @@ public class MainFrame extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Scene scene = new Scene(new Pane(), 800, 600);
+	
+		Pane p = new Pane();
 		
+//		p.setBackground(new Background(new BackgroundImage(new Image("file:resources/images/ciccio.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+//		p.getChildren().add(s);
+		
+		Scene scene = new Scene(p, screen.getWidth(), screen.getHeight());
+		
+		scene.setCamera(camera);
+		
+		singlePlayer = new SinglePlayerPane(scene);
+		p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
+		p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
+//		System.out.println(scene.getCamera());
+		p.getChildren().add(singlePlayer);
+//		Scene scene = new Scene(p, 1000, 700);
 		manager = new GameManager(scene);
+		primaryStage.setTitle("Platform2D");
 		primaryStage.setScene(scene);
-		primaryStage.show();
-		manager.beginLoop();
 		
+		
+		scene.setOnKeyPressed(new KeyboardPressedEvent(singlePlayer));
+		scene.setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
+		
+		scene.setOnMouseClicked(e -> {
+			
+			System.out.println("clicco con x : " + e.getX() + " y invece : "+ e.getY());
+			
+		});
+		
+		singlePlayer.drawWorld();
+//		PerspectiveCamera camera = new PerspectiveCamera();
+		
+
+
+		
+		
+		
+		new AnimationTimer() {
+			
+			@Override
+			public void handle(long now) {
+				// TODO Auto-generated method stub
+				singlePlayer.update();
+			}
+		}.start();
+		
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {

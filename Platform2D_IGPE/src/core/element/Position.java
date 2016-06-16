@@ -2,26 +2,26 @@ package core.element;
 
 public class Position {
 
-	private float x, y;
+	private double x, y;
 
-	public Position(float x, float y) {
+	public Position(double x, double y) {
 		this.setX(x);
 		this.setY(y);
 	}
 
-	public float getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(float y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	public float getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(float x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 }

@@ -4,8 +4,18 @@ import core.element.Position;
 
 public class AbstractBlock implements Block {
 
-	private final int WIDTH = 10;
-	private final int HEIGHT = 10;
+	private final double WIDTH = 50;
+	private final double HEIGHT = 50;
+
+	private int code;
+
+	public double getWIDTH() {
+		return WIDTH;
+	}
+
+	public double getHEIGHT() {
+		return HEIGHT;
+	}
 
 	// TODO posizione da fare intera probabilmente
 	private Position position;
@@ -36,6 +46,14 @@ public class AbstractBlock implements Block {
 		if (this.position.getY() > (y + height))
 			return false;
 
+		/*
+		 * System.out.println("if 1 controllo  " + (this.position.getX() +
+		 * WIDTH) + " < " + x); System.out.println("if 2 controllo  " +
+		 * (this.position.getX()) + " > " + (x + width)); System.out.println(
+		 * "if 3 controllo  " + (this.position.getY() + HEIGHT) + " < " + (y));
+		 * System.out.println("if 4 controllo  " + (this.position.getY()) +
+		 * " > " + (y + width));
+		 */
 		return true;
 	}
 
@@ -44,7 +62,4 @@ public class AbstractBlock implements Block {
 		return collide(x, y, height, width);
 	}
 
-	public static void main(String[] args) {
-		StandardBlock s = new StandardBlock(new Position(0, 0));
-	}
 }

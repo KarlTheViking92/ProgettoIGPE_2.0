@@ -45,7 +45,8 @@ public class BlockFactory {
 	public Block makeBlock(int code, Position pos) {
 
 		try {
-			Class block = Class.forName("element.block." + blockSet.get(code));
+			
+			Class block = Class.forName("core.element.block." + blockSet.get(code));
 
 			return (Block) block.getConstructor(Position.class).newInstance(pos);
 

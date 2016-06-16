@@ -35,5 +35,13 @@ public interface Character {
 	public abstract void hit();
 
 	public abstract void update();
+	
+	public abstract boolean isJumping();
+
+	public abstract boolean canJump();
+
+	public abstract boolean canDoubleJump();
+	
+	public abstract boolean isFalling();
 
 }

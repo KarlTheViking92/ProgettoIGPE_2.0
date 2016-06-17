@@ -118,7 +118,7 @@ public class SinglePlayerPane extends Pane {
 				System.out.println("entro nell if strano");
 			}
 		});*/
-		if(resolution) scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
+		if(!resolution) scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
 		else scene.getCamera().setTranslateZ(HDRESOLUTION);
 		
 //		System.out.println( scene.getCamera());

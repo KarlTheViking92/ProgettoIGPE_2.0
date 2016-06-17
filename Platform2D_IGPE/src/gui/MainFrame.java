@@ -27,7 +27,7 @@ public class MainFrame extends Application {
 	
 	SinglePlayerPane singlePlayer;
 	
-	ParallelCamera camera = new ParallelCamera();
+	PerspectiveCamera camera = new PerspectiveCamera(false);
 	
 	@Override
 	public void init() throws Exception {
@@ -39,8 +39,10 @@ public class MainFrame extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 	
-		Pane p = new Pane();
+//		Pane root = new Pane();
 		
+		Pane p = new Pane();
+
 //		p.setBackground(new Background(new BackgroundImage(new Image("file:resources/images/ciccio.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 //		p.getChildren().add(s);
 		
@@ -49,15 +51,17 @@ public class MainFrame extends Application {
 		scene.setCamera(camera);
 		
 		singlePlayer = new SinglePlayerPane(scene);
+		
+		System.out.println("x del pannello " + (screen.getWidth()/2 - singlePlayer.getWidth()/2));
+		System.out.println("y del pannello " + (screen.getHeight()/2 - singlePlayer.getHeight()/2));
 		p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
 		p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
 //		System.out.println(scene.getCamera());
-		p.getChildren().add(singlePlayer);
+		p.getChildren().addAll(singlePlayer);
 //		Scene scene = new Scene(p, 1000, 700);
 		manager = new GameManager(scene);
 		primaryStage.setTitle("Platform2D");
 		primaryStage.setScene(scene);
-		
 		
 		scene.setOnKeyPressed(new KeyboardPressedEvent(singlePlayer));
 		scene.setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
@@ -67,7 +71,7 @@ public class MainFrame extends Application {
 			System.out.println("clicco con x : " + e.getX() + " y invece : "+ e.getY());
 			
 		});
-		
+//		root.getChildren().addAll(singlePlayer.getBackgroundImage(), p);
 		singlePlayer.drawWorld();
 //		PerspectiveCamera camera = new PerspectiveCamera();
 		

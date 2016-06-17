@@ -8,9 +8,16 @@ import gui.event.KeyboardReleasedEvent;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
@@ -29,25 +36,32 @@ public class SinglePlayerPane extends Pane {
 	
 	private Scene scene;
 	
+	private Rectangle background;
+	
+//	private Background background;
+	
 
 	public SinglePlayerPane(Scene s) {
 		scene = s;
 		this.getChildren().add(group);
-
-		this.setScaleY(1.5);
-		this.setScaleX(1.5);
+		
 		manager = PlayManager.getInstance();
 		manager.init();
 		width = manager.getLevelWidth();
 		height = manager.getLevelHeight();
-		
+		this.background =  new Rectangle(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+		this.background.setFill(new ImagePattern(new Image("file:resources/images/ciccio.jpg")));
 		this.setWidth(width);
 		this.setHeight(height);
-		
+
 //		this.setOnKeyPressed(new KeyboardPressedEvent(this));
 //		this.setOnKeyReleased(new KeyboardReleasedEvent(this));
 		
 
+	}
+
+	public Rectangle getBackgroundImage() {
+		return background;
 	}
 
 	public void drawWorld() {
@@ -77,16 +91,21 @@ public class SinglePlayerPane extends Pane {
 		
 		player = new Rectangle(manager.getPlayer().getX(), manager.getPlayer().getY(), manager.getPlayer().getWidth(), manager.getPlayer().getHeight() );
 		
-		player.layoutXProperty().addListener((obs, old, newValue) -> {
+	/*	player.layoutXProperty().addListener((obs, old, newValue) -> {
 			
-			int offset = newValue.intValue();
-			double playerX = manager.getPlayer().getX();
+//			int offset = newValue.intValue();
+			double minPanelX = 335.0;
 			double levelWidth = manager.getLevelWidth();
+			double maxPanelX = minPanelX + levelWidth;
+			System.out.println("camera x" + scene.getCamera().getTranslateX());
 			
-			System.out.println("offset " + offset + " levelwidth " + levelWidth);
-			System.out.println("playerx " + playerX);
+//			if(manager.getPlayer().getX()+420 > 700 && scene.getCamera().getTranslateX()+700 < maxPanelX)
+//				scene.getCamera().setTranslateX(scene.getCamera().getTranslateX()+ 1);
+				
+//			System.out.println("offset " + offset + " levelwidth " + levelWidth);
+//			System.out.println("playerx " + playerX);
 			
-		});
+		});*/
 		/*player.layoutYProperty().addListener((obs, old, newValue) -> {
 			
 			double offset = newValue.intValue();
@@ -98,8 +117,10 @@ public class SinglePlayerPane extends Pane {
 				System.out.println("entro nell if strano");
 			}
 		});*/
+		scene.getCamera().setTranslateZ(1000);
 		
-		
+//		System.out.println( scene.getCamera());
+	
 		this.group.getChildren().add(player);
 		
 //		for (int i = 0; i < group.getChildren().size(); i++) {
@@ -109,18 +130,16 @@ public class SinglePlayerPane extends Pane {
 
 	public void update() {
 		manager.update();
-//		player.setTranslateX(manager.getPlayer().getX());
-//		player.setTranslateY(manager.getPlayer().getY());
-//		
 		
-//		System.out.println(" camera x " + scene.getCamera().getTranslateX());
-//		System.out.println(" camera y " + scene.getCamera().getTranslateY());
+//		else if(manager.getPlayer().getX()-420 < 0 && manager.getPlayer().getX()-850 < 0){
+//			scene.getCamera().setTranslateX(scene.getCamera().getTranslateX()- 1);
+//		}
 		
-		scene.getCamera().setTranslateX(manager.getPlayer().getX() - 300);
-		scene.getCamera().setTranslateY(manager.getPlayer().getY() - 300);
+		scene.getCamera().setTranslateY(manager.getPlayer().getY() - 500);
+		scene.getCamera().setTranslateX(manager.getPlayer().getX() - 500);
+		
 		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
 		
-
 	}
 
 }

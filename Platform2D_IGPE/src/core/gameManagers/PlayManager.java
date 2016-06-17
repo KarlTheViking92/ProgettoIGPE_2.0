@@ -34,7 +34,7 @@ public class PlayManager {
 	public void init() {
 
 		world = new AbstractWorld();
-		world.loadMap("resources/Levels/levelTest");
+		world.loadMap("resources/Levels/levelTest2");
 		world.initialize();
 		this.player = world.getPlayer();
 
@@ -48,7 +48,12 @@ public class PlayManager {
 	}
 
 	public void pause() {
-
+		pause = true;
+	}
+	
+	public void resume(){
+		if(pause)
+			pause = false;
 	}
 
 	public void update() {

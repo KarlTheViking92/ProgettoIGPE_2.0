@@ -23,6 +23,11 @@ import javafx.stage.Screen;
 
 public class SinglePlayerPane extends Pane {
 
+	// resolution variables
+	private final double FULLHDRESOLUTION = 1000;  
+	private final double HDRESOLUTION = 500;  
+	private boolean resolution = false; // false for HD, true for FULLHD
+	
 	private PlayManager manager;
 
 	private double width = 0;
@@ -42,6 +47,10 @@ public class SinglePlayerPane extends Pane {
 	
 
 	public SinglePlayerPane(Scene s) {
+		
+		if(Screen.getPrimary().getBounds().getHeight() > 720)
+			resolution = true;
+		
 		scene = s;
 		this.getChildren().add(group);
 		
@@ -117,7 +126,8 @@ public class SinglePlayerPane extends Pane {
 				System.out.println("entro nell if strano");
 			}
 		});*/
-		scene.getCamera().setTranslateZ(1000);
+		if(resolution) scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
+		else scene.getCamera().setTranslateZ(HDRESOLUTION);
 		
 //		System.out.println( scene.getCamera());
 	

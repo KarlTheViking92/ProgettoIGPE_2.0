@@ -3,20 +3,11 @@ package gui.singlePlayer;
 import core.element.block.Block;
 import core.gameManagers.PlayManager;
 import gui.ImageProvider;
-import gui.event.KeyboardPressedEvent;
-import gui.event.KeyboardReleasedEvent;
-import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -48,9 +39,10 @@ public class SinglePlayerPane extends Pane {
 
 	public SinglePlayerPane(Scene s) {
 		
-		if(Screen.getPrimary().getBounds().getHeight() > 720)
+		if(Screen.getPrimary().getBounds().getHeight() < 1080)
 			resolution = true;
 		
+		System.out.println(Screen.getPrimary().getBounds().getHeight() );
 		scene = s;
 		this.getChildren().add(group);
 		

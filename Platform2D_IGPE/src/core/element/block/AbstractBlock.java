@@ -36,7 +36,6 @@ public class AbstractBlock implements Block {
 
 	// il punto in esame appartiene al blocco?
 	protected boolean collide(double x, double y, int height, int width) {
-
 		if ((this.position.getX() + WIDTH) < x)
 			return false;
 		if (this.position.getX() > (x + width))

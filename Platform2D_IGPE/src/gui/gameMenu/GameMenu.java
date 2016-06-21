@@ -1,23 +1,74 @@
 package gui.gameMenu;
 
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameMenu extends Parent {
 	
-	private Stage root;
-	
-	public GameMenu(Stage primary) {
-	
+	private Scene root;
+	private static final Font FONT = Font.font("", FontWeight.BOLD, 25);
+	private Rectangle2D screen = Screen.getPrimary().getBounds();
+	private final MediaPlayer mediaPlayer; 
+
+	public GameMenu(Scene primary) throws Exception{
+		this.root = primary;
+		File music = new File("resources/music/mm.mp3");
+		final Media media = new Media(music.toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setStartTime(Duration.millis(525));
+		mediaPlayer.play();
+		
+		InputStream is = Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
+		Image img = new Image(is);
+
+		is.close();
+
+		ImageView imgView = new ImageView(img);
+		imgView.setFitWidth(screen.getWidth());
+		imgView.setFitHeight(screen.getHeight());
+
+		Text about = new Text("PRESS ANY KEY TO START");
+
+		about.setTranslateX((screen.getWidth() / 2) - (200));
+		about.setTranslateY(screen.getHeight() / 2);
+		about.setFill(Color.WHITE);
+		about.setFont(FONT);
+		about.setOpacity(0.0);
+		this.getChildren().add(imgView);
+		for (int i = 0; i < 1; i++) {
+
+			FadeTransition ft = new FadeTransition(Duration.seconds(0.8), about);
+
+			ft.setDelay(Duration.millis(i * 100));
+			ft.setToValue(1);
+			ft.setAutoReverse(true);
+			ft.setCycleCount(TranslateTransition.INDEFINITE);
+			ft.play();
+
+		}
+		
 		this.root = primary;
 		VBox menu0 = new VBox(20);
 		VBox menu1 = new VBox(20);
@@ -38,7 +89,7 @@ public class GameMenu extends Parent {
 		MenuButton btnEditor = new MenuButton("EDITOR");
 		btnEditor.setOnMouseClicked(event -> {
 
-			// GameMenuDemo.this.playSound("select");
+//			 GameMenuDemo.this.playSound("select");
 			FadeTransition ft = new FadeTransition(Duration.seconds(0.5), this);
 			ft.setFromValue(1);
 			ft.setToValue(0);
@@ -87,7 +138,10 @@ public class GameMenu extends Parent {
 			ft.setFromValue(1);
 			ft.setToValue(0);
 			ft.setOnFinished(evt -> {
-				root.setScene(new Scene(new Pane() ,Screen.getPrimary().getBounds().getWidth() , Screen.getPrimary().getBounds().getHeight()));
+//				root.setScene(new Scene(new Pane() ,Screen.getPrimary().getBounds().getWidth() , Screen.getPrimary().getBounds().getHeight()));
+				//root.setRoot(new Pane());
+				
+				MenuManager.getInstance().goToSinglePlayer();
 			});
 			ft.play();
 			
@@ -194,5 +248,7 @@ public class GameMenu extends Parent {
 
 		getChildren().addAll(bg, menu0);
 	}
+	
+	public void stopMusic(){ mediaPlayer.stop(); }
 
 }

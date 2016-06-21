@@ -1,18 +1,14 @@
 package gui;
 
-import core.World.World;
 import core.gameManagers.GameManager;
 import gui.event.KeyboardPressedEvent;
 import gui.event.KeyboardReleasedEvent;
 import gui.singlePlayer.SinglePlayerPane;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.ParallelCamera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -62,7 +58,7 @@ public class MainFrame extends Application {
 		manager = new GameManager(scene);
 		primaryStage.setTitle("Platform2D");
 		primaryStage.setScene(scene);
-		
+//		primaryStage.setFullScreen(true);
 		scene.setOnKeyPressed(new KeyboardPressedEvent(singlePlayer));
 		scene.setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
 		

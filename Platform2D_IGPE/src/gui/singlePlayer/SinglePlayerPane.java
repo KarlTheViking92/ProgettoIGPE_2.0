@@ -28,7 +28,8 @@ public class SinglePlayerPane extends Pane {
 
 	private Group group = new Group();
 	
-	private Rectangle player;
+//	private Rectangle player;
+	private ImageView player;
 	
 	private Scene scene;
 	
@@ -90,7 +91,14 @@ public class SinglePlayerPane extends Pane {
 			}
 		}
 		
-		player = new Rectangle(manager.getPlayer().getX(), manager.getPlayer().getY(), manager.getPlayer().getWidth(), manager.getPlayer().getHeight() );
+//		player = new Rectangle(manager.getPlayer().getX(), manager.getPlayer().getY(), manager.getPlayer().getWidth(), manager.getPlayer().getHeight() );
+		
+		player =  new ImageView();
+		player.setImage(ImageProvider.getInstance().getImage(10));
+		player.setFitWidth(manager.getPlayer().getWidth());
+		player.setFitHeight(manager.getPlayer().getHeight());
+		player.setLayoutX(manager.getPlayer().getX());
+		player.setLayoutY(manager.getPlayer().getY());
 		
 	/*	player.layoutXProperty().addListener((obs, old, newValue) -> {
 			
@@ -118,6 +126,8 @@ public class SinglePlayerPane extends Pane {
 				System.out.println("entro nell if strano");
 			}
 		});*/
+		System.out.println("camera");
+		System.out.println(scene.getCamera());
 		if(!resolution) scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
 		else scene.getCamera().setTranslateZ(HDRESOLUTION);
 		
@@ -136,12 +146,34 @@ public class SinglePlayerPane extends Pane {
 //		else if(manager.getPlayer().getX()-420 < 0 && manager.getPlayer().getX()-850 < 0){
 //			scene.getCamera().setTranslateX(scene.getCamera().getTranslateX()- 1);
 //		}
-		
-		scene.getCamera().setTranslateY(manager.getPlayer().getY() - 500);
-		scene.getCamera().setTranslateX(manager.getPlayer().getX() - 500);
+		updateCamera();
 		
 		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
 		
+	}
+
+	private void updateCamera() {
+		
+		if (manager.getPlayer().getX() < (manager.getLevelWidth() - 500) && manager.getPlayer().getX() > 300) {
+			scene.getCamera().setTranslateX(manager.getPlayer().getX() - 500);
+			}else{
+				scene.getCamera().setTranslateX( ((manager.getPlayer().getX() < 300) ? 300 : (manager.getLevelWidth() - 500)) - 500 
+						+ ((manager.getPlayer().getX() % 2 == 0) ? 0.1 : -0.1) );
+				System.out.println("Aggiorno la X");		
+				System.out.println(((manager.getPlayer().getX() < 300) ? 300 : (manager.getLevelWidth() - 500)) - 500 
+						+ ((manager.getPlayer().getX() % 2 == 0) ? 0.1 : -0.1));
+			}
+			
+			if ( manager.getPlayer().getY() < (manager.getLevelHeight() - 200) && manager.getPlayer().getY() > 200 ) {
+				scene.getCamera().setTranslateY(manager.getPlayer().getY() - 500);
+			}else{
+				scene.getCamera().setTranslateY( ((manager.getPlayer().getY() < 200) ? 200 : (manager.getLevelHeight() - 200)) - 500 
+						+ ((manager.getPlayer().getY() % 2 == 0) ? 0.1 : -0.1) );
+				
+				System.out.println("Aggiorno la Y");		
+				System.out.println(((manager.getPlayer().getY() < 200) ? 200 : (manager.getLevelHeight() - 200)) - 500 
+						+ ((manager.getPlayer().getY() % 2 == 0) ? 0.1 : -0.1));
+			}
 	}
 
 }

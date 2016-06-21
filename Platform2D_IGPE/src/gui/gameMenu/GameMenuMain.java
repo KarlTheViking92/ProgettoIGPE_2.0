@@ -1,5 +1,6 @@
 package gui.gameMenu;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
@@ -30,44 +31,46 @@ public class GameMenuMain extends Application {
 
 	private GameMenu gameMenu;
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
-	
+
 	private Stage primaryStage;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		// slideshow con i vari loghi
-		// File music = new File("res/music/mm.mp3");
 		// main menu music
-		// final URL resource = getClass().getResource("mm.mp3");
+		// final URL resource =
+		// getClass().getResource("resources/music/mm.mp3");
 		// URL ciccioriolo = new URL("res/music/mm.mp3");
 		// System.out.println(getClass().getResource("mm.mp3"));
 		// System.out.println(resource.getClass());
 		// System.out.println(resource.toString());
 		//
+		// URL resource = music.toURL();
 
 		// System.out.println(getClass().getResource("mm.mp3"));
-		// final Media media = new Media(resource.toString());
-		// final MediaPlayer mediaPlayer = new MediaPlayer(media);
-		// mediaPlayer.setStartTime(Duration.millis(525));
-		// mediaPlayer.play();
+		File music = new File("resources/music/mm.mp3");
+		final Media media = new Media(music.toURI().toString());
+		final MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setStartTime(Duration.millis(525));
+		mediaPlayer.play();
 
 		// TODO Auto-generated method stub
 		Pane root = new Pane();
 		root.resize(screen.getWidth(), screen.getHeight());
-//		root.resize(width, height);
-		System.out.println("root " + root.getHeight() +  "  " + root.getWidth());
-		
+		// root.resize(width, height);
+		System.out.println("root " + root.getHeight() + "  " + root.getWidth());
+
 		// eseguo un input stream e prendo la mia immagine, una volta finito
 		// chiudo lo stream.
-		InputStream is = Files.newInputStream(Paths.get("resources/images/Animated.gif"));
+		InputStream is = Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
 		Image img = new Image(is);
 
 		is.close();
 
 		ImageView imgView = new ImageView(img);
-		 imgView.setFitWidth(screen.getWidth());
-		 imgView.setFitHeight(screen.getHeight());
+		imgView.setFitWidth(screen.getWidth());
+		imgView.setFitHeight(screen.getHeight());
 
 		Text about = new Text("PRESS ANY KEY TO START");
 
@@ -89,11 +92,12 @@ public class GameMenuMain extends Application {
 
 		}
 
-		gameMenu = new GameMenu(primaryStage);
+		Scene scene = new Scene(root);
+		gameMenu = new GameMenu(scene);
 		gameMenu.setVisible(false);
 
 		root.getChildren().addAll(imgView, gameMenu, about);
-		Scene scene = new Scene(root);
+		// root.getChildren().addAll(gameMenu, about);
 
 		// scene.setOnKeyPressed(event -> {
 		// if (event.getCode() == KeyCode.ESCAPE){
@@ -127,7 +131,7 @@ public class GameMenuMain extends Application {
 			}
 		});
 
-		System.out.println("scene " + scene.getHeight() + "  "  + scene.getWidth());
+		System.out.println("scene " + scene.getHeight() + "  " + scene.getWidth());
 		primaryStage.setScene(scene);
 		// primaryStage.setFullScreen(true);
 		primaryStage.show();

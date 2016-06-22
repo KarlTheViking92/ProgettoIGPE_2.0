@@ -4,8 +4,8 @@ import core.element.Position;
 
 public class AbstractBlock implements Block {
 
-	private final double WIDTH = 50;
-	private final double HEIGHT = 50;
+	private double WIDTH = 50;
+	private double HEIGHT = 50;
 
 	private int code;
 
@@ -59,6 +59,11 @@ public class AbstractBlock implements Block {
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
 		return collide(x, y, height, width);
+	}
+
+	@Override
+	public void setHeight(double d) {
+		this.HEIGHT = d;
 	}
 
 }

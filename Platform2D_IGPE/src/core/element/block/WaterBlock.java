@@ -4,8 +4,12 @@ import core.element.Position;
 
 public class WaterBlock extends AbstractBlock {
 
+	private double Y;
+	
 	public WaterBlock(Position position) {
 		super(position);
+		this.setHeight(10);
+		Y =getY()+40;
 	}
 
 	@Override
@@ -15,7 +19,15 @@ public class WaterBlock extends AbstractBlock {
 			System.out.println("entro in water");
 			return false;
 		}*/
-		return false;
+		if ((this.getX() + getWIDTH()) < x)
+			return false;
+		if (this.getX() > (x + width))
+			return false;
+		if ((Y + getHEIGHT()) < y)
+			return false;
+		if (Y > (y + height))
+			return false;
+		return true;
 	}
 
 	@Override

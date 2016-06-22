@@ -7,4 +7,6 @@ public interface Block  {
 	
 	public abstract double getWIDTH();
 	public abstract double getHEIGHT();
+	
+	public abstract void setHeight(double d);
 }

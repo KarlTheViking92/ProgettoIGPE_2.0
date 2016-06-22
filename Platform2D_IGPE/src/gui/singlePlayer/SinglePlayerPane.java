@@ -153,7 +153,7 @@ public class SinglePlayerPane extends Pane {
 	}
 
 	private void updateCamera() {
-		
+		System.out.println();
 		if (manager.getPlayer().getX() < (manager.getLevelWidth() - 500) && manager.getPlayer().getX() > 300) {
 			scene.getCamera().setTranslateX(manager.getPlayer().getX() - 500);
 			}else{

@@ -2,7 +2,7 @@ package gui.event;
 
 import core.element.character.Direction;
 import core.gameManagers.PlayManager;
-import gui.singlePlayer.SinglePlayerPane;
+import gui.panel.singlePlayer.SinglePlayerPane;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

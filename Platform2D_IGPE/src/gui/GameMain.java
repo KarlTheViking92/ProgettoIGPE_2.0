@@ -1,7 +1,7 @@
 package gui;
 
+import core.gameManagers.MenuManager;
 import gui.gameMenu.GameMenu;
-import gui.gameMenu.MenuManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;

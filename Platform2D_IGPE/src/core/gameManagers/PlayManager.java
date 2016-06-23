@@ -41,35 +41,35 @@ public class PlayManager {
 	}
 
 	public void start() {
-
-		while (!isDead) {
-
-		}
+		running = true;
 	}
 
 	public void pause() {
 		pause = true;
 	}
-	
-	public void resume(){
-		if(pause)
+
+	public void resume() {
+		if (pause)
 			pause = false;
 	}
 
 	public void update() {
-		player.update();
+		if (!isDead && !pause) {
+
+			player.update();
+		}
 	}
 
-	private boolean checkCollision() {
+//	private boolean checkCollision() {
 
-	/*	for (Block b : getBlocks()) {
-			if (b.collision(player.getX(), player.getY(), player.getHeight(), player.getWidth())) {
-				System.out.println("COLLIDO CON BLOCCO : " + b.getX() + "  " + b.getY());
-				return true;
-			}
-		}*/
-		return false;
-	}
+		/*
+		 * for (Block b : getBlocks()) { if (b.collision(player.getX(),
+		 * player.getY(), player.getHeight(), player.getWidth())) {
+		 * System.out.println("COLLIDO CON BLOCCO : " + b.getX() + "  " +
+		 * b.getY()); return true; } }
+		 */
+//		return false;
+//	}
 
 	public void movePlayer(Direction direction) {
 
@@ -84,11 +84,10 @@ public class PlayManager {
 		return world.getHeight();
 	}
 
-//	public List<Block> getBlocks() {
-//		return world.getBlocks();
-//	}
-	
-	
+	// public List<Block> getBlocks() {
+	// return world.getBlocks();
+	// }
+
 	public Block[][] getBlocksMatrix() {
 		return world.getMatrix();
 	}
@@ -99,10 +98,9 @@ public class PlayManager {
 
 	public void playerJump() {
 
-		if(player.canJump() && player.canDoubleJump()){
+		if (player.canJump() && player.canDoubleJump()) {
 			player.jump();
-		}
-		else if (player.canDoubleJump())
+		} else if (player.canDoubleJump())
 			player.doubleJump();
 	}
 

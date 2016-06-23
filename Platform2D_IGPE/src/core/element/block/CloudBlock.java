@@ -13,7 +13,6 @@ public class CloudBlock extends AbstractBlock {
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
 		if (PlayManager.getInstance().getPlayer().getY() + height > getY()) {
-			System.out.println("primo if cloud: " + (y + height) + " > " + getY());
 			return false;
 		} else
 			return collide(x, y, height, width);

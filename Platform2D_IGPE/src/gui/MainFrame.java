@@ -1,9 +1,8 @@
 package gui;
 
-import core.gameManagers.GameManager;
 import gui.event.KeyboardPressedEvent;
 import gui.event.KeyboardReleasedEvent;
-import gui.singlePlayer.SinglePlayerPane;
+import gui.panel.singlePlayer.SinglePlayerPane;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -19,7 +18,6 @@ public class MainFrame extends Application {
 	
 	static ImageProvider imgs = ImageProvider.getInstance();
 	
-	GameManager manager;
 	
 	SinglePlayerPane singlePlayer;
 	
@@ -55,7 +53,6 @@ public class MainFrame extends Application {
 //		System.out.println(scene.getCamera());
 		p.getChildren().addAll(singlePlayer);
 //		Scene scene = new Scene(p, 1000, 700);
-		manager = new GameManager(scene);
 		primaryStage.setTitle("Platform2D");
 		primaryStage.setScene(scene);
 //		primaryStage.setFullScreen(true);

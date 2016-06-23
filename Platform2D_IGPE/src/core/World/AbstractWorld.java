@@ -17,6 +17,8 @@ public class AbstractWorld implements World {
 	
 	protected Player player;
 	
+	private int levelKeys;
+	
 	private String level;
 
 	public AbstractWorld() {

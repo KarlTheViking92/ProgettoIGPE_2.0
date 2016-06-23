@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import core.gameManagers.MenuManager;
+import gui.panel.UpdatablePane;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Rectangle2D;
@@ -25,7 +27,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class GameMenu extends Parent {
+public class GameMenu extends Parent implements UpdatablePane {
 	
 	private Scene root;
 	private static final Font FONT = Font.font("", FontWeight.BOLD, 25);
@@ -34,11 +36,11 @@ public class GameMenu extends Parent {
 
 	public GameMenu(Scene primary) throws Exception{
 		this.root = primary;
-		File music = new File("resources/music/mm.mp3");
+		File music = new File("resources/music/mainMenu.mp3");
 		final Media media = new Media(music.toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setStartTime(Duration.millis(525));
-		mediaPlayer.play();
+		
 		
 		InputStream is = Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
 		Image img = new Image(is);
@@ -247,8 +249,15 @@ public class GameMenu extends Parent {
 		bg.setOpacity(0.2);
 
 		getChildren().addAll(bg, menu0);
+		mediaPlayer.play();
 	}
 	
 	public void stopMusic(){ mediaPlayer.stop(); }
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

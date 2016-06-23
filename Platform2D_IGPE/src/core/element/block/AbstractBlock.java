@@ -66,4 +66,16 @@ public class AbstractBlock implements Block {
 		this.HEIGHT = d;
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void restart() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

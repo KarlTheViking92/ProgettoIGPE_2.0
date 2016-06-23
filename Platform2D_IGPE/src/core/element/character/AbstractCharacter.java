@@ -18,7 +18,7 @@ public abstract class AbstractCharacter implements Character {
 	// private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
 	// aggiustare width e height
-	private int HEIGHT = 30;
+	private int HEIGHT = 45;
 	private int WIDTH = 30;
 
 	private boolean shoot;

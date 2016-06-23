@@ -110,7 +110,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// manager.getPlayer().getHeight() );
 
 		player = new ImageView();
-		player.setImage(ImageProvider.getInstance().getImage(10));
+		player.setImage(ImageProvider.getInstance().getImage(21));
 		player.setFitWidth(manager.getPlayer().getWidth());
 		player.setFitHeight(manager.getPlayer().getHeight());
 		player.setLayoutX(manager.getPlayer().getX());

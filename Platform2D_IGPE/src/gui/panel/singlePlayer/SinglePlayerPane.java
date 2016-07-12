@@ -3,9 +3,12 @@ package gui.panel.singlePlayer;
 
 import core.element.block.Block;
 import core.element.block.CloudBlock;
+import core.element.block.GhostBlock;
 import core.element.block.WaterBlock;
 import core.gameManagers.PlayManager;
+import gui.GraphicBlock;
 import gui.ImageProvider;
+import gui.element.block.StandardGraphicBlock;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -83,24 +86,26 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 			for (int x = 0; x < manager.getBlocksMatrix()[y].length; x++) {
 				Block b = manager.getBlocksMatrix()[y][x];
 				if (b != null) {
-					ImageView img;
+					/*ImageView img;
 					if (b instanceof CloudBlock) {
 						img = new ImageView(ImageProvider.getInstance().getImage(19));
 						img.setOpacity(0.5);
 					} else if (b instanceof WaterBlock)
 						img = new ImageView(ImageProvider.getInstance().getImage(20));
+					else if ( b instanceof GhostBlock)
+						img = new ImageView(ImageProvider.getInstance().getImage(3));
 					else
 						img = new ImageView(ImageProvider.getInstance().getImage(15));
 					img.setLayoutX(b.getX() - 7.5);
 					img.setLayoutY(b.getY() - 7.5);
 					img.setFitHeight(65);
 					img.setFitWidth(65);
-
+*/					GraphicBlock img = new StandardGraphicBlock(b);
 					// Rectangle r = new Rectangle(50,50);
 					// r.setLayoutX(b.getX());
 					// r.setLayoutY(b.getY());
 					// r.setFill(Color.RED);
-					this.group.getChildren().add(img);
+					this.group.getChildren().add((ImageView)img);
 				}
 			}
 		}
@@ -110,7 +115,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// manager.getPlayer().getHeight() );
 
 		player = new ImageView();
-		player.setImage(ImageProvider.getInstance().getImage(21));
+		player.setImage(ImageProvider.getInstance().getImage(23));
 		player.setFitWidth(manager.getPlayer().getWidth());
 		player.setFitHeight(manager.getPlayer().getHeight());
 		player.setLayoutX(manager.getPlayer().getX());

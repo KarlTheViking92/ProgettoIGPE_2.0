@@ -1,23 +1,24 @@
 package gui.element.block;
 
 import core.element.block.Block;
-import gui.GraphicBlock;
 import javafx.scene.image.ImageView;
 
-public abstract class AbstractGraphicBlock extends ImageView implements GraphicBlock {
+public class AbstractGraphicBlock extends ImageView implements GraphicBlock {
 
-	protected Block logicBlock;
+	Block logicBlock;
 	
-
-	public AbstractGraphicBlock(Block b) {
-		logicBlock = b;
-		this.setLayoutX(b.getX() - 7.5);
-		this.setLayoutY(b.getY() - 7.5);
+	public AbstractGraphicBlock(Block logic) {
+		logicBlock = logic;
+		this.setLayoutX(logicBlock.getX() - 7.5);
+		this.setLayoutY(logicBlock.getY() - 7.5);
 		this.setFitHeight(65);
 		this.setFitWidth(65);
 	}
 	
-	
-	
-	
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

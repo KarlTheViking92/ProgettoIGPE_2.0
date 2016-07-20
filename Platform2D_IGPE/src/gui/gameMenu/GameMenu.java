@@ -6,14 +6,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import core.gameManagers.MenuManager;
+import gui.ImageProvider;
 import gui.panel.UpdatablePane;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -27,7 +30,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class GameMenu extends Parent implements UpdatablePane {
+public class GameMenu extends Pane implements UpdatablePane {
 	
 	private Scene root;
 	private static final Font FONT = Font.font("", FontWeight.BOLD, 25);
@@ -41,13 +44,12 @@ public class GameMenu extends Parent implements UpdatablePane {
 		mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setStartTime(Duration.millis(525));
 		
-		
-		InputStream is = Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
-		Image img = new Image(is);
+//		InputStream is = Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
+//		Image img = new Image(is);
+//
+//		is.close();
 
-		is.close();
-
-		ImageView imgView = new ImageView(img);
+		ImageView imgView = new ImageView(ImageProvider.getInstance().getMenuImage("MainBackground"));
 		imgView.setFitWidth(screen.getWidth());
 		imgView.setFitHeight(screen.getHeight());
 
@@ -72,23 +74,26 @@ public class GameMenu extends Parent implements UpdatablePane {
 		}
 		
 		this.root = primary;
-		VBox menu0 = new VBox(20);
-		VBox menu1 = new VBox(20);
-		VBox menu2 = new VBox(20);
+		HBox menu0 = new HBox(30);
+		HBox menu1 = new HBox(30);
+		VBox menu2 = new VBox(10);
 
-		menu0.setTranslateX(100);
-		menu0.setTranslateY(200);
+		System.out.println(screen.getWidth()*0.30);
+		menu0.setTranslateX(screen.getWidth()*0.30);
+		menu0.setTranslateY(screen.getHeight()*0.40);
 
-		menu1.setTranslateX(100);
-		menu1.setTranslateY(200);
-
+		menu1.setTranslateX(screen.getWidth()*0.35);
+		menu1.setTranslateY(screen.getHeight()*0.60);
+		System.out.println( "menu0 " + menu0.getTranslateX() + " menu1 " + menu1.getTranslateX());
+/*
 		menu2.setTranslateX(100);
 		menu2.setTranslateY(200);
-
+*/
 		final int offset = 400;
-		menu1.setTranslateX(offset);
+//		menu1.setTranslateX(offset);
 
-		MenuButton btnEditor = new MenuButton("EDITOR");
+//		MenuButton btnEditor = new MenuButton("EDITOR");
+		MyMenuButton btnEditor = new MyMenuButton("editor");
 		btnEditor.setOnMouseClicked(event -> {
 
 //			 GameMenuDemo.this.playSound("select");
@@ -99,7 +104,8 @@ public class GameMenu extends Parent implements UpdatablePane {
 			ft.play();
 		});
 
-		MenuButton btnNew = new MenuButton("NEW GAME");
+/*		MenuButton btnNew = new MenuButton("NEW GAME");
+		
 		btnNew.setOnMouseClicked(event -> {
 			getChildren().add(menu2);
 
@@ -120,9 +126,9 @@ public class GameMenu extends Parent implements UpdatablePane {
 				
 			});
 
-		});
+		});*/
 
-		MenuButton btnResume = new MenuButton("RESUME");
+	/*	MenuButton btnResume = new MenuButton("RESUME");
 		btnResume.setOnMouseClicked(event -> {
 
 			// GameMenuDemo.this.playSound("select");
@@ -131,10 +137,10 @@ public class GameMenu extends Parent implements UpdatablePane {
 			ft.setToValue(0);
 			ft.setOnFinished(evt -> this.setVisible(false));
 			ft.play();
-		});
+		});*/
 
-		MenuButton btnSing = new MenuButton("SINGLE PLAYER");
-		
+//		MenuButton btnSing = new MenuButton("SINGLE PLAYER");
+		MyMenuButton btnSing = new MyMenuButton("singlePlayer");
 		btnSing.setOnMouseClicked(event -> {
 			FadeTransition ft = new FadeTransition(Duration.seconds(0.5), this);
 			ft.setFromValue(1);
@@ -149,7 +155,7 @@ public class GameMenu extends Parent implements UpdatablePane {
 			
 		});
 		
-		btnResume.setOnMouseClicked(event -> {
+	/*	btnResume.setOnMouseClicked(event -> {
 
 			// GameMenuDemo.this.playSound("select");
 			FadeTransition ft = new FadeTransition(Duration.seconds(0.5), this);
@@ -158,9 +164,9 @@ public class GameMenu extends Parent implements UpdatablePane {
 			ft.setOnFinished(evt -> this.setVisible(false));
 			ft.play();
 		});
-
-		MenuButton btnMulti = new MenuButton("MULTI PLAYER");
-		btnResume.setOnMouseClicked(event -> {
+*/
+		MyMenuButton btnMulti = new MyMenuButton("multiPlayer");
+		/*btnResume.setOnMouseClicked(event -> {
 
 			// GameMenuDemo.this.playSound("select");
 			FadeTransition ft = new FadeTransition(Duration.seconds(0.5), this);
@@ -168,9 +174,10 @@ public class GameMenu extends Parent implements UpdatablePane {
 			ft.setToValue(0);
 			ft.setOnFinished(evt -> this.setVisible(false));
 			ft.play();
-		});
+		});*/
 
-		MenuButton btnOptions = new MenuButton("OPTIONS");
+		MyMenuButton btnOptions = new MyMenuButton("singlePlayer");
+//		MenuButton btnOptions = new MenuButton("OPTIONS");
 		btnOptions.setOnMouseClicked(event -> {
 			// GameMenuDemo.this.playSound("select");
 			getChildren().add(menu1);
@@ -190,7 +197,8 @@ public class GameMenu extends Parent implements UpdatablePane {
 
 		});
 
-		MenuButton btnExit = new MenuButton("EXIT");
+//		MenuButton btnExit = new MenuButton("EXIT");
+		MyMenuButton btnExit = new MyMenuButton("singlePlayer");
 		btnExit.setOnMouseClicked(event -> {
 			// GameMenuDemo.this.playSound("select");
 			System.exit(0);
@@ -240,16 +248,16 @@ public class GameMenu extends Parent implements UpdatablePane {
 		MenuButton btnSound = new MenuButton("SOUND");
 		MenuButton btnVideo = new MenuButton("VIDEO");
 
-		menu0.getChildren().addAll(btnNew, btnOptions, btnEditor, btnExit);
-		menu1.getChildren().addAll(btnBack, btnSound, btnVideo);
-		menu2.getChildren().addAll(btnBack2, btnResume, btnSing, btnMulti);
+		menu0.getChildren().addAll(btnSing, btnMulti, btnEditor);
+		menu1.getChildren().addAll(btnOptions, btnExit);
+//		menu2.getChildren().addAll(btnBack2,  btnSing, btnMulti);
 
 		Rectangle bg = new Rectangle(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
 		bg.setFill(Color.GRAY);
 		bg.setOpacity(0.2);
 
-		getChildren().addAll(bg, menu0);
-		mediaPlayer.play();
+		this.getChildren().addAll(bg, menu0 ,menu1);
+//		mediaPlayer.play();
 	}
 	
 	public void stopMusic(){ mediaPlayer.stop(); }

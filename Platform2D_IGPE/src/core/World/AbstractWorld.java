@@ -66,6 +66,7 @@ public class AbstractWorld implements World {
 		this.height = (float) (map.getRows() * map.getBlockSize());
 		
 		this.player = new Player(new Position(map.getSpawnPoint().getX(), map.getSpawnPoint().getY()), 10, 1, this);
+		System.out.println("inizializzo il mondo");
 		//spawn point non ancora definito
 //		this.player = new Player(new Position((float)map.getSpawnPoint().getX(), (float)map.getSpawnPoint().getY()), 7, 1, 50, 50);
 
@@ -78,7 +79,7 @@ public class AbstractWorld implements World {
 		
 		// for tutti i blocchi chiama update
 		
-
+		
 	}
 
 	@Override

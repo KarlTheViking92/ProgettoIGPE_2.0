@@ -10,4 +10,7 @@ public interface Block  {
 	public abstract void update();
 	public abstract void restart();
 	public abstract void setHeight(double d);
+	public abstract int getCode();
+	public abstract String getColor();
+	public abstract boolean isPlayerInsideBlock();
 }

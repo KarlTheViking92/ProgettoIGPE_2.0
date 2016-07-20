@@ -5,6 +5,6 @@ import core.element.Position;
 public class CheckPointBlock extends AbstractBlock {
 
 	public CheckPointBlock(Position position) {
-		super(position);
+		super(position,6);
 	}
 }

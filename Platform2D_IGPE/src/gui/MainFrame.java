@@ -33,14 +33,14 @@ public class MainFrame extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 	
-//		Pane root = new Pane();
+		Pane root = new Pane();
 		
 		Pane p = new Pane();
 
 //		p.setBackground(new Background(new BackgroundImage(new Image("file:resources/images/ciccio.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 //		p.getChildren().add(s);
 		
-		Scene scene = new Scene(p, screen.getWidth(), screen.getHeight());
+		Scene scene = new Scene(root, screen.getWidth(), screen.getHeight());
 		
 		scene.setCamera(camera);
 		
@@ -51,7 +51,9 @@ public class MainFrame extends Application {
 		p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
 		p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
 //		System.out.println(scene.getCamera());
+		
 		p.getChildren().addAll(singlePlayer);
+		root.getChildren().addAll(singlePlayer.getBackgroundImage(),p);
 //		Scene scene = new Scene(p, 1000, 700);
 		primaryStage.setTitle("Platform2D");
 		primaryStage.setScene(scene);

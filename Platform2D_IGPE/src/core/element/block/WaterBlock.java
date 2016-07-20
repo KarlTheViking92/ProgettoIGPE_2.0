@@ -7,7 +7,7 @@ public class WaterBlock extends AbstractBlock {
 	private double Y;
 	
 	public WaterBlock(Position position) {
-		super(position);
+		super(position,13);
 		this.setHeight(10);
 		Y =getY()+40;
 	}

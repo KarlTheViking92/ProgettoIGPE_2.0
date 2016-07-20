@@ -5,14 +5,15 @@ import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import core.element.Position;
+import gui.GameProperties;
 
 public class BlockFactory {
 
 	private HashMap<Integer, String> blockSet;
-
+	private GameProperties properties = new GameProperties();
 	public BlockFactory() {
-		this.blockSet = new HashMap<>();
-		loadTypes("resources/config/blockTypes");
+		this.blockSet = properties.getBlockTypes();
+//		loadTypes("resources/config/blockTypes");
 
 	}
 
@@ -39,15 +40,18 @@ public class BlockFactory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+//		System.out.println(" ho caricato i tipi di blocco " + blockSet.size());
 	}
 
 	// factory method reflection 
 	public Block makeBlock(int code, Position pos) {
 
 		try {
-			
+//			System.out.println(code);
+//			System.out.println("core.element.block." + blockSet.get(code));
 			Class block = Class.forName("core.element.block." + blockSet.get(code));
-
+			
 			return (Block) block.getConstructor(Position.class).newInstance(pos);
 
 		} catch (ClassNotFoundException e) {

@@ -1,14 +1,18 @@
 package gui.panel.singlePlayer;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import core.element.block.Block;
 import core.element.block.CloudBlock;
 import core.element.block.GhostBlock;
 import core.element.block.WaterBlock;
 import core.gameManagers.PlayManager;
-import gui.GraphicBlock;
 import gui.ImageProvider;
-import gui.element.block.StandardGraphicBlock;
+import gui.element.block.GraphicBlock;
+import gui.element.block.GraphicBlockFactory;
+import gui.element.block.StandardBlockGraphic;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -34,8 +38,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private double width = 0;
 	private double height = 0;
 
-	private ImageView[][] matrix;
-
+	private List<GraphicBlock> imgs = new ArrayList<>();
+	private GraphicBlockFactory factory = new GraphicBlockFactory();
 	private Group group = new Group();
 
 	// private Rectangle player;
@@ -62,7 +66,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		height = manager.getLevelHeight();
 		this.background = new Rectangle(Screen.getPrimary().getBounds().getWidth(),
 				Screen.getPrimary().getBounds().getHeight());
-		this.background.setFill(new ImagePattern(new Image("file:resources/images/ciccio.jpg")));
+		this.background.setFill(new ImagePattern(new Image("file:resources/images/bkgrImg.png")));
 		this.setWidth(width);
 		this.setHeight(height);
 
@@ -86,21 +90,9 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 			for (int x = 0; x < manager.getBlocksMatrix()[y].length; x++) {
 				Block b = manager.getBlocksMatrix()[y][x];
 				if (b != null) {
-					/*ImageView img;
-					if (b instanceof CloudBlock) {
-						img = new ImageView(ImageProvider.getInstance().getImage(19));
-						img.setOpacity(0.5);
-					} else if (b instanceof WaterBlock)
-						img = new ImageView(ImageProvider.getInstance().getImage(20));
-					else if ( b instanceof GhostBlock)
-						img = new ImageView(ImageProvider.getInstance().getImage(3));
-					else
-						img = new ImageView(ImageProvider.getInstance().getImage(15));
-					img.setLayoutX(b.getX() - 7.5);
-					img.setLayoutY(b.getY() - 7.5);
-					img.setFitHeight(65);
-					img.setFitWidth(65);
-*/					GraphicBlock img = new StandardGraphicBlock(b);
+					
+					GraphicBlock img = factory.makeBlock(b);
+					imgs.add(img);
 					// Rectangle r = new Rectangle(50,50);
 					// r.setLayoutX(b.getX());
 					// r.setLayoutY(b.getY());
@@ -115,41 +107,13 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// manager.getPlayer().getHeight() );
 
 		player = new ImageView();
-		player.setImage(ImageProvider.getInstance().getImage(23));
+//		player.setImage(ImageProvider.getInstance().getImage(23));
+		player.setImage(ImageProvider.getInstance().getSimpleBlock("Cube3", "yellow"));
 		player.setFitWidth(manager.getPlayer().getWidth());
 		player.setFitHeight(manager.getPlayer().getHeight());
 		player.setLayoutX(manager.getPlayer().getX());
 		player.setLayoutY(manager.getPlayer().getY());
 
-		/*
-		 * player.layoutXProperty().addListener((obs, old, newValue) -> {
-		 * 
-		 * // int offset = newValue.intValue(); double minPanelX = 335.0; double
-		 * levelWidth = manager.getLevelWidth(); double maxPanelX = minPanelX +
-		 * levelWidth; System.out.println("camera x" +
-		 * scene.getCamera().getTranslateX());
-		 * 
-		 * // if(manager.getPlayer().getX()+420 > 700 &&
-		 * scene.getCamera().getTranslateX()+700 < maxPanelX) //
-		 * scene.getCamera().setTranslateX(scene.getCamera().getTranslateX()+
-		 * 1);
-		 * 
-		 * // System.out.println("offset " + offset + " levelwidth " +
-		 * levelWidth); // System.out.println("playerx " + playerX);
-		 * 
-		 * });
-		 */
-		/*
-		 * player.layoutYProperty().addListener((obs, old, newValue) -> {
-		 * 
-		 * double offset = newValue.intValue(); double screenHeight =
-		 * Screen.getPrimary().getBounds().getHeight(); double levelHeight =
-		 * manager.getLevelHeight();
-		 * 
-		 * System.out.println("offset " + offset + " levelHeigth " +
-		 * levelHeight); if (offset > screenHeight && offset < levelHeight -
-		 * screenHeight) { System.out.println("entro nell if strano"); } });
-		 */
 		System.out.println("camera");
 		System.out.println(scene.getCamera());
 		if (!resolution)
@@ -169,14 +133,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	@Override
 	public void update() {
 		manager.update();
-
-		// else if(manager.getPlayer().getX()-420 < 0 &&
-		// manager.getPlayer().getX()-850 < 0){
-		// scene.getCamera().setTranslateX(scene.getCamera().getTranslateX()-
-		// 1);
-		// }
 		updateCamera();
-
+		updateBlocks();
 		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
 
 	}
@@ -201,4 +159,9 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		}
 	}
 
+	private void updateBlocks(){
+		for(GraphicBlock block : imgs){
+			block.update();
+		}
+	}
 }

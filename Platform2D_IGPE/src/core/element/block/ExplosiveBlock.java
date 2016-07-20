@@ -9,7 +9,7 @@ public class ExplosiveBlock extends AbstractBlock {
 	private long lastTime;
 
 	public ExplosiveBlock(Position position) {
-		super(position);
+		super(position,14);
 	}
 
 	@Override

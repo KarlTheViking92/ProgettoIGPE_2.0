@@ -57,10 +57,10 @@ public class BlockMap {
 	// add different block in map
 	public void addBlocks() {
 		// TODO
-
+		
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < columns; x++) {
-
+				
 				if (map[y][x] == 0) {
 					blocks[y][x] = null;
 				}
@@ -113,9 +113,6 @@ public class BlockMap {
 
 				}
 			}
-			
-			
-			
 
 			buffer.close();
 		} catch (Exception e) {

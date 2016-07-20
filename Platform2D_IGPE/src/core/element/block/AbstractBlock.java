@@ -4,10 +4,16 @@ import core.element.Position;
 
 public class AbstractBlock implements Block {
 
-	private double WIDTH = 50;
-	private double HEIGHT = 50;
+	protected double WIDTH = 50;
+	protected double HEIGHT = 50;
 
 	private int code;
+	private String color;
+	protected boolean inside = false;
+	@Override
+	public int getCode() {
+		return code;
+	}
 
 	public double getWIDTH() {
 		return WIDTH;
@@ -18,10 +24,11 @@ public class AbstractBlock implements Block {
 	}
 
 	// TODO posizione da fare intera probabilmente
-	private Position position;
+	protected Position position;
 
-	public AbstractBlock(Position position) {
+	public AbstractBlock(Position position, int code) {
 		this.position = position;
+		this.code = code;
 	}
 
 	@Override
@@ -76,6 +83,19 @@ public class AbstractBlock implements Block {
 	public void restart() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	@Override
+	public boolean isPlayerInsideBlock() {
+		return inside;
 	}
 
 }

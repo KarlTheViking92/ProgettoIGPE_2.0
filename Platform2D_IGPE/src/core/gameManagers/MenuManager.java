@@ -48,6 +48,7 @@ public class MenuManager {
 		root.getChildren().add(menu);
 	}
 
+	
 	public void goToSinglePlayer() {
 		menu.stopMusic();
 		root.getChildren().clear();

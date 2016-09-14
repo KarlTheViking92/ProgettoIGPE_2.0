@@ -3,6 +3,7 @@ package gui.gameMenu;
 import gui.ImageProvider;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 
 public class MyMenuButton extends ImageView {
 
@@ -17,7 +18,13 @@ public class MyMenuButton extends ImageView {
 		buttonName = name;
 		buttonInfo = stringInfo;
 		info = i;
-
+		
+		if(Screen.getPrimary().getBounds().getHeight() < 1080){
+			this.setFitHeight(100);
+			this.setFitWidth(100);
+		}
+			
+		
 		String onPath = name+"On";
 		String offPath = name+"Off";
 		on = new ImageView(ImageProvider.getInstance().getMenuImage(onPath));

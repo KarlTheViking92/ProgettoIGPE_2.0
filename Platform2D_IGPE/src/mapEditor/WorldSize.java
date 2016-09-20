@@ -10,10 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Screen;
 
-public class WorldSize extends GridPane implements UpdatablePane {
+public class WorldSize extends Pane implements UpdatablePane {
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
 	// private List<String> worldPaths = new ArrayList<>();
 	private Map mapEditor;
@@ -51,6 +52,15 @@ public class WorldSize extends GridPane implements UpdatablePane {
 		this.increaseHeight = new ImageView(new Image("file:resources/images/editor_panel_elements/increases.png"));
 		this.start = new ImageView(new Image("file:resources/images/editor_panel_elements/startButton.png"));
 		this.back = new ImageView(new Image("file:resources/images/editor_panel_elements/backButton1.png"));
+		this.hboxHeight.setLayoutX(screen.getWidth() / 4.5);
+		this.hboxHeight.setLayoutY(screen.getHeight() / 5);
+
+		this.hboxWidth.setLayoutX(screen.getWidth() / 4.5);
+		this.hboxWidth.setLayoutY(screen.getHeight() / 2);
+
+		this.hboxStart.setLayoutX(screen.getWidth() / 4.5);
+		this.hboxStart.setLayoutY(screen.getHeight() / 1.5);
+
 		hboxWidth.getChildren().addAll(widthImg, decreaseWidth, width, increaseWidth);
 		hboxHeight.getChildren().addAll(heightImg, decreaseHeight, height, increaseHeight);
 		hboxStart.getChildren().addAll(back, start);
@@ -59,11 +69,8 @@ public class WorldSize extends GridPane implements UpdatablePane {
 		hboxWidth.setSpacing(65);
 		hboxHeight.setSpacing(65);
 		hboxStart.setAlignment(Pos.CENTER);
-		hboxStart.setSpacing(900);
-		this.add(hboxWidth, 0, 0);
-		this.add(hboxHeight, 0, 1);
-		this.add(hboxStart, 0, 2);
-		setConstraints();
+		hboxStart.setSpacing(500);
+		this.getChildren().addAll(hboxHeight, hboxWidth, hboxStart);
 		addEvents();
 	}
 
@@ -126,17 +133,6 @@ public class WorldSize extends GridPane implements UpdatablePane {
 
 	public int getWorldWidth() {
 		return worldWidth;
-	}
-
-	private void setConstraints() {
-		RowConstraints row1 = new RowConstraints();
-		row1.setPercentHeight(50);
-		RowConstraints row2 = new RowConstraints();
-		row1.setPercentHeight(50);
-		this.getRowConstraints().addAll(row1, row2);
-		ColumnConstraints col = new ColumnConstraints();
-		col.setPercentWidth(100);
-		this.getColumnConstraints().addAll(col);
 	}
 
 	public void update() {

@@ -1,4 +1,4 @@
-package gui.element.block;
+package gui.element;
 
 import core.element.block.Block;
 import gui.ImageProvider;

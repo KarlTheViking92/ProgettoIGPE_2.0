@@ -5,7 +5,7 @@ import core.element.Position;
 
 public class Enemy extends AbstractCharacter {
 
-	public Enemy(Position position, int life, int damage, World w) {
-		super(position, life, damage, w);
+	public Enemy(String name, int life, int damage, World w) {
+		super(name, life, damage, w);
 	}
 }

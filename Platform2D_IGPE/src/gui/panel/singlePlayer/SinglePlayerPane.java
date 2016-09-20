@@ -4,15 +4,17 @@ package gui.panel.singlePlayer;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.element.Item;
 import core.element.block.Block;
 import core.element.block.CloudBlock;
 import core.element.block.GhostBlock;
 import core.element.block.WaterBlock;
 import core.gameManagers.PlayManager;
 import gui.ImageProvider;
-import gui.element.block.GraphicBlock;
-import gui.element.block.GraphicBlockFactory;
-import gui.element.block.StandardBlockGraphic;
+import gui.element.GraphicBlockFactory;
+import gui.element.GraphicElement;
+import gui.element.GraphicGem;
+import gui.element.StandardBlockGraphic;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -38,7 +40,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private double width = 0;
 	private double height = 0;
 
-	private List<GraphicBlock> imgs = new ArrayList<>();
+	private List<GraphicElement> imgs = new ArrayList<>();
 	private GraphicBlockFactory factory = new GraphicBlockFactory();
 	private Group group = new Group();
 
@@ -61,7 +63,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		this.getChildren().add(group);
 
 		manager = PlayManager.getInstance();
-		manager.init();
+//		manager.init();
 		width = manager.getLevelWidth();
 		height = manager.getLevelHeight();
 		this.background = new Rectangle(Screen.getPrimary().getBounds().getWidth(),
@@ -91,7 +93,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 				Block b = manager.getBlocksMatrix()[y][x];
 				if (b != null) {
 					
-					GraphicBlock img = factory.makeBlock(b);
+					GraphicElement img = factory.makeBlock(b);
 					imgs.add(img);
 					// Rectangle r = new Rectangle(50,50);
 					// r.setLayoutX(b.getX());
@@ -101,7 +103,21 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 				}
 			}
 		}
-
+		System.out.println(group.getChildren().size());
+		for (Item gem : manager.getGemList()) {
+//			ImageView img = new ImageView();
+//			img.setImage(ImageProvider.getInstance().getImage("gem"));
+//			img.setLayoutX(gem.getX()*50);
+//			img.setLayoutY(gem.getY()*50);
+//			img.setFitHeight(gem.getHeight());
+//			img.setFitWidth(gem.getWidth());
+//			System.out.println("creo una gemma " + ImageProvider.getInstance().getImage("gem"));
+//			System.out.println("posizione "+img.getLayoutX() + "   " + img.getLayoutY());
+			GraphicElement img = new GraphicGem(gem);
+			this.imgs.add(img);
+			this.group.getChildren().add((ImageView)img);
+		}
+		System.out.println(group.getChildren().size());
 		// player = new Rectangle(manager.getPlayer().getX(),
 		// manager.getPlayer().getY(), manager.getPlayer().getWidth(),
 		// manager.getPlayer().getHeight() );
@@ -160,7 +176,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	}
 
 	private void updateBlocks(){
-		for(GraphicBlock block : imgs){
+		for(GraphicElement block : imgs){
 			block.update();
 		}
 	}

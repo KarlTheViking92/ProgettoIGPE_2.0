@@ -1,9 +1,9 @@
-package gui.element.block;
+package gui.element;
 
 import core.element.block.Block;
 import javafx.scene.image.ImageView;
 
-public class AbstractGraphicBlock extends ImageView implements GraphicBlock {
+public class AbstractGraphicBlock extends ImageView implements GraphicElement {
 
 	Block logicBlock;
 	

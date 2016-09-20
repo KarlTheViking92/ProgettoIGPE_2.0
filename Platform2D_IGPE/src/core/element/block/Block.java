@@ -1,5 +1,7 @@
 package core.element.block;
 
+import core.element.character.Character;
+
 public interface Block  {
 	public abstract double getX();
 	public abstract double getY();
@@ -13,4 +15,5 @@ public interface Block  {
 	public abstract int getCode();
 	public abstract String getColor();
 	public abstract boolean isPlayerInsideBlock();
+	public abstract void setPlayerState(Character c);
 }

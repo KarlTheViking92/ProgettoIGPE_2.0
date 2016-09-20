@@ -2,6 +2,8 @@ package core.World;
 
 
 import java.util.List;
+
+import core.element.Item;
 import core.element.block.Block;
 import core.element.character.Character;
 import javafx.geometry.Point2D;
@@ -15,7 +17,7 @@ public interface World {
 	abstract public void setDimension(float h, float w);
 	
 	// player and enemies
-	abstract public Player getPlayer();
+	abstract public List<Player> getPlayers();
 	abstract public List<Character> getEnemies();
 	
 	// world function
@@ -29,10 +31,10 @@ public interface World {
 	abstract public List<Block> getNearBlocks();
 	abstract public Block[][] getMatrix();
 	
-	abstract public boolean checkPlayerCollision(double x , double y);
+	abstract public boolean checkPlayerCollision(Character player, double x , double y);
 	// checkpoint
 	
 	abstract public Point2D getCheckPoint();
-	
+	abstract public List<Item> getGems();
 	
 }

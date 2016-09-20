@@ -33,6 +33,7 @@ public class MyMenuButton extends ImageView {
 				
 		this.setOnMouseEntered(e -> {
 			this.setImage(on.getImage());
+			GameMenu.playSound("select.mp3");
 			info.setText(stringInfo);
 			info.setVisible(true);
 		});

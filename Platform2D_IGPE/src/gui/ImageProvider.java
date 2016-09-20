@@ -54,7 +54,14 @@ public class ImageProvider {
 				if (match.find()) {
 					menu.put(match.group(1), new Image("file:" + image));
 				}
+			} else if (token[2].contains("item")) {
+				match = regex.matcher(token[3]);
+				if (match.find()) {
+					System.out.println(match.group(1) + " file:" + image);
+					images.put(match.group(1), new Image("file:" + image));
+				}
 			}
+
 			i++;
 		}
 
@@ -66,11 +73,9 @@ public class ImageProvider {
 		}
 	}
 
-	public Image getImage(int code) {
-		if (codes.containsKey(code)) {
-			return images.get(codes.get(code));
-		}
-		return null;
+	public Image getImage(String code) {
+		return images.get(code);
+
 	}
 
 	public Image getSimpleBlock(String cube, String color) {
@@ -82,6 +87,7 @@ public class ImageProvider {
 		return specialBlock.get(cube);
 
 	}
+
 	public Image getMenuImage(String name) {
 		return menu.get(name);
 

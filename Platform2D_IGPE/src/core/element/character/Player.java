@@ -5,7 +5,12 @@ import core.element.Position;
 
 public class Player extends AbstractCharacter{
 
-	public Player(Position position, int life, int damage, World world) {
-		super(position, life, damage,world);
+	public Player(String name, int life, int damage, World world) {
+		super(name, life, damage,world);
+	}
+	
+	@Override
+	public void collectGem() {
+		gems++;
 	}
 }

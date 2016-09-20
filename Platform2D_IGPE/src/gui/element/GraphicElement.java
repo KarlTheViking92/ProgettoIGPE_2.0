@@ -1,7 +1,7 @@
-package gui.element.block;
+package gui.element;
 
 
-public interface GraphicBlock {
+public interface GraphicElement {
 
 	public abstract void update(); //aggiorna il blocco
 

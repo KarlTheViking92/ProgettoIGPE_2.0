@@ -1,10 +1,16 @@
 package core.element.character;
 
+import core.element.Position;
+
 public interface Character {
 
 	public abstract void hurt();
 
 	public abstract boolean isDead();
+	
+	public abstract void kill();
+	
+	public abstract void setPosition(Position p);
 
 	public abstract Direction getDirection();
 
@@ -43,5 +49,8 @@ public interface Character {
 	public abstract boolean canDoubleJump();
 	
 	public abstract boolean isFalling();
+	
+	public abstract void collectGem();
+	public abstract int getCollectedGems();
 
 }

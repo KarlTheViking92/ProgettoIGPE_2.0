@@ -1,6 +1,7 @@
 package core.element.block;
 
 import core.element.Position;
+import core.element.character.Character;
 
 public class AbstractBlock implements Block {
 
@@ -52,14 +53,6 @@ public class AbstractBlock implements Block {
 		if (this.position.getY() > (y + height))
 			return false;
 
-		/*
-		 * System.out.println("if 1 controllo  " + (this.position.getX() +
-		 * WIDTH) + " < " + x); System.out.println("if 2 controllo  " +
-		 * (this.position.getX()) + " > " + (x + width)); System.out.println(
-		 * "if 3 controllo  " + (this.position.getY() + HEIGHT) + " < " + (y));
-		 * System.out.println("if 4 controllo  " + (this.position.getY()) +
-		 * " > " + (y + width));
-		 */
 		return true;
 	}
 
@@ -96,6 +89,10 @@ public class AbstractBlock implements Block {
 	@Override
 	public boolean isPlayerInsideBlock() {
 		return inside;
+	}
+
+	@Override
+	public void setPlayerState(Character c) {
 	}
 
 }

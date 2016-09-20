@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.element.Gem;
+import core.element.Item;
 import core.element.Position;
 import core.element.block.Block;
 import core.element.block.BlockFactory;
@@ -13,9 +15,9 @@ import javafx.geometry.Point2D;
 public class BlockMap {
 
 	// block size
-	
+
 	private final double BLOCKSIZE = 50.0;
-	
+
 	// player position?
 
 	public Point2D getSpawnPoint() {
@@ -26,7 +28,7 @@ public class BlockMap {
 
 	private float playerX;
 	private float playerY;
-	
+
 	// map path
 	private String path;
 
@@ -47,7 +49,8 @@ public class BlockMap {
 	// map gems
 
 	private int gems = 0;
-
+//	private List<Point2D> gemPosition = new ArrayList<>();
+	private List<Item> gemList = new ArrayList<>();
 	// constructor
 	public BlockMap(String path) {
 		this.factory = new BlockFactory();
@@ -57,40 +60,42 @@ public class BlockMap {
 	// add different block in map
 	public void addBlocks() {
 		// TODO
-		
+
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < columns; x++) {
-				
+
 				if (map[y][x] == 0) {
 					blocks[y][x] = null;
+				} else if (map[y][x] == 1) { // player
+					spawnPoint = new Point2D(x * BLOCKSIZE, y * BLOCKSIZE);
 				}
-				else if(map[y][x] == 1){ // player
-					spawnPoint = new Point2D(x*BLOCKSIZE, y*BLOCKSIZE);
-				}
-				
-				else if(map[y][x] == 3){ // conta una gemma
+
+				else if (map[y][x] == 3) { // conta una gemma
+//					gemPosition.add(new Point2D(x, y));
+					gemList.add(new Gem(x * BLOCKSIZE, y * BLOCKSIZE, 50, 50));
 					gems++;
 				}
-				
-				else if( map[y][x] == 2 ){ // spawn point
-					
-					
+
+				else if (map[y][x] == 2) { // spawn point
+
 				} else {
 					// forse la position è sbagliata
-					blocks[y][x] = factory.makeBlock(map[y][x], new Position(x*BLOCKSIZE, y*BLOCKSIZE));
-					if(!blocklist.contains(blocks[y][x]))
+					blocks[y][x] = factory.makeBlock(map[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					if (!blocklist.contains(blocks[y][x]))
 						blocklist.add(blocks[y][x]);
 				}
 
 			}
 		}
-		System.out.println("ho caricato " + blocklist.size() + " blocchi");
 	}
 
 	public int getGems() {
 		return gems;
 	}
-	public List<Block> getBlockList(){ return blocklist; }
+
+	public List<Block> getBlockList() {
+		return blocklist;
+	}
 
 	// load map from txt file
 	public void loadMap() {
@@ -120,7 +125,7 @@ public class BlockMap {
 		}
 
 		this.addBlocks();
-//		blockSize = blocks[0][0].getWIDTH();
+		// blockSize = blocks[0][0].getWIDTH();
 	}
 
 	public double getBlockSize() {
@@ -146,6 +151,10 @@ public class BlockMap {
 
 	public Block[][] getBlockMatrix() {
 		return blocks;
+	}
+
+	public List<Item> getGemsList() {
+		return gemList;
 	}
 
 }

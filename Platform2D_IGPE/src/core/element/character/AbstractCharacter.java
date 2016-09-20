@@ -1,21 +1,17 @@
 package core.element.character;
 
-import java.util.HashMap;
-import java.util.List;
-
 import core.World.World;
-import core.element.*;
-import core.element.block.Block;
-import javafx.scene.input.KeyCode;
+import core.element.Item;
+import core.element.Position;
 
 public abstract class AbstractCharacter implements Character {
 
+	private String name;
 	private int life;
 	private Position position;
 	private int damage;
 	private Direction direction = Direction.STOP;
-
-	// private HashMap<KeyCode, Boolean> keys = new HashMap<>();
+	protected int gems = 0;
 
 	// aggiustare width e height
 	private int HEIGHT = 45;
@@ -43,8 +39,8 @@ public abstract class AbstractCharacter implements Character {
 
 	private World world;
 
-	public AbstractCharacter(Position position, int life, int damage, World w) {
-		this.position = position;
+	public AbstractCharacter(String name, int life, int damage, World w) {
+//		this.position = position;
 		this.damage = damage;
 		this.life = life;
 		world = w;
@@ -134,7 +130,6 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void doubleJump() {
-		System.out.println("double jump");
 		if (canDoubleJump) {
 			if (jumping || falling) {
 				currentJumpSpeed = JUMPSPEED;
@@ -160,21 +155,18 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public void update() {
 
-		List<Block> blocks = world.getNearBlocks();
+//		List<Block> blocks = world.getNearBlocks();
 
 		double X = getX();
 		double Y = getY();
-		// System.out.println(" JUMPING " + jumping);
-		// System.out.println(" DOUBLEJUMPING " + doubleJump);
-		// System.out.println(" FALLING " + falling);
-		// System.out.println("GROUNDED " + grounded);
-		// System.out.println("MOVING " + moving);
-		// System.out.println(" ******************** ");
-		// System.out.println();
-		// System.out.println("controllo " + world.getNearBlocks().size() +"
-		// blocchi");
 
-		if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
+		for (Item gem : world.getGems()) {
+			if(gem.collide(X, Y, WIDTH, HEIGHT) && !gem.isCollected()){
+				gem.collect();
+			}
+		}
+
+		if (!world.checkPlayerCollision(this, getX(), getY() + currentFallSpeed)) {
 			if (!jumping && !doubleJump) {
 				falling = true;
 			}
@@ -182,7 +174,7 @@ public abstract class AbstractCharacter implements Character {
 
 		switch (direction) {
 		case RIGHT:
-			if (!world.checkPlayerCollision(getX() + VELOCITY_X, getY())) {
+			if (!world.checkPlayerCollision(this, getX() + VELOCITY_X, getY())) {
 				X = position.getX() + VELOCITY_X;
 				// return;
 			}
@@ -192,7 +184,7 @@ public abstract class AbstractCharacter implements Character {
 			break;
 
 		case LEFT:
-			if (!world.checkPlayerCollision(getX() - VELOCITY_X, getY())) {
+			if (!world.checkPlayerCollision(this, getX() - VELOCITY_X, getY())) {
 				X = position.getX() - VELOCITY_X;
 			}
 			// moving = true;
@@ -211,7 +203,7 @@ public abstract class AbstractCharacter implements Character {
 		}
 
 		if (jumping) {
-			if (!world.checkPlayerCollision(getX(), getY() - currentJumpSpeed)) {
+			if (!world.checkPlayerCollision(this, getX(), getY() - currentJumpSpeed)) {
 
 				Y = position.getY() - currentJumpSpeed;
 				currentJumpSpeed -= 0.1;
@@ -231,12 +223,10 @@ public abstract class AbstractCharacter implements Character {
 		}
 
 		if (doubleJump) {
-			if (!world.checkPlayerCollision(getX(), getY() - currentJumpSpeed)) {
+			if (!world.checkPlayerCollision(this, getX(), getY() - currentJumpSpeed)) {
 				Y = position.getY() - currentJumpSpeed;
 				currentJumpSpeed -= 0.1;
-				// System.out.println("currentjumpspeed " + currentJumpSpeed);
 				if (currentJumpSpeed < 1) {
-					System.out.println("current nell if " + currentJumpSpeed);
 					currentJumpSpeed = JUMPSPEED;
 					currentFallSpeed = 0.1;
 					doubleJump = false;
@@ -253,7 +243,7 @@ public abstract class AbstractCharacter implements Character {
 
 		}
 		if (falling) {
-			if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
+			if (!world.checkPlayerCollision(this, getX(), getY() + currentFallSpeed)) {
 				Y = position.getY() + currentFallSpeed;
 
 				if (currentFallSpeed <= MAXFALLSPEED) {
@@ -271,12 +261,11 @@ public abstract class AbstractCharacter implements Character {
 				grounded = true;
 			}
 		}
-		if (!world.checkPlayerCollision(X, Y)) {
+		if (!world.checkPlayerCollision(this, X, Y)) {
 			position.setX(X);
 			position.setY(Y);
 		} else
 			moving = false;
-
 	}
 
 	@Override
@@ -299,6 +288,22 @@ public abstract class AbstractCharacter implements Character {
 		return canDoubleJump;
 	}
 
+	@Override
+	public void collectGem() {}
+	
+	@Override
+	public int getCollectedGems() {return gems;}
+	
+	@Override
+	public void kill() {
+		life = 0;
+	}
+	
+	@Override
+	public void setPosition(Position p) {
+		position = p;
+	}
+	
 	// @Override
 	// public void update() {
 	//

@@ -1,5 +1,6 @@
 package core.gameManagers;
 
+import core.element.character.Player;
 import gui.GameMain;
 import gui.event.KeyboardPressedEvent;
 import gui.event.KeyboardReleasedEvent;
@@ -21,7 +22,9 @@ public class MenuManager {
 	
 	private GameMenu menu;
 	private Pane root = new Pane();
+//	private Pane 
 	private SinglePlayerPane singlePlayer;
+	private PlayManager matchManager = PlayManager.getInstance();
 	private Camera camera = new PerspectiveCamera();
 
 	private MenuManager() {
@@ -57,6 +60,9 @@ public class MenuManager {
 		p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
 		p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
 		// game.getScene().setCamera(camera);
+		// crea il player ?
+		matchManager.init();
+//		matchManager.setCurrentPlayer(new Player("", life, damage, world));
 		game.getScene().setCamera(camera);
 		singlePlayer.drawWorld();
 		currentPane = singlePlayer;

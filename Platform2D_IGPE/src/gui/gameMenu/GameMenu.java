@@ -208,6 +208,13 @@ public class GameMenu extends Pane implements UpdatablePane {
 		mediaPlayer.stop();
 	}
 
+	public static void playSound(String media){
+		File music = new File("resources/music/" + media);
+		final Media playable = new Media(music.toURI().toString());
+		MediaPlayer player = new MediaPlayer(playable);
+		player.play();
+	}
+	
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub

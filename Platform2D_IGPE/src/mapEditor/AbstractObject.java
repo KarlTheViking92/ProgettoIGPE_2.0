@@ -1,27 +1,45 @@
 package mapEditor;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.ImageView;
 
-public abstract class AbstractObject extends Rectangle{
+public class AbstractObject extends ImageView {
 	private int code;
-	protected Image image;
-	
-	public AbstractObject(int code) {
+//	private Image image;
+	private String color;
+
+	public AbstractObject(int code, Image image, String color) {
 		this.code = code;
-		
-		this.setWidth(70);
-		this.setHeight(70);
-		
-		this.setFill(Color.BLACK);
+//		this.image = image;
+		this.setImage(image);
+		this.color = color;
+		this.setImage(image);
+		this.setFitHeight(65);
+		this.setFitWidth(65);
 	}
+
+	public AbstractObject(int code, Image image) {
+		this.code = code;
+		this.setImage(image);
+		this.setImage(image);
+		this.setFitHeight(65);
+		this.setFitWidth(65);
+	}
+
 	public int getCode() {
 		return code;
 	}
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

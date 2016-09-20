@@ -17,6 +17,7 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 public class GameProperties {
 
 	private HashMap<Integer, String> blockTypes = new HashMap<>();
+	private HashMap<String,Integer> imageTypes = new HashMap<>();
 	private List<String> imagePaths = new ArrayList<>();
 	private List<String> cubePaths = new ArrayList<>();
 	// private List<String> playerPaths = new ArrayList<>();
@@ -77,7 +78,7 @@ public class GameProperties {
 		Properties properties = null;
 		FileInputStream fileInput = null;
 		try {
-			fileInput = new FileInputStream(new File("resources/config/blockTypes.properties"));
+			fileInput = new FileInputStream(new File("resources/config/itemTypes.properties"));
 			properties = new Properties();
 			properties.load(fileInput);
 		} catch (IOException e) {
@@ -94,6 +95,7 @@ public class GameProperties {
 		for (Object object : keySet) {
 			String value = properties.getProperty((String) object);
 			blockTypes.put(Integer.parseInt((String) object), value);
+			imageTypes.put(value, Integer.parseInt((String) object));
 		}
 
 		/*
@@ -111,4 +113,7 @@ public class GameProperties {
 		return blockTypes;
 	}
 
+	public HashMap<String, Integer> getImageTypes(){
+		return imageTypes;
+	}
 }

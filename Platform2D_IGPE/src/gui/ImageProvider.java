@@ -1,6 +1,8 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,19 +10,30 @@ import javafx.scene.image.Image;
 
 public class ImageProvider {
 
-	GameProperties properties;
-	HashMap<Integer, String> blockTypes;
-	HashMap<String, Image> images = new HashMap<>();
-	HashMap<Integer, String> codes = new HashMap<>();
-	HashMap<String, Image> specialBlock = new HashMap<>();
-	HashMap<String, Image> simpleBlock = new HashMap<>();
-	HashMap<String, Image> menu = new HashMap<>();
-
+	private GameProperties properties;
 	private static ImageProvider instance;
+	private HashMap<Integer, String> blockTypes;
+	private HashMap<String, Integer> imageTypes;
+	private HashMap<Integer, String> codes = new HashMap<>();
+	private HashMap<String, Image> images = new HashMap<>();
+	private HashMap<String, Image> worldElements = new HashMap<>();
+	private HashMap<String, Image> editorElements = new HashMap<>();
+	private HashMap<String, Image> specialBlock = new HashMap<>();
+	private HashMap<String, Image> simpleBlock = new HashMap<>();
+	private HashMap<String, Image> enemy = new HashMap<>();
+	private HashMap<String, Image> items = new HashMap<>();
+	private HashMap<String, Image> menu = new HashMap<>();
+	private List<String> worldPaths = new ArrayList<>();
+	private List<String> editorPaths = new ArrayList<>();
+	private List<String> enemyPaths = new ArrayList<>();
+	private List<String> coloredPaths = new ArrayList<>();
+	private List<String> animatedPaths = new ArrayList<>();
+	private List<String> itemPaths = new ArrayList<>();
 
 	private ImageProvider() {
 		properties = new GameProperties();
 		blockTypes = properties.getBlockTypes();
+		imageTypes = properties.getImageTypes();
 		loadImages();
 	}
 
@@ -33,20 +46,22 @@ public class ImageProvider {
 	}
 
 	private void loadImages() {
-		int i = 1;
 		Matcher match;
 		Pattern regex = Pattern.compile("(\\w+)..*");
 		for (String image : properties.getCubes()) {
-			System.out.println("Sto caricando string " + image);
 			String[] token = image.split("/");
+
 			if (token[3].equals("SpecialCube")) {
 				match = regex.matcher(token[4]);
 				if (match.find()) {
+					animatedPaths.add(match.group(1));
 					specialBlock.put(match.group(1), new Image("file:" + image));
+
 				}
 			} else if (token[3].contains("Cube")) {
 				match = regex.matcher(token[4]);
 				if (match.find()) {
+					coloredPaths.add(match.group(1));
 					simpleBlock.put(match.group(1), new Image("file:" + image));
 				}
 			} else if (token[2].contains("menu")) {
@@ -54,28 +69,33 @@ public class ImageProvider {
 				if (match.find()) {
 					menu.put(match.group(1), new Image("file:" + image));
 				}
+			} else if (token[2].contains("enemies")) {
+				match = regex.matcher(token[3]);
+				if (match.find()) {
+					enemyPaths.add(match.group(1));
+					enemy.put(match.group(1), new Image("file:" + image));
+				}
 			} else if (token[2].contains("item")) {
 				match = regex.matcher(token[3]);
 				if (match.find()) {
-					System.out.println(match.group(1) + " file:" + image);
-					images.put(match.group(1), new Image("file:" + image));
+					itemPaths.add(match.group(1));
+					items.put(match.group(1), new Image("file:" + image));
+				}
+			} else if (token[2].contains("editor_panel_elements")) {
+				match = regex.matcher(token[3]);
+				if (match.find()) {
+					editorPaths.add(match.group(1));
+					editorElements.put(match.group(1), new Image("file:" + image));
 				}
 			}
-
-			i++;
-		}
-
-	}
-
-	public void stampa() {
-		for (int key : codes.keySet()) {
-			System.out.println("la chiave è: " + key + " il valore è : " + codes.get(key));
 		}
 	}
 
-	public Image getImage(String code) {
-		return images.get(code);
-
+	public Image getImage(int code) {
+		if (codes.containsKey(code)) {
+			return images.get(codes.get(code));
+		}
+		return null;
 	}
 
 	public Image getSimpleBlock(String cube, String color) {
@@ -83,17 +103,66 @@ public class ImageProvider {
 
 	}
 
+	public Image getSimpleBlock1(String cube) {
+		return simpleBlock.get(cube);
+
+	}
+
 	public Image getSpecialBlock(String cube) {
 		return specialBlock.get(cube);
-
 	}
 
 	public Image getMenuImage(String name) {
 		return menu.get(name);
 
 	}
-	/*
-	 * public static void main(String[] args) { GameProperties g = new
-	 * GameProperties(); ImageProvider i = ImageProvider.getInstance(); }
-	 */
+
+	public Image getEnemy(String enemy) {
+		return this.enemy.get(enemy);
+	}
+
+	public Image getWorld(String world) {
+		return this.worldElements.get(world);
+	}
+
+	public Image getEditor(String editor) {
+		return this.editorElements.get(editor);
+	}
+
+	public Image getItems(String item) {
+		return items.get(item);
+	}
+
+	public List<String> getEnemyPaths() {
+		return enemyPaths;
+
+	}
+
+	public List<String> getColoredPaths() {
+		return coloredPaths;
+	}
+
+	public List<String> getAnimatedPaths() {
+		return animatedPaths;
+	}
+
+	public List<String> getItemPaths() {
+		return itemPaths;
+	}
+
+	public List<String> getWorldPaths() {
+		return worldPaths;
+	}
+
+	public HashMap<String, Integer> getImageTypes() {
+		return imageTypes;
+	}
+
+	public List<String> getEditorPaths() {
+		return editorPaths;
+	}
+
+	public HashMap<Integer, String> getBlockTypes() {
+		return blockTypes;
+	}
 }

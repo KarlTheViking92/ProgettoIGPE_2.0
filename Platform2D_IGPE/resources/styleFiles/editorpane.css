@@ -1,0 +1,77 @@
+.choices{
+	-fx-spacing:10;
+	-fx-alignment: baseline-center;
+	-fx-padding:20;
+	-fx-background-color:transparent;
+	-fx-background-image: url(file:resources/images/editor_panel_elements/panelTop.png); 
+	-fx-background-size: stretch;
+	-fx-background-position: center center;	
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 160 500;
+}
+
+.buttoncontainer{
+	-fx-background-color:transparent;
+	-fx-background-position: center center; 
+	-fx-background-image:url(file:resources/images/editor_panel_elements/panelBottom.png); 
+	-fx-background-size: stretch;	
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 160 500;
+}
+
+.popup{
+	-fx-background-color:transparent;
+	-fx-background-position: center center; 
+	-fx-background-image:url(file:resources/images/editor_panel_elements/PopupWindow.png); 
+	-fx-background-size: stretch;	
+	-fx-background-repeat: no-repeat;
+	/*-fx-background-size: 160 500;*/
+}
+
+.worldsize{
+	-fx-background-image: url(file:resources/images/editor_panel_elements/EditorMenuBackground.png);
+	-fx-background-size: cover;
+	-fx-background-repeat: no-repeat;
+
+}
+
+.scrollpane{
+	
+	-fx-background: transparent; 
+	-fx-background-color:transparent;
+	-fx-hbar-policy: never;
+	-fx-vbar-policy: never;
+}
+
+.transparent{}
+
+.hboxscroll{
+	-fx-background-color: rgba(0, 0, 0, 0.45);
+	-fx-alignment: center;
+}
+
+#rightpane{
+	-fx-hbar-policy: never;
+	-fx-vbar-policy: never;
+/* 	-fx-padding: 20; */
+/* 	-fx-background: transparent;*/
+	-fx-background-image: url("ciccio.jpg");
+	-fx-background-size: stretch;
+	-fx-background-position: center center;
+	-fx-background-repeat: no-repeat;
+
+	
+}
+#rightpane > .viewport {
+   -fx-background-color: transparent;}
+
+#editor{
+/* 	-fx-background: transparent;  */
+/* 	-fx-background-color:transparent; */
+/*	-fx-background-image: url("ciccio.jpg");
+	-fx-background-size: 900 506;
+	-fx-background-position: center center;*/
+/*	-fx-background-color: rgba(0, 100, 100, 0.5); 
+	-fx-background-radius: 10;*/
+	
+}

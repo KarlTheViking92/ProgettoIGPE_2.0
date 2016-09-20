@@ -55,7 +55,7 @@ public class SelectPlayer extends Pane implements UpdatablePane {
 		this.rightArrow.setLayoutY(leftArrow.getLayoutY());
 		this.t.setFont(FONT_BIG);
 		this.t.setFill(Color.web("#DC8014"));
-		this.t.setStroke(Color.);
+//		this.t.setStroke(Color.);
 		this.t.setLayoutX(previewBackground.getLayoutX() + (previewBackground.getFitWidth()*0.5) - (t.getLayoutBounds().getWidth()/2));
 		this.t.setLayoutY(previewBackground.getLayoutY() + previewBackground.getFitHeight() + 40);
 		this.nameField.setLayoutX(previewBackground.getLayoutX() + (previewBackground.getFitWidth()*0.5) - (nameField.getWidth()/2));

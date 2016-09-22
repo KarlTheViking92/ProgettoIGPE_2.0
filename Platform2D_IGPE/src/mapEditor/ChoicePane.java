@@ -104,7 +104,7 @@ public class ChoicePane extends Pane {
 		this.enemies.setLayoutX(standardBlock.getLayoutX());
 		this.enemies.setLayoutY(animatedBlock.getLayoutY() + animatedBlock.getFitHeight() + SPACING);
 		this.save.setLayoutX(standardBlock.getLayoutX());
-		this.save.setLayoutY(enemies.getLayoutY() + enemies.getFitHeight() + SPACING);
+		this.save.setLayoutY(screen.getHeight()*0.7);
 		this.clear.setLayoutX(standardBlock.getLayoutX());
 		this.clear.setLayoutY(save.getLayoutY() + save.getFitHeight() + SPACING);
 		this.back.setLayoutX(standardBlock.getLayoutX());

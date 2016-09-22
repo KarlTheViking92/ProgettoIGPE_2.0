@@ -55,7 +55,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		this.matrix = new ImageView[row][column];
 		this.logicMatrix = new int[row][column];
 		this.colorMatrix = new String[row][column];
-		this.choice = new AbstractObject(1, ImageProvider.getInstance().getEditor(editorPaths.get(0)));
+		this.choice = new AbstractObject(1, ImageProvider.getInstance().getEditorImage(editorPaths.get(0)));
 		shadow.setFill(Color.BEIGE);
 		shadow.setOpacity(0.2);
 

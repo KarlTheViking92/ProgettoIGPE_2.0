@@ -6,40 +6,38 @@ import gui.ImageProvider;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
-import mapEditor.AbstractObject;
 
-public class ChoicePane extends GridPane {
+public class ChoicePane extends Pane {
 
-	// private List<AbstractObject> listImageView;
 	private AbstractObject choice;
 	private Scene s;
+	private Rectangle2D screen = Screen.getPrimary().getBounds();
 	private Map mapEditor;
-	private WorldSize worldSize = new WorldSize(s);
+	private final int SPACING = 20;
+	private WorldSizeSelector worldSize = new WorldSizeSelector(s);
 	private ScrollPane scrollPaneChoice = new ScrollPane();
 	private Pane transparentPane = new Pane();
-
+	private Rectangle rect = new Rectangle();
 	private HBox hBoxScroll;
-
+	private Pane backgroundPane = new Pane();
 	private ObjectList standardBlock = new ObjectList(this);
 	private ObjectList animatedBlock = new ObjectList(this);
 	private ObjectList items = new ObjectList(this);
 	private ObjectList enemies = new ObjectList(this);
-
-	private VBox choices = new VBox();
-	private VBox buttonContainer = new VBox();
+	private ImagePattern imageBackground;
 	private ImageView save;
 	private ImageView clear;
 	private ImageView back;
@@ -48,30 +46,20 @@ public class ChoicePane extends GridPane {
 		this.mapEditor = mapEditor;
 		this.choice = null;
 		this.s = s;
-		this.save = new ImageView(new Image("file:resources/images/editor_panel_elements/saveEditor.png"));
-		this.clear = new ImageView(new Image("file:resources/images/editor_panel_elements/clearEditor.png"));
-		this.back = new ImageView(new Image("file:resources/images/editor_panel_elements/backButton.png"));
+		this.save = new ImageView(ImageProvider.getInstance().getEditorImage("saveEditor"));
+		this.clear = new ImageView(ImageProvider.getInstance().getEditorImage("clearEditor"));
+		this.back = new ImageView(ImageProvider.getInstance().getEditorImage("BackButton"));
 		this.scrollPaneChoice.getStyleClass().add("scrollpane");
 		this.transparentPane.getStyleClass().add("transparent");
+		this.imageBackground = new ImagePattern(ImageProvider.getInstance().getEditorImage("PanelTop"));
 		this.hBoxScroll = new HBox();
 		this.hBoxScroll.getStyleClass().add("hboxscroll");
-		this.choices.getStyleClass().add("choices");
-		this.buttonContainer.getStyleClass().add("buttoncontainer");
+
+		// this.choices.getStyleClass().add("choices");
+		// this.buttonContainer.getStyleClass().add("buttoncontainer");
 		loadEditor();
-		save.setFitWidth(80);
-		save.setFitHeight(80);
-		clear.setFitHeight(80);
-		clear.setFitWidth(80);
-		back.setFitHeight(70);
-		back.setFitWidth(90);
-		buttonContainer.setAlignment(Pos.CENTER);
-		buttonContainer.getChildren().addAll(save, clear, back);
 		addEvents();
-		this.add(choices, 0, 0);
-		this.add(buttonContainer, 0, 1);
-
-		setConstraints();
-
+		init();
 		this.scrollPaneChoice.setOnMouseMoved(e -> {
 
 			if (scrollPaneChoice.getWidth() - e.getX() < 200.0) {
@@ -96,8 +84,36 @@ public class ChoicePane extends GridPane {
 
 	}
 
+	private void init() {
+		this.rect.setFill(imageBackground);
+		this.save.setFitHeight(80);
+		this.save.setFitWidth(80);
+		this.clear.setFitHeight(80);
+		this.clear.setFitWidth(80);
+		this.back.setFitHeight(80);
+		this.back.setFitWidth(80);
+		this.backgroundPane.getChildren().add(rect);
+		this.rect.setWidth(screen.getWidth() - (screen.getWidth() * 0.9));
+		this.rect.setHeight(screen.getHeight());
+		this.standardBlock.setLayoutX(rect.getWidth() * 0.5 - (standardBlock.getFitWidth() / 2));
+		this.standardBlock.setLayoutY(rect.getHeight() * 0.1);
+		this.items.setLayoutX(standardBlock.getLayoutX());
+		this.items.setLayoutY(standardBlock.getLayoutY() + standardBlock.getFitHeight() + SPACING);
+		this.animatedBlock.setLayoutX(standardBlock.getLayoutX());
+		this.animatedBlock.setLayoutY(items.getLayoutY() + items.getFitHeight() + SPACING);
+		this.enemies.setLayoutX(standardBlock.getLayoutX());
+		this.enemies.setLayoutY(animatedBlock.getLayoutY() + animatedBlock.getFitHeight() + SPACING);
+		this.save.setLayoutX(standardBlock.getLayoutX());
+		this.save.setLayoutY(enemies.getLayoutY() + enemies.getFitHeight() + SPACING);
+		this.clear.setLayoutX(standardBlock.getLayoutX());
+		this.clear.setLayoutY(save.getLayoutY() + save.getFitHeight() + SPACING);
+		this.back.setLayoutX(standardBlock.getLayoutX());
+		this.back.setLayoutY(clear.getLayoutY() + clear.getFitHeight() + SPACING);
+		this.getChildren().addAll(rect, standardBlock, items, animatedBlock, enemies, save, clear, back);
+	}
+
 	public void showSubMenu(HBox o, double x, double y) {
-		if (!choices.getChildren().contains(scrollPaneChoice))
+		if (!this.getChildren().contains(scrollPaneChoice))
 			mapEditor.addObject(transparentPane);
 
 		transparentPane.setPrefSize(Screen.getPrimary().getBounds().getWidth(),
@@ -135,7 +151,6 @@ public class ChoicePane extends GridPane {
 			addEvent(abstractObject);
 			items.addObject(abstractObject);
 		}
-		choices.getChildren().add(items);
 		items.setPreview();
 	}
 
@@ -148,7 +163,6 @@ public class ChoicePane extends GridPane {
 			addEvent(abstractObject);
 			enemies.addObject(abstractObject);
 		}
-		choices.getChildren().add(enemies);
 		enemies.setPreview();
 	}
 
@@ -156,14 +170,13 @@ public class ChoicePane extends GridPane {
 
 		List<String> cubes = ImageProvider.getInstance().getAnimatedPaths();
 		for (int i = 0; i < cubes.size(); i++) {
-			System.out.println("cube: "+cubes.get(i));
+			System.out.println("cube: " + cubes.get(i));
 			AbstractObject abstractObject = new AbstractObject(
 					ImageProvider.getInstance().getImageTypes().get(cubes.get(i)),
 					ImageProvider.getInstance().getSpecialBlock(cubes.get(i)));
 			addEvent(abstractObject);
 			animatedBlock.addObject(abstractObject);
 		}
-		choices.getChildren().add(animatedBlock);
 		animatedBlock.setPreview();
 
 	}
@@ -178,19 +191,7 @@ public class ChoicePane extends GridPane {
 
 			standardBlock.addObject(abstractObject);
 		}
-		choices.getChildren().add(standardBlock);
 		standardBlock.setPreview();
-	}
-
-	public void setConstraints() {
-		RowConstraints row1 = new RowConstraints();
-		row1.setPercentHeight(60);
-		RowConstraints row2 = new RowConstraints();
-		row2.setPercentHeight(40);
-		this.getRowConstraints().addAll(row1, row2);
-		ColumnConstraints col = new ColumnConstraints();
-		col.setPercentWidth(100);
-		this.getColumnConstraints().add(col);
 	}
 
 	public AbstractObject getChoice() {

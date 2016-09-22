@@ -3,17 +3,17 @@
 	-fx-alignment: baseline-center;
 	-fx-padding:20;
 	-fx-background-color:transparent;
-	-fx-background-image: url(file:resources/images/editor_panel_elements/panelTop.png); 
+	-fx-background-image: url(file:resources/images/editor/panelTop.png); 
 	-fx-background-size: stretch;
 	-fx-background-position: center center;	
 	-fx-background-repeat: no-repeat;
-	-fx-background-size: 160 500;
+	/*-fx-background-size: 160 500;*/
 }
 
 .buttoncontainer{
 	-fx-background-color:transparent;
 	-fx-background-position: center center; 
-	-fx-background-image:url(file:resources/images/editor_panel_elements/panelBottom.png); 
+	-fx-background-image:url(file:resources/images/editor/panelBottom.png); 
 	-fx-background-size: stretch;	
 	-fx-background-repeat: no-repeat;
 	-fx-background-size: 160 500;
@@ -22,14 +22,14 @@
 .popup{
 	-fx-background-color:transparent;
 	-fx-background-position: center center; 
-	-fx-background-image:url(file:resources/images/editor_panel_elements/PopupWindow.png); 
+	-fx-background-image:url(file:resources/images/editor/PopupWindow.png); 
 	-fx-background-size: stretch;	
 	-fx-background-repeat: no-repeat;
 	/*-fx-background-size: 160 500;*/
 }
 
 .worldsize{
-	-fx-background-image: url(file:resources/images/editor_panel_elements/EditorMenuBackground.png);
+	-fx-background-image: url(file:resources/images/editor/EditorMenuBackground.png);
 	-fx-background-size: cover;
 	-fx-background-repeat: no-repeat;
 

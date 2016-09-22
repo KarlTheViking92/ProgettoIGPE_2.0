@@ -10,7 +10,7 @@ public class EditorManager {
 	private static EditorManager instance;
 	private MainWorldSizeProva main;
 	private Pane root = new Pane();
-	private WorldSize worldSize;
+	private WorldSizeSelector worldSize;
 	private Map map;
 	private UpdatablePane currentPane;
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
@@ -27,7 +27,7 @@ public class EditorManager {
 
 	public void initialize(MainWorldSizeProva main) {
 		this.main = main;
-		worldSize = new WorldSize(main.getScene());
+		worldSize = new WorldSizeSelector(main.getScene());
 		currentPane = worldSize;
 		root.getChildren().add(worldSize);
 	}
@@ -41,7 +41,7 @@ public class EditorManager {
 		root.getChildren().add(mapEditor);
 	}
 	
-	public void goToWorldSize(WorldSize world) {
+	public void goToWorldSize(WorldSizeSelector world) {
 		root.getChildren().clear();
 		root.setPrefHeight(screen.getHeight() / 2);
 		root.setPrefWidth(screen.getWidth() / 2);
@@ -58,7 +58,7 @@ public class EditorManager {
 		return root;
 	}
 
-	public WorldSize getWorldSize() {
+	public WorldSizeSelector getWorldSize() {
 		return worldSize;
 	}
 

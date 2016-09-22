@@ -56,29 +56,29 @@ public class Map extends GridPane implements UpdatablePane {
 		this.add(right, 1, 0);
 		// auto scrollpane event
 		this.right.setOnMouseMoved(e -> {
-			if(editor.isEnabled()){
+			if (editor.isEnabled()) {
 
-			if (right.getWidth() - e.getX() < 200.0) {
-				double hval = right.getHvalue();
-				hval += 0.012;
-				right.setHvalue(hval);
-			}
+				if (right.getWidth() - e.getX() < 200.0) {
+					double hval = right.getHvalue();
+					hval += 0.012;
+					right.setHvalue(hval);
+				}
 
-			if (right.getWidth() - (right.getWidth() - e.getX()) < 200.0) {
-				double hval = right.getHvalue();
-				hval -= 0.012;
-				right.setHvalue(hval);
-			}
+				if (right.getWidth() - (right.getWidth() - e.getX()) < 200.0) {
+					double hval = right.getHvalue();
+					hval -= 0.012;
+					right.setHvalue(hval);
+				}
 
-			if (right.getHeight() - e.getY() < 200.0) {
-				double vval = right.getVvalue();
-				vval += 0.008;
-				right.setVvalue(vval);
-			}
+				if (right.getHeight() - e.getY() < 200.0) {
+					double vval = right.getVvalue();
+					vval += 0.008;
+					right.setVvalue(vval);
+				}
 
-			if (right.getHeight() - (right.getHeight() - e.getY()) < 200.0) {
-				double vval = right.getVvalue();
-				vval -= 0.008;
+				if (right.getHeight() - (right.getHeight() - e.getY()) < 200.0) {
+					double vval = right.getVvalue();
+					vval -= 0.008;
 					right.setVvalue(vval);
 				}
 			}
@@ -107,16 +107,20 @@ public class Map extends GridPane implements UpdatablePane {
 	}
 
 	public void saveMap() {
-		if (editor.canSave()) {
-			getNamePopup().setTranslateY((editor.getMaxHeight() / 2) - (getErrorPopup().getPrefHeight() / 2));
-			getNamePopup().setTranslateX((editor.getMaxWidth() / 2) - (getErrorPopup().getPrefWidth() / 2));
-			editor.getChildren().add(getNamePopup());
-			eventDisabled = true;
+		if (!editor.getChildren().contains(namePopup)) {
+			if (editor.canSave()) {
+				getNamePopup().setTranslateY((editor.getMaxHeight() / 2) - (getErrorPopup().getPrefHeight() / 2));
+				getNamePopup().setTranslateX((editor.getMaxWidth() / 2) - (getErrorPopup().getPrefWidth() / 2));
+				editor.getChildren().add(getNamePopup());
+				eventDisabled = true;
+			}
 		} else {
-			getErrorPopup().setTranslateY((editor.getMaxHeight() / 2) - (getErrorPopup().getPrefHeight() / 2));
-			getErrorPopup().setTranslateX((editor.getMaxWidth() / 2) - (getErrorPopup().getPrefWidth() / 2));
-			editor.getChildren().add(getErrorPopup());
-			eventDisabled = true;
+			if (!editor.getChildren().contains(errorPopup)) {
+				getErrorPopup().setTranslateY((editor.getMaxHeight() / 2) - (getErrorPopup().getPrefHeight() / 2));
+				getErrorPopup().setTranslateX((editor.getMaxWidth() / 2) - (getErrorPopup().getPrefWidth() / 2));
+				editor.getChildren().add(getErrorPopup());
+				eventDisabled = true;
+			}
 		}
 	}
 

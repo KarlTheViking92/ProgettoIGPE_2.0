@@ -9,8 +9,8 @@ public class ObjectList extends ImageView {
 	private HBox list = new HBox();
 	ChoicePane choice;
 	public ObjectList(ChoicePane c) {
-		this.setFitHeight(100);
-		this.setFitWidth(100);
+		this.setFitHeight(80);
+		this.setFitWidth(80);
 //		System.out.println(" scrollpane c " + c);
 		choice = c;
 		list.setSpacing(10);

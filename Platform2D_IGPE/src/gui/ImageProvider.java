@@ -81,7 +81,7 @@ public class ImageProvider {
 					itemPaths.add(match.group(1));
 					items.put(match.group(1), new Image("file:" + image));
 				}
-			} else if (token[2].contains("editor_panel_elements")) {
+			} else if (token[2].contains("editor")) {
 				match = regex.matcher(token[3]);
 				if (match.find()) {
 					editorPaths.add(match.group(1));
@@ -125,7 +125,7 @@ public class ImageProvider {
 		return this.worldElements.get(world);
 	}
 
-	public Image getEditor(String editor) {
+	public Image getEditorImage(String editor) {
 		return this.editorElements.get(editor);
 	}
 

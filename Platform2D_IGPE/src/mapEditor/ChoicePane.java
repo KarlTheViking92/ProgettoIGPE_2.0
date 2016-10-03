@@ -84,18 +84,17 @@ public class ChoicePane extends Pane {
 	}
 
 	private void init() {
-		this.rect.setFill(imageBackground);
+		this.background.setFill(imageBackground);
 		this.save.setFitHeight(80);
 		this.save.setFitWidth(80);
 		this.clear.setFitHeight(80);
 		this.clear.setFitWidth(80);
 		this.back.setFitHeight(80);
 		this.back.setFitWidth(80);
-		this.backgroundPane.getChildren().add(rect);
-		this.rect.setWidth(screen.getWidth() - (screen.getWidth() * 0.9));
-		this.rect.setHeight(screen.getHeight());
-		this.standardBlock.setLayoutX(rect.getWidth() * 0.5 - (standardBlock.getFitWidth() / 2));
-		this.standardBlock.setLayoutY(rect.getHeight() * 0.1);
+		this.background.setWidth(screen.getWidth() - (screen.getWidth() * 0.9));
+		this.background.setHeight(screen.getHeight());
+		this.standardBlock.setLayoutX(background.getWidth() * 0.5 - (standardBlock.getFitWidth() / 2));
+		this.standardBlock.setLayoutY(background.getHeight() * 0.1);
 		this.items.setLayoutX(standardBlock.getLayoutX());
 		this.items.setLayoutY(standardBlock.getLayoutY() + standardBlock.getFitHeight() + SPACING);
 		this.animatedBlock.setLayoutX(standardBlock.getLayoutX());

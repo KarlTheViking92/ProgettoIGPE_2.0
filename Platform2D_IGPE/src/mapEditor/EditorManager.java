@@ -1,5 +1,9 @@
 package mapEditor;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import gui.panel.UpdatablePane;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.Pane;
@@ -14,7 +18,8 @@ public class EditorManager {
 	private Map map;
 	private UpdatablePane currentPane;
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
-
+	private final String SAVEPATH = "resources/Levels/customLevel/";
+	
 	private EditorManager() {
 
 	}
@@ -64,6 +69,33 @@ public class EditorManager {
 
 	public void updateGame() {
 		currentPane.update();
+	}
+	
+	public void saveMap(String mapName) {
+		try {
+			String logicPath = SAVEPATH + mapName;
+			String colorPath = logicPath + "_color";
+			int [][] logicMatrix = map.getLogicMatrix();
+			String [][] colorMatrix = map.getColorMatrix();
+			FileWriter mapLogic = new FileWriter(logicPath);
+			FileWriter mapColors = new FileWriter(colorPath);
+			BufferedWriter outLogic = new BufferedWriter(mapLogic);
+			BufferedWriter outColors = new BufferedWriter(mapColors);
+			outLogic.write(Integer.toString(logicMatrix.length) + "\n");
+			outLogic.write(Integer.toString(logicMatrix[0].length) + "\n");
+			for (int i = 0; i < logicMatrix.length; i++) {
+				for (int j = 0; j < logicMatrix[i].length; j++) {
+					outLogic.write(Integer.toString(logicMatrix[i][j]) + " ");
+					outColors.write(colorMatrix[i][j] + " ");
+				}
+				outLogic.write("\n");
+				outColors.write("\n");
+			}
+			outLogic.close();
+			outColors.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	

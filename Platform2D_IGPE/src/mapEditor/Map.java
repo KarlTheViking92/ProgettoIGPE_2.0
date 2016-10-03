@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.panel.UpdatablePane;
+import gui.popup.Popup;
+import gui.popup.PopupError;
+import gui.popup.SavemapPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
@@ -28,12 +32,14 @@ public class Map extends GridPane implements UpdatablePane {
 	private ScrollPane right;
 	private EditorPane editor;
 	private boolean eventDisabled = false;
+	private Pane test = new Pane();
 	private String cssFile = "file:resources/styleFiles/editorpane.css";
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
-	private PopupError errorPopup = new PopupError((int) screen.getWidth() / 2, (int) screen.getHeight() / 2);
-	private PopupName namePopup = new PopupName((int) screen.getWidth() / 2, (int) screen.getHeight() / 2);
-	private String nameLevel = new String();
-
+	private Popup errorPopup;
+	private Popup savemapPopup = new SavemapPopup(screen.getWidth() * 0.4, screen.getHeight() * 0.4);
+	private String nameLevel;
+	StackPane center = new StackPane();
+	
 	public Map(int r, int c, Scene s) {
 		this.right = new ScrollPane();
 		this.getStylesheets().add(cssFile);
@@ -43,15 +49,25 @@ public class Map extends GridPane implements UpdatablePane {
 		this.left = new ChoicePane(listImageView, this, s);
 		this.editor = new EditorPane(r, c, this);
 		setConstraints();
-		left.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 		right.setFitToWidth(true);
 		right.setFitToHeight(true);
-		StackPane center = new StackPane();
-		center.setAlignment(Pos.TOP_CENTER);
+		
+		center.setAlignment(Pos.CENTER);
 		center.getChildren().add(editor);
 		right.setId("rightpane");
 		right.setContent(center);
 
+		// %%%%%%%%%%%%%%%%%%%%%%%%%
+			test.setPrefWidth(screen.getWidth()*0.9);
+			test.setPrefHeight(screen.getHeight());
+//			test.setLayoutX(0);
+//			test.setLayoutY(0);
+//			test.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+			System.out.println("test " + test.getPrefWidth()*0.5 + " " +  test.getPrefHeight()*0.5);
+			errorPopup = new PopupError(screen.getWidth()*0.4, screen.getHeight()*0.4);
+			errorPopup.setPosition(test.getPrefWidth()*0.5, test.getPrefHeight()*0.5);
+		// %%%%%%%%%%%%%%%%%%%%%%%%%
+		
 		this.add(left, 0, 0);
 		this.add(right, 1, 0);
 		// auto scrollpane event
@@ -107,43 +123,44 @@ public class Map extends GridPane implements UpdatablePane {
 	}
 
 	public void saveMap() {
-		if (!editor.getChildren().contains(namePopup)) {
-			if (editor.canSave()) {
-				getNamePopup().setTranslateY((editor.getMaxHeight() / 2) - (getErrorPopup().getPrefHeight() / 2));
-				getNamePopup().setTranslateX((editor.getMaxWidth() / 2) - (getErrorPopup().getPrefWidth() / 2));
-				editor.getChildren().add(getNamePopup());
-				eventDisabled = true;
-			}
+		System.out.println("posizioni " + (screen.getWidth() / 2) + " " + (screen.getHeight() / 2));
+		double x = (editor.getWidth() * 0.5 - left.getWidth());
+		double y = (editor.getHeight() * 0.5);
+		if (editor.canSave()) {
+			savemapPopup.setPosition(x, y);
+			editor.getChildren().add((Node) savemapPopup);
+			eventDisabled = true;
 		} else {
-			if (!editor.getChildren().contains(errorPopup)) {
-				getErrorPopup().setTranslateY((editor.getMaxHeight() / 2) - (getErrorPopup().getPrefHeight() / 2));
-				getErrorPopup().setTranslateX((editor.getMaxWidth() / 2) - (getErrorPopup().getPrefWidth() / 2));
-				editor.getChildren().add(getErrorPopup());
+			/*if (!editor.getChildren().contains(errorPopup)) {
+				// getErrorPopup().setLayoutX((editor.getMaxWidth() / 2) -
+				// (getErrorPopup().getPrefWidth() / 2) - left.getPrefWidth());
+				// getErrorPopup().setLayoutY((editor.getMaxHeight() / 2) -
+				// (getErrorPopup().getPrefHeight() / 2));
+				errorPopup.setPosition(x, y);
+				editor.getChildren().add((Node) errorPopup);
 				eventDisabled = true;
+			}*/
+			eventDisabled = true;
+			if(!test.getChildren().contains(errorPopup)){
+				test.getChildren().add((Node)errorPopup);
+				right.setHvalue(0);
+				right.setVvalue(0);
 			}
+			center.getChildren().add(test);
 		}
 	}
 
 	public void update() {
-		if (getErrorPopup().isClicked()) {
-			getErrorPopup().setExit(false);
-			editor.getChildren().remove(getErrorPopup());
+		if (errorPopup.isDeleted()) {
+			center.getChildren().remove(errorPopup);
+			errorPopup.restart();
 			eventDisabled = false;
+			test.getChildren().clear();
+			center.getChildren().remove(test);
 		}
-		if (getNamePopup().isSave()) {
-			nameLevel = getNamePopup().getTextField().getText();
-			getNamePopup().setSave(false);
-			eventDisabled = false;
-			if (nameLevel.length() > 0) {
-				editor.saveMap("resources/levels/" + nameLevel, "resources/levels/" + nameLevel + "_color");
-				getNamePopup().setSave(false);
-				editor.getChildren().remove(getNamePopup());
-				eventDisabled = false;
-			}
-		}
-		if (getNamePopup().isCanc()) {
-			getNamePopup().setCanc(false);
-			editor.getChildren().remove(getNamePopup());
+		if (savemapPopup.isDeleted()) {
+			center.getChildren().remove(savemapPopup);
+			savemapPopup.restart();
 			eventDisabled = false;
 		}
 		editor.update();
@@ -154,20 +171,20 @@ public class Map extends GridPane implements UpdatablePane {
 
 	}
 
-	public PopupError getErrorPopup() {
-		return errorPopup;
-	}
-
-	public PopupName getNamePopup() {
-		return namePopup;
-	}
-
 	public boolean isEventDisabled() {
 		return eventDisabled;
 	}
 
 	public void setDisableEvent(boolean disableEvent) {
 		this.eventDisabled = disableEvent;
+	}
+
+	public int[][] getLogicMatrix() {
+		return editor.getLogicMatrix();
+	}
+
+	public String[][] getColorMatrix() {
+		return editor.getColorMatrix();
 	}
 
 }

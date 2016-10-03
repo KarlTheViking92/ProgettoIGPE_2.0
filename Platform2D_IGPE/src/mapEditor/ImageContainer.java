@@ -33,7 +33,7 @@ public class ImageContainer extends Group {
 		this.setPosition(x, y);
 		this.increase.setOnMousePressed(e -> {
 			increase.setEffect(new Glow(0.8));
-			if (this.size < 50) {
+			if (this.size < 40) {
 				this.size++;
 				number.setText(Integer.toString(this.size));
 				System.out.println("size " + this.size);
@@ -62,7 +62,6 @@ public class ImageContainer extends Group {
 		decrease.setPosition(preview.getLayoutX() + preview.getFitWidth() + SPACING, preview.getLayoutY());
 		number.setLayoutX(decrease.getLayoutX() + decrease.getFitWidth() + SPACING);
 		number.setLayoutY(preview.getLayoutY());
-		System.out.println("N " + number.getTextOrigin());
 		increase.setPosition(number.getLayoutX() + number.getLayoutBounds().getWidth() + SPACING, preview.getLayoutY());
 	}
 	

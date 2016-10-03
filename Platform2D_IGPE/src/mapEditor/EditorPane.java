@@ -1,11 +1,7 @@
 package mapEditor;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import gui.ImageProvider;
 import gui.panel.UpdatablePane;
 import javafx.scene.Cursor;
@@ -16,7 +12,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import mapEditor.AbstractObject;
 
 public class EditorPane extends Pane implements UpdatablePane {
 
@@ -29,7 +24,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 	private int[][] logicMatrix;
 	private String[][] colorMatrix;
 	private List<String> editorPaths = new ArrayList<>();
-	private boolean enabled = false;
+	private boolean enableEvent = false;
 
 	// constraints
 	private boolean endingLevelCheck = false;
@@ -37,10 +32,9 @@ public class EditorPane extends Pane implements UpdatablePane {
 	private boolean gemsCheck = false;
 
 	private int gemsCounter = 0;
-	// water collision check ? dove metterlo?
-
+	
 	private ImageView currentBlock;
-	Rectangle shadow = new Rectangle();
+	private Rectangle shadow = new Rectangle();
 
 	public EditorPane(int row, int column, Map map) {
 		this.currentBlock = new ImageView();
@@ -56,8 +50,8 @@ public class EditorPane extends Pane implements UpdatablePane {
 		this.logicMatrix = new int[row][column];
 		this.colorMatrix = new String[row][column];
 		this.choice = new AbstractObject(1, ImageProvider.getInstance().getEditorImage(editorPaths.get(0)));
-		shadow.setFill(Color.BEIGE);
-		shadow.setOpacity(0.2);
+		this.shadow.setFill(Color.BEIGE);
+		this.shadow.setOpacity(0.2);
 
 		this.setMinWidth(column * 50);
 		this.setMinHeight(row * 50);
@@ -71,7 +65,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		blocks.getChildren().add(currentBlock);
 		addEvents();
 		drawGrid();
-		prova();
+		adjustGraphic();
 	}
 
 	public void drawGrid() {
@@ -87,53 +81,53 @@ public class EditorPane extends Pane implements UpdatablePane {
 
 	private boolean waterCheck(int x, int y, ImageView code) {
 
-		if ((((AbstractObject) code).getCode() == 9) && endingLevelCheck)
+		AbstractObject block = (AbstractObject) code;
+
+		if ((block.getCode() == 9) && endingLevelCheck)
 			return false;
 
-		if ((((AbstractObject) code).getCode() == 15) && spawnLevelCheck)
+		if ((block.getCode() == 15) && spawnLevelCheck)
 			return false;
 
-		if (((AbstractObject) code).getCode() == 18 && (logicMatrix[x + 1][y] == 9 || logicMatrix[x + 1][y] == 15))
+		if (block.getCode() == 18 && (logicMatrix[x + 1][y] == 9 || logicMatrix[x + 1][y] == 15))
 			return false;
 
-		if ((((AbstractObject) code).getCode() == 15 || ((AbstractObject) code).getCode() == 9)
+		if ((block.getCode() == 15 || block.getCode() == 9)
 				&& (logicMatrix[x + 1][y] == 16 || logicMatrix[x + 1][y] == 17))
 			return false;
 
-		if ((((AbstractObject) code).getCode() == 16 || ((AbstractObject) code).getCode() == 17)
+		if ((block.getCode() == 16 || ((AbstractObject) code).getCode() == 17)
 				&& (logicMatrix[x + 1][y] == 9 || logicMatrix[x + 1][y] == 15))
 			return false;
 
-		if (((AbstractObject) code).getCode() == 15 && logicMatrix[x - 1][y] != 0)
+		if (block.getCode() == 15 && logicMatrix[x - 1][y] != 0)
 			return false;
 
-		if (((AbstractObject) code).getCode() == 9 && logicMatrix[x - 1][y] != 0)
+		if (block.getCode() == 9 && logicMatrix[x - 1][y] != 0)
 			return false;
 
-		if (((AbstractObject) code).getCode() > 1 && logicMatrix[x + 1][y] == 9)
+		if (block.getCode() > 1 && logicMatrix[x + 1][y] == 9)
 			return false;
 
-		if (((AbstractObject) code).getCode() == 15 && logicMatrix[x + 1][y] == 7)
+		if (block.getCode() == 15 && logicMatrix[x + 1][y] == 7)
 			return false;
 
-		if ((((AbstractObject) code).getCode() == 7
+		if (block.getCode() == 7
 				&& (logicMatrix[x + 1][y] == 7 || logicMatrix[x - 1][y] == 7 || logicMatrix[x - 1][y] == 15
-						|| logicMatrix[x + 1][y] == 15 || logicMatrix[x + 1][y] == 16 || logicMatrix[x + 1][y] == 17)))
+						|| logicMatrix[x + 1][y] == 15 || logicMatrix[x + 1][y] == 16 || logicMatrix[x + 1][y] == 17))
 			return false;
 
-		if ((((AbstractObject) code).getCode() == 7 || ((AbstractObject) code).getCode() == 15)
-				&& logicMatrix[x - 1][y] != 0)
+		if ((block.getCode() == 7 || block.getCode() == 15) && logicMatrix[x - 1][y] != 0)
 			return false;
 
-		if (((AbstractObject) code).getCode() == 7 && (y == row - 2 || y == 1 || x == 1))
+		if (block.getCode() == 7 && (y == row - 2 || y == 1 || x == 1))
 			return false;
 
-		if ((((((AbstractObject) code).getCode() == 5) && ((AbstractObject) code).getCode() != 0))
+		if ((block.getCode() == 5 && block.getCode() != 0)
 				&& (logicMatrix[x + 1][y] == 7 || logicMatrix[x + 1][y] == 15))
 			return false;
 
-		if ((((((AbstractObject) code).getCode() == 6 || ((AbstractObject) code).getCode() == 10
-				|| ((AbstractObject) code).getCode() == 14) && ((AbstractObject) code).getCode() != 0))
+		if ((((block.getCode() == 6 || block.getCode() == 10 || block.getCode() == 14) && block.getCode() != 0))
 				&& logicMatrix[x - 1][y] == 7)
 			return false;
 		return true;
@@ -182,7 +176,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		}
 	}
 
-	private void prova() {
+	private void adjustGraphic() {
 		for (int y = row - 1; y >= 0; y--) {
 			for (int x = 0; x < column; x++) {
 				if (matrix[y][x] != null)
@@ -221,36 +215,12 @@ public class EditorPane extends Pane implements UpdatablePane {
 		}
 	}
 
-	public void saveMap(String fileNameLogic, String fileNameColors) {
-		try {
-
-			FileWriter mapLogic = new FileWriter(fileNameLogic);
-			FileWriter mapColors = new FileWriter(fileNameColors);
-			BufferedWriter outLogic = new BufferedWriter(mapLogic);
-			BufferedWriter outColors = new BufferedWriter(mapColors);
-			outLogic.write(Integer.toString(matrix.length) + "\n");
-			outLogic.write(Integer.toString(matrix[0].length) + "\n");
-			for (int i = 0; i < row; i++) {
-				for (int j = 0; j < column; j++) {
-					outLogic.write(Integer.toString(logicMatrix[i][j]) + " ");
-					outColors.write(colorMatrix[i][j] + " ");
-				}
-				outLogic.write("\n");
-				outColors.write("\n");
-			}
-			outLogic.close();
-			outColors.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	private boolean checkMatrix(int x, int y) {
 		return ((x < column && y < row) && (x >= 0 && y >= 0));
 	}
 
 	protected void clearBlocks() {
-
 		for (int y = row - 1; y >= 0; y--) {
 			for (int x = 0; x < column; x++) {
 				if (matrix[y][x] != null && !((x == 0 || x == column - 1) || ((y == 0 || y == row - 1)))) {
@@ -261,7 +231,6 @@ public class EditorPane extends Pane implements UpdatablePane {
 					logicMatrix[y][x] = 0;
 					colorMatrix[y][x] = null;
 				}
-
 			}
 		}
 	}
@@ -301,7 +270,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 				} else if (e.getButton() == MouseButton.SECONDARY) {
 					erase(x, y);
 				}
-				prova();
+				adjustGraphic();
 			}
 		});
 
@@ -324,12 +293,20 @@ public class EditorPane extends Pane implements UpdatablePane {
 	@Override
 	public void update() {
 		if (map.isEventDisabled()) {
-			enabled = false;
+			enableEvent = false;
 		} else
-			enabled = true;
+			enableEvent = true;
 	}
 
 	public boolean isEnabled() {
-		return enabled;
+		return enableEvent;
+	}
+
+	public int[][] getLogicMatrix() {
+		return logicMatrix;
+	}
+
+	public String[][] getColorMatrix() {
+		return colorMatrix;
 	}
 }

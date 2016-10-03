@@ -33,7 +33,7 @@ public class WorldSizeSelector extends Pane implements UpdatablePane {
 		this.next = new MyImage(ImageProvider.getInstance().getEditorImage("startButton"));
 		this.back = new MyImage(ImageProvider.getInstance().getEditorImage("BackButton1"));
 		this.height = new ImageContainer("Height", 15, screen.getWidth() * 0.3, screen.getHeight() * 0.25);
-		this.width = new ImageContainer("Width", 15, screen.getWidth() * 0.3, screen.getHeight() * 0.5);
+		this.width = new ImageContainer("Width", 40, screen.getWidth() * 0.3, screen.getHeight() * 0.5);
 		back.setPosition(screen.getWidth() * 0.1, screen.getHeight() * 0.75);
 		next.setPosition(screen.getWidth() * 0.83, back.getLayoutY());
 		this.getChildren().addAll(height,width,back, next);

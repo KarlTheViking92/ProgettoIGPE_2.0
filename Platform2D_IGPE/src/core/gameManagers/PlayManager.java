@@ -1,5 +1,6 @@
 package core.gameManagers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import core.World.AbstractWorld;
@@ -20,7 +21,7 @@ public class PlayManager {
 	private boolean running = false;
 	private boolean pause = false;
 
-	private List<Player> players;
+	private List<Player> players = new ArrayList<>();
 	private Player currentPlayer;
 	private boolean isDead = false;
 
@@ -35,11 +36,16 @@ public class PlayManager {
 	}
 
 	public void init() {
-
+		// il player devo istanziarlo in questa clase solo dopo che il mondo è stato istanziato
+		// la funzione che da posizione al player non può trovarsi in world, il world deve solo conoscere la posizione del player 
+		// altrimenti uno aspetta l'altro per istanziarsi e muoiono tutti
 		world = new AbstractWorld();
+		currentPlayer = new Player("asdf", 10, 1, world);
+		players.add(currentPlayer);
 		world.loadMap("resources/Levels/levelTest");
 		world.initialize();
-		this.players = world.getPlayers();
+		
+//		this.players = world.getPlayers();
 
 	}
 
@@ -64,6 +70,7 @@ public class PlayManager {
 				System.out.println("si muartu");
 			}
 		}
+		world.update();
 
 	}
 

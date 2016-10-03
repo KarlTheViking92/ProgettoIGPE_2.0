@@ -89,6 +89,9 @@ public class AbstractWorld implements World {
 		// TODO Auto-generated method stub
 		
 		// for tutti i blocchi chiama update
+		for (Block b : map.getBlockList()) {
+			b.update();
+		}
 		
 		
 	}

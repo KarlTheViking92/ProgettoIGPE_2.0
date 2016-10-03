@@ -6,21 +6,25 @@ public class ExplosiveBlock extends AbstractBlock {
 
 	private boolean beginExplosion = false;
 	private boolean explosion = false;
-	private long lastTime;
-
+	private long lastMillis;
+	private long deltaMillis;
+	
 	public ExplosiveBlock(Position position) {
 		super(position,14);
 	}
 
+
+	
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
-		if (explosion && beginExplosion)
+		if (explosion)
 			return false;
 		
 		boolean flag = super.collision(x, y, height, width);
-		if (flag) {
+		if (flag && !beginExplosion) {
+			System.out.println("BOOOOOM");
 			beginExplosion = true;
-			lastTime = System.currentTimeMillis();
+			lastMillis = System.currentTimeMillis();
 		}
 		return flag;
 
@@ -29,9 +33,17 @@ public class ExplosiveBlock extends AbstractBlock {
 	@Override
 	public void update() {
 		if (beginExplosion) {
+			System.out.println("sto contando minghiù");
 			long current = System.currentTimeMillis();
-			if (lastTime - current > 1000) {
+			System.out.println(current + "   " + lastMillis);
+			if (!explosion && current - lastMillis >= 1000) {
+				System.out.println("non gè più");
 				explosion = true;
+			}
+			if (explosion && current - lastMillis >= 5000 ) {
+				System.out.println("rigenerato");
+				explosion = false;
+				beginExplosion = false;
 			}
 		}
 	}

@@ -63,7 +63,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		this.getChildren().add(group);
 
 		manager = PlayManager.getInstance();
-//		manager.init();
+		manager.init();
 		width = manager.getLevelWidth();
 		height = manager.getLevelHeight();
 		this.background = new Rectangle(Screen.getPrimary().getBounds().getWidth(),

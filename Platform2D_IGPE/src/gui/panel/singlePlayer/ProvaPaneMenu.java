@@ -15,7 +15,7 @@ public class ProvaPaneMenu extends Application {
 		SelectPlayer b = new SelectPlayer();
 		Scene scene = new Scene(b,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
 		stage.setScene(scene);
-		stage.setFullScreen(false);
+		stage.setFullScreen(true);
 		stage.show();
 	}
 

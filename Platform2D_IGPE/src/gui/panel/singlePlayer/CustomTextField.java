@@ -1,10 +1,12 @@
 package gui.panel.singlePlayer;
 
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextBoundsType;
 
 public class CustomTextField extends StackPane{
 
@@ -21,11 +23,19 @@ public class CustomTextField extends StackPane{
 		this.background.setStroke(Color.YELLOW);
 		this.background.setStrokeWidth(5);
 		this.background.setFill(Color.web("#4A609A"));
-		this.nameField.setStyle("-fx-background: null; -fx-background-color: null; -fx-text-fill:white");
+		this.nameField.setStyle("-fx-background: null; -fx-background-color: null; -fx-text-fill:#FFF56A;");
 		this.nameField.setAlignment(Pos.CENTER);
 		this.nameField.setFont(SelectPlayer.FONT_SMALL);
+		
 		this.setAlignment(Pos.CENTER);
 		this.getChildren().addAll(background, nameField);
 	}
 
+	public String getText(){
+		return nameField.getText();
+	}
+	
+	public void resetText(){
+		nameField.clear();
+	}
 }

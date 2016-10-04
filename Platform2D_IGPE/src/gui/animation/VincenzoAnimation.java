@@ -24,7 +24,13 @@ public class VincenzoAnimation implements CharacterAnimation {
 	};
 
 	private final static Image[] JUMPING_FRAMES = { new Image(PATH_FRAME + "/Jump/frame1.png")};
-	private final static Image[] FALLING_FRAMES = { new Image(PATH_FRAME + "/Falling/frame1.png")};
+	private final static Image[] FALLING_FRAMES = { 
+			new Image(PATH_FRAME + "/Falling/frame1.png"),
+			new Image(PATH_FRAME + "/Falling/frame2.png"),
+			new Image(PATH_FRAME + "/Falling/frame3.png"),
+			new Image(PATH_FRAME + "/Falling/frame4.png"),
+			
+	};
 
 	private SpriteAnimation staticAnimation;
 

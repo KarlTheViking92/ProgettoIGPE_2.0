@@ -7,7 +7,7 @@ public class AbstractBlock implements Block {
 
 	protected double WIDTH = 50;
 	protected double HEIGHT = 50;
-
+	protected boolean animated = false;
 	private int code;
 	private String color;
 	protected boolean inside = false;
@@ -93,6 +93,11 @@ public class AbstractBlock implements Block {
 
 	@Override
 	public void setPlayerState(Character c) {
+	}
+
+	@Override
+	public boolean isAnimated() {
+		return animated;
 	}
 
 }

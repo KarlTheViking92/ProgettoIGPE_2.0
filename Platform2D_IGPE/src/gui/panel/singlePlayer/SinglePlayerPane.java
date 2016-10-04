@@ -11,6 +11,7 @@ import core.element.block.GhostBlock;
 import core.element.block.WaterBlock;
 import core.gameManagers.PlayManager;
 import gui.ImageProvider;
+import gui.drawer.CharacterDrawer;
 import gui.element.GraphicBlockFactory;
 import gui.element.GraphicElement;
 import gui.element.GraphicGem;
@@ -34,7 +35,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private boolean resolution = false; // false for HD, true for FULLHD
 	private Point2D cameraDistance;
 	private Point2D mapLimit;
-
+	private CharacterDrawer drawer;
 	private PlayManager manager;
 
 	private double width = 0;
@@ -123,6 +124,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// manager.getPlayer().getHeight() );
 
 		player = new ImageView();
+		System.out.println("plaier " + manager.getPlayer());
+		drawer = new CharacterDrawer(manager.getPlayer());
 //		player.setImage(ImageProvider.getInstance().getImage(23));
 		player.setImage(ImageProvider.getInstance().getSimpleBlock("Cube3", "yellow"));
 		player.setFitWidth(manager.getPlayer().getWidth());
@@ -139,7 +142,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 		// System.out.println( scene.getCamera());
 
-		this.group.getChildren().add(player);
+//		this.group.getChildren().add(player);
+		this.group.getChildren().add(drawer);
 
 		// for (int i = 0; i < group.getChildren().size(); i++) {
 		// group.getChildren().get(i).toBack();
@@ -151,7 +155,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		manager.update();
 		updateCamera();
 		updateBlocks();
-		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
+//		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
+		drawer.draw();
 
 	}
 

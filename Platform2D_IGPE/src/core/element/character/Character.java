@@ -29,6 +29,8 @@ public interface Character {
 	public abstract int getHeight();
 
 	public abstract int getDamage();
+	
+	public abstract String getName();
 
 	public abstract void setDamage(int damage);
 

@@ -40,7 +40,7 @@ public class PlayManager {
 		// la funzione che da posizione al player non può trovarsi in world, il world deve solo conoscere la posizione del player 
 		// altrimenti uno aspetta l'altro per istanziarsi e muoiono tutti
 		world = new AbstractWorld();
-		currentPlayer = new Player("asdf", 10, 1, world);
+		currentPlayer = new Player("Vincenzo", 10, 1, world);
 		players.add(currentPlayer);
 		world.loadMap("resources/Levels/levelTest");
 		world.initialize();

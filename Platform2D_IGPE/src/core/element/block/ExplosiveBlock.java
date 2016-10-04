@@ -39,11 +39,13 @@ public class ExplosiveBlock extends AbstractBlock {
 			if (!explosion && current - lastMillis >= 1000) {
 				System.out.println("non gè più");
 				explosion = true;
+				animated = true;
 			}
-			if (explosion && current - lastMillis >= 5000 ) {
+			if (explosion && current - lastMillis >= 3000 ) {
 				System.out.println("rigenerato");
 				explosion = false;
 				beginExplosion = false;
+				animated = false;
 			}
 		}
 	}
@@ -58,4 +60,6 @@ public class ExplosiveBlock extends AbstractBlock {
 	public boolean isExploded (){
 		return explosion;
 	}
+	
+	
 }

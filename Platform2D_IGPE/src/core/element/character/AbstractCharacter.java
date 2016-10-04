@@ -40,7 +40,8 @@ public abstract class AbstractCharacter implements Character {
 	private World world;
 
 	public AbstractCharacter(String name, int life, int damage, World w) {
-//		this.position = position;
+    this.name = name;
+		//		this.position = position;
 		this.damage = damage;
 		this.life = life;
 		world = w;
@@ -304,6 +305,10 @@ public abstract class AbstractCharacter implements Character {
 		position = p;
 	}
 	
+	@Override
+	public String getName() {
+		return name;
+	}
 	// @Override
 	// public void update() {
 	//

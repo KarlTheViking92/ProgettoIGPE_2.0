@@ -46,6 +46,8 @@ public interface Character {
 	
 	public abstract boolean isJumping();
 
+	public abstract boolean isSuperJumping();
+
 	public abstract boolean canJump();
 
 	public abstract boolean canDoubleJump();
@@ -53,6 +55,7 @@ public interface Character {
 	public abstract boolean isFalling();
 	
 	public abstract void collectGem();
+	
 	public abstract int getCollectedGems();
 
 }

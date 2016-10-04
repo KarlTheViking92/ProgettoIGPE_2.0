@@ -23,26 +23,26 @@ public class VincenzoAnimation implements CharacterAnimation {
 
 	};
 
-	private final static Image[] JUMPING_FRAMES = { new Image(PATH_FRAME + "/Jumping/frame1.png"),
-
-	};
+	private final static Image[] JUMPING_FRAMES = { new Image(PATH_FRAME + "/Jump/frame1.png")};
+	private final static Image[] FALLING_FRAMES = { new Image(PATH_FRAME + "/Falling/frame1.png")};
 
 	private SpriteAnimation staticAnimation;
 
 	private SpriteAnimation runAnimation;
-
+ 
 	private SpriteAnimation jumpAnimation;
-
+	private SpriteAnimation fallAnimation;
+	
 	private Character character;
 
 	private StatusOfAnimation currentStatus;
 
 	public VincenzoAnimation() {
 
-		staticAnimation = new SpriteAnimation(STATIC_FRAMES, 150);
-		runAnimation = new SpriteAnimation(RUN_FRAMES, 150);
+		staticAnimation = new SpriteAnimation(STATIC_FRAMES, 300);
+		runAnimation = new SpriteAnimation(RUN_FRAMES, 140);
 		jumpAnimation = new SpriteAnimation(JUMPING_FRAMES, 100);
-
+		fallAnimation = new SpriteAnimation(FALLING_FRAMES, 100);
 	}
 
 	@Override
@@ -62,8 +62,7 @@ public class VincenzoAnimation implements CharacterAnimation {
 
 	@Override
 	public Image getCharacterFallAnimation() {
-		// TODO Auto-generated method stub
-		return null;
+		return fallAnimation.nextFrame();
 	}
 
 	@Override

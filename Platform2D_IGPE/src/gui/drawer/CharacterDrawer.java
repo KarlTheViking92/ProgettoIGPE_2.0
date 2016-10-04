@@ -1,12 +1,8 @@
 package gui.drawer;
 
-import core.element.Position;
-import core.element.block.Block;
 import core.element.character.Character;
 import core.element.character.Direction;
 import gui.animation.CharacterAnimation;
-import javafx.geometry.Point3D;
-import javafx.scene.chart.Axis;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
@@ -23,21 +19,21 @@ public class CharacterDrawer extends ImageView {
 		oldDirection = Direction.RIGHT;
 		this.getTransforms().add(rotation);
 		rotation.setAxis(Rotate.Y_AXIS);
-		this.setFitWidth(45);
-		this.setFitHeight(50);
+		this.setFitWidth(character.getWidth());
+		this.setFitHeight(character.getHeight());
 		// TODO Auto-generated constructor stub
 	}
 
 	private CharacterAnimation loadAnimation(Character c) {
-		String name ="gui.animation."+c.getName()+"Animation";
-		
+		String name = "gui.animation." + c.getName() + "Animation";
+
 		Class animation;
 		try {
-			
+
 			System.out.println(name);
 			animation = Class.forName(name);
 			return (CharacterAnimation) animation.newInstance();
-			
+
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,7 +52,6 @@ public class CharacterDrawer extends ImageView {
 		this.setLayoutY(character.getY());
 		
 		rotation.setPivotX(this.getX()+(character.getWidth()/2));
-		System.out.println(oldDirection + "  " + character.getDirection());
 		
 		if(oldDirection == Direction.RIGHT && character.getDirection() == Direction.LEFT){
 			rotation.setAngle(180);
@@ -68,11 +63,12 @@ public class CharacterDrawer extends ImageView {
 			rotation.setAngle(0);
 			oldDirection = character.getDirection();
 		}
-		if (character.isJumping())
+		if (character.isJumping() || character.isSuperJumping()){
+			System.out.println("jump!!!");
 			this.setImage(animation.getCharacterJumpAnimation());    
-
-		
-		if(character.getDirection() == Direction.STOP)
+		}else if(character.isFalling()){
+			this.setImage(animation.getCharacterFallAnimation());
+		}else if(character.getDirection() == Direction.STOP)
 			this.setImage(animation.getCharacterIdleAnimation());
 		else
 			this.setImage(animation.getCharacterMoveAnimation());

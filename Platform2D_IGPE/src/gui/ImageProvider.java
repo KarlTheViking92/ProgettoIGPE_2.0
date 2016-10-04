@@ -50,7 +50,7 @@ public class ImageProvider {
 		Pattern regex = Pattern.compile("(\\w+)..*");
 		for (String image : properties.getCubes()) {
 			String[] token = image.split("/");
-
+//			System.out.println("sto caricando " + image);
 			if (token[3].equals("SpecialCube")) {
 				match = regex.matcher(token[4]);
 				if (match.find()) {
@@ -88,14 +88,21 @@ public class ImageProvider {
 					editorElements.put(match.group(1), new Image("file:" + image));
 				}
 			}
+			else if (token[2].contains("character")) {
+				match = regex.matcher(token[3]);
+//				System.out.println(token[3]);
+				if (match.find()) {
+					images.put(match.group(1), new Image("file:" + image));
+				}
+			}
 		}
 	}
 
-	public Image getImage(int code) {
-		if (codes.containsKey(code)) {
+	public Image getImage(String code) {
+	/*	if (codes.containsKey(code)) {
 			return images.get(codes.get(code));
-		}
-		return null;
+		}*/
+		return images.get(code);
 	}
 
 	public Image getSimpleBlock(String cube, String color) {

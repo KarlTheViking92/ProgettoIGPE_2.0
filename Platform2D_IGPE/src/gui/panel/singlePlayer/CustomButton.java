@@ -7,7 +7,7 @@ public class CustomButton extends ImageView{
 	public CustomButton() {
 		this.setFitHeight(100);
 		this.setFitWidth(100);
-		this.setOnMouseClicked(e -> {});
+//		this.setOnMouseClicked(e -> {});
 		this.setOnMouseReleased(e -> {});
 	}
 	

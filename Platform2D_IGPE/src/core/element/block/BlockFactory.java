@@ -81,12 +81,4 @@ public class BlockFactory {
 
 	}
 
-	/*
-	 * public static void main(String[] args) { BlockFactory test = new
-	 * BlockFactory();
-	 * 
-	 * Block b = test.makeBlock(6, new Position(5, 6));
-	 * 
-	 * System.out.println(b.getClass() + " "+ b.getX() + " "+ b.getY()); }
-	 */
 }

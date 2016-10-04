@@ -8,7 +8,9 @@ import gui.animation.SpriteAnimation;
 import javafx.scene.image.Image;
 
 public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
-
+	
+	private double originalWidth, originalHeight;
+	private double originalX, originalY;
 	private double opacity = 1;
 	private SpriteAnimation explosion;
 	private final static Image[] EXPLOSION_FRAMES = {
@@ -28,9 +30,14 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 			new Image("file:resources/images/block/SpecialCube/Explosion/14.png"),
 
 	};
+	private static final double SCALEFACTOR = 4;
 
 	public ExplosiveBlockGraphic(Block logic) {
 		super(logic);
+		
+		originalWidth = this.getFitWidth(); originalHeight = this.getFitHeight();
+		originalX = this.getLayoutX(); originalY = this.getLayoutY();
+		
 		this.setImage(ImageProvider.getInstance().getSpecialBlock("ExplosiveBlock"));
 		explosion = new SpriteAnimation(EXPLOSION_FRAMES, 150);
 	}
@@ -41,23 +48,21 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 
 		if (logicBlock.isAnimated() && !explosion.isFinished()) {
 			this.setImage(explosion.nextFrame());
-//			 this.setFitHeight(200);
-//			 this.setFitWidth(200);
-//			 this.setTranslateY(-70);
-//			 this.setTranslateX(-75);
-
+			System.out.println("new size is " + originalWidth*SCALEFACTOR + "  " + originalHeight*SCALEFACTOR);
+			this.setFitWidth(originalWidth*SCALEFACTOR);
+			this.setFitHeight(originalWidth*SCALEFACTOR);
+			this.setLayoutX(originalX - ((originalWidth*SCALEFACTOR)/3));
+			this.setLayoutY(originalY - ((originalWidth*SCALEFACTOR)/3));
 		}
 
 		else { 
 	
 			this.setImage(ImageProvider.getInstance().getSpecialBlock("ExplosiveBlock"));
 			explosion.restartAnimation();
-//			this.setFitHeight(60);
-//			this.setFitWidth(60);
-//			 this.setTranslateY(0);
-//			 this.setTranslateX(0);
-			
-
+			this.setFitWidth(originalWidth);
+			this.setFitHeight(originalHeight);
+			this.setLayoutX(originalX);
+			this.setLayoutY(originalY);
 		}
 
 	}

@@ -33,15 +33,12 @@ public class ExplosiveBlock extends AbstractBlock {
 	@Override
 	public void update() {
 		if (beginExplosion) {
-			System.out.println("sto contando minghiù");
 			long current = System.currentTimeMillis();
-			System.out.println(current + "   " + lastMillis);
 			if (!explosion && current - lastMillis >= 1000) {
-				System.out.println("non gè più");
 				explosion = true;
 				animated = true;
 			}
-			if (explosion && current - lastMillis >= 3000 ) {
+			if (!this.isPlayerInsideBlock() && explosion && current - lastMillis >= 3000 ) {
 				System.out.println("rigenerato");
 				explosion = false;
 				beginExplosion = false;

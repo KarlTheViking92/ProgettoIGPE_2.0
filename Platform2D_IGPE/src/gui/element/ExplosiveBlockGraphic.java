@@ -8,26 +8,26 @@ import gui.animation.SpriteAnimation;
 import javafx.scene.image.Image;
 
 public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
-	
+	private final static String ANIMATION_PATH = "file:resources/images/animation/Explosion";
 	private double originalWidth, originalHeight;
 	private double originalX, originalY;
 	private double opacity = 1;
 	private SpriteAnimation explosion;
 	private final static Image[] EXPLOSION_FRAMES = {
-			new Image("file:resources/images/block/SpecialCube/Explosion/1.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/2.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/3.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/4.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/5.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/6.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/7.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/8.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/9.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/10.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/11.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/12.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/13.png"),
-			new Image("file:resources/images/block/SpecialCube/Explosion/14.png"),
+			new Image(ANIMATION_PATH+"/1.png"),
+			new Image(ANIMATION_PATH+"/2.png"),
+			new Image(ANIMATION_PATH+"/3.png"),
+			new Image(ANIMATION_PATH+"/4.png"),
+			new Image(ANIMATION_PATH+"/5.png"),
+			new Image(ANIMATION_PATH+"/6.png"),
+			new Image(ANIMATION_PATH+"/7.png"),
+			new Image(ANIMATION_PATH+"/8.png"),
+			new Image(ANIMATION_PATH+"/9.png"),
+			new Image(ANIMATION_PATH+"/10.png"),
+			new Image(ANIMATION_PATH+"/11.png"),
+			new Image(ANIMATION_PATH+"/12.png"),
+			new Image(ANIMATION_PATH+"/13.png"),
+			new Image(ANIMATION_PATH+"/14.png"),
 
 	};
 	private static final double SCALEFACTOR = 4;

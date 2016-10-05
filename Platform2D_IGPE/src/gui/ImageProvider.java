@@ -54,6 +54,7 @@ public class ImageProvider {
 			if (token[3].equals("SpecialCube")) {
 				match = regex.matcher(token[4]);
 				if (match.find()) {
+					System.out.println("carico "+ match.group(1));
 					animatedPaths.add(match.group(1));
 					specialBlock.put(match.group(1), new Image("file:" + image));
 
@@ -161,8 +162,8 @@ public class ImageProvider {
 		return worldPaths;
 	}
 
-	public HashMap<String, Integer> getImageTypes() {
-		return imageTypes;
+	public Integer getImageTypes(String key) {
+		return imageTypes.get(key);
 	}
 
 	public List<String> getEditorPaths() {

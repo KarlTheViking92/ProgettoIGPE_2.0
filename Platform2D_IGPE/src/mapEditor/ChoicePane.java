@@ -144,7 +144,7 @@ public class ChoicePane extends Pane {
 		List<String> cubes = ImageProvider.getInstance().getItemPaths();
 		for (int i = 0; i < cubes.size(); i++) {
 			AbstractObject abstractObject = new AbstractObject(
-					ImageProvider.getInstance().getImageTypes().get(cubes.get(i)),
+					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getItems(cubes.get(i)));
 			addEvent(abstractObject);
 			items.addObject(abstractObject);
@@ -156,7 +156,7 @@ public class ChoicePane extends Pane {
 		List<String> cubes = ImageProvider.getInstance().getEnemyPaths();
 		for (int i = 0; i < cubes.size(); i++) {
 			AbstractObject abstractObject = new AbstractObject(
-					ImageProvider.getInstance().getImageTypes().get(cubes.get(i)),
+					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getEnemy(cubes.get(i)));
 			addEvent(abstractObject);
 			enemies.addObject(abstractObject);
@@ -170,7 +170,7 @@ public class ChoicePane extends Pane {
 		for (int i = 0; i < cubes.size(); i++) {
 			System.out.println("cube: " + cubes.get(i));
 			AbstractObject abstractObject = new AbstractObject(
-					ImageProvider.getInstance().getImageTypes().get(cubes.get(i)),
+					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getSpecialBlock(cubes.get(i)));
 			addEvent(abstractObject);
 			animatedBlock.addObject(abstractObject);

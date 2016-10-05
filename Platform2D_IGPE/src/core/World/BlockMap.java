@@ -10,6 +10,7 @@ import core.element.Item;
 import core.element.Position;
 import core.element.block.Block;
 import core.element.block.BlockFactory;
+import core.element.block.StandardBlock;
 import javafx.geometry.Point2D;
 
 public class BlockMap {
@@ -35,8 +36,8 @@ public class BlockMap {
 	// map
 	private int rows;
 	private int columns;
-	private int[][] map;
-
+	private int[][] logicalMap;
+	private String[][] coloredMap;
 	// block factory
 
 	BlockFactory factory;
@@ -49,8 +50,9 @@ public class BlockMap {
 	// map gems
 
 	private int gems = 0;
-//	private List<Point2D> gemPosition = new ArrayList<>();
+	// private List<Point2D> gemPosition = new ArrayList<>();
 	private List<Item> gemList = new ArrayList<>();
+
 	// constructor
 	public BlockMap(String path) {
 		this.factory = new BlockFactory();
@@ -64,23 +66,26 @@ public class BlockMap {
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < columns; x++) {
 
-				if (map[y][x] == 0) {
+				if (logicalMap[y][x] == 0) {
 					blocks[y][x] = null;
-				} else if (map[y][x] == 1) { // player
+				} else if (logicalMap[y][x] == 15) { // player
 					spawnPoint = new Point2D(x * BLOCKSIZE, y * BLOCKSIZE);
 				}
 
-				else if (map[y][x] == 3) { // conta una gemma
-//					gemPosition.add(new Point2D(x, y));
+				else if (logicalMap[y][x] == 3) { // conta una gemma
+					// gemPosition.add(new Point2D(x, y));
 					gemList.add(new Gem(x * BLOCKSIZE, y * BLOCKSIZE, 50, 50));
 					gems++;
 				}
 
-				else if (map[y][x] == 2) { // spawn point
+				else if (logicalMap[y][x] == 2) { // spawn point
 
 				} else {
 					// forse la position è sbagliata
-					blocks[y][x] = factory.makeBlock(map[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					blocks[y][x] = factory.makeBlock(logicalMap[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					if (blocks[y][x] instanceof StandardBlock) {
+						blocks[y][x].setColor(coloredMap[y][x]);
+					}
 					if (!blocklist.contains(blocks[y][x]))
 						blocklist.add(blocks[y][x]);
 				}
@@ -100,26 +105,28 @@ public class BlockMap {
 	// load map from txt file
 	public void loadMap() {
 		try {
-			BufferedReader buffer = new BufferedReader(new FileReader(path));
-
-			rows = Integer.parseInt(buffer.readLine());
-			columns = Integer.parseInt(buffer.readLine());
-			map = new int[rows][columns];
+			BufferedReader logicalPath = new BufferedReader(new FileReader(path));
+			BufferedReader coloredPath = new BufferedReader(new FileReader(path + "_color"));
+			rows = Integer.parseInt(logicalPath.readLine());
+			columns = Integer.parseInt(logicalPath.readLine());
+			logicalMap = new int[rows][columns];
+			coloredMap = new String[rows][columns];
 			blocks = new Block[rows][columns];
 
 			for (int i = 0; i < rows; i++) {
 
-				String line = buffer.readLine();
-
-				String[] tokens = line.split("\\s+");
+				String logicalLine = logicalPath.readLine();
+				String colorLine = coloredPath.readLine();
+				String[] logicalTokens = logicalLine.split("\\s+");
+				String[] coloredTokens = colorLine.split("\\s+");
 				for (int j = 0; j < columns; j++) {
-
-					map[i][j] = Integer.parseInt(tokens[j]);
-
+					logicalMap[i][j] = Integer.parseInt(logicalTokens[j]);
+					coloredMap[i][j] = coloredTokens[j];
 				}
 			}
 
-			buffer.close();
+			logicalPath.close();
+			coloredPath.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

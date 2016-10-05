@@ -11,7 +11,7 @@ public class StandardBlockGraphic extends AbstractGraphicBlock {
 				
 //		System.out.println("code " + logicBlock.getClass());
 //		System.out.println("code " + logicBlock.getCode());
-		this.setImage(ImageProvider.getInstance().getSimpleBlock("C4", "rock"));
+		this.setImage(ImageProvider.getInstance().getSimpleBlock1(logic.getColor()));
 	}
 	
 }

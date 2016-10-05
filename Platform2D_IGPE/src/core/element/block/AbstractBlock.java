@@ -11,6 +11,7 @@ public class AbstractBlock implements Block {
 	private int code;
 	private String color;
 	protected boolean inside = false;
+
 	@Override
 	public int getCode() {
 		return code;
@@ -69,19 +70,21 @@ public class AbstractBlock implements Block {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void restart() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	@Override
 	public String getColor() {
 		return color;
 	}
 
+	@Override
 	public void setColor(String color) {
 		this.color = color;
 	}

@@ -18,21 +18,20 @@ public class SavemapPopup extends AbstractPopup{
 
 	public SavemapPopup(double width, double height) {
 		super(width, height);
-//		this.ok = new Button("Save");
-//		this.cancel = new Button("Cancel");
-//		Text t = new Text("INSERISCI IL NOME");
-//		ok.setOnAction(e -> {
-//			if (textField.getText().length() > 0) {
-////				editor.saveMap(nameLevel);
-//				EditorManager.getInstance().saveMap(textField.getText());
-//				this.saved = true;
-//			}
-//		});
-//		cancel.setOnAction(e -> {
-//			this.delete = true;
-//		});
-//		t.setFill(Color.BLACK);
-//		this.getChildren().addAll(t);
+		this.ok = new Button("Save");
+		this.cancel = new Button("Cancel");
+		Text t = new Text("INSERISCI IL NOME");
+		ok.setOnAction(e -> {
+			if (textField.getText().length() > 0) {
+				EditorManager.getInstance().saveMap(textField.getText());
+				this.saved = true;
+			}
+		});
+		cancel.setOnAction(e -> {
+			this.delete = true;
+		});
+		t.setFill(Color.BLACK);
+		this.getChildren().addAll(t,textField,ok);
 	}
 
 	public boolean isSave() {

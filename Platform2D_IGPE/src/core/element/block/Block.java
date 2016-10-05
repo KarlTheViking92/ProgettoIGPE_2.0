@@ -14,6 +14,7 @@ public interface Block  {
 	public abstract void setHeight(double d);
 	public abstract int getCode();
 	public abstract String getColor();
+	public abstract void setColor(String s);
 	public abstract boolean isPlayerInsideBlock();
 	public abstract void setPlayerState(Character c);
 }

@@ -74,7 +74,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		this.setHeight(height);
 
 		cameraDistance = new Point2D(500.0, 500.0);
-		mapLimit = new Point2D(400.0, 200.0);
+		mapLimit = new Point2D(400.0, 200.0); // con 100.00,50.00 funziona in questo caso almeno
 		// this.setOnKeyPressed(new KeyboardPressedEvent(this));
 		// this.setOnKeyReleased(new KeyboardReleasedEvent(this));
 
@@ -135,11 +135,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 		System.out.println("camera");
 		System.out.println(scene.getCamera());
-		if (!resolution)
+	/*	if (!resolution)
 			scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
 		else
 			scene.getCamera().setTranslateZ(HDRESOLUTION);
-
+*/
 		// System.out.println( scene.getCamera());
 
 //		this.group.getChildren().add(player);

@@ -2,6 +2,9 @@ package mapEditor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import gui.ImageProvider;
 import gui.panel.UpdatablePane;
 import javafx.scene.Cursor;
@@ -32,7 +35,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 	private boolean gemsCheck = false;
 
 	private int gemsCounter = 0;
-	
+
 	private ImageView currentBlock;
 	private Rectangle shadow = new Rectangle();
 
@@ -49,7 +52,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		this.matrix = new ImageView[row][column];
 		this.logicMatrix = new int[row][column];
 		this.colorMatrix = new String[row][column];
-		this.choice = new AbstractObject(1, ImageProvider.getInstance().getEditorImage(editorPaths.get(0)));
+		this.choice = new AbstractObject(5, ImageProvider.getInstance().getSimpleBlock1("C4_rock"));
 		this.shadow.setFill(Color.BEIGE);
 		this.shadow.setOpacity(0.2);
 
@@ -73,8 +76,8 @@ public class EditorPane extends Pane implements UpdatablePane {
 			for (int x = 0; x < column; x++) {
 				if ((x == 0 || x == column - 1) || ((y == 0 || y == row - 1))) {
 					drawImage(x, y, choice);
+					colorMatrix[y][x] = "C4_rock";
 				}
-
 			}
 		}
 	}
@@ -89,7 +92,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		if ((block.getCode() == 15) && spawnLevelCheck)
 			return false;
 
-		if (block.getCode() == 18 && (logicMatrix[x + 1][y] == 9 || logicMatrix[x + 1][y] == 15))
+		if (block.getCode() == 3 && (logicMatrix[x + 1][y] == 9 || logicMatrix[x + 1][y] == 15))
 			return false;
 
 		if ((block.getCode() == 15 || block.getCode() == 9)
@@ -106,8 +109,10 @@ public class EditorPane extends Pane implements UpdatablePane {
 		if (block.getCode() == 9 && logicMatrix[x - 1][y] != 0)
 			return false;
 
-		if (block.getCode() > 1 && logicMatrix[x + 1][y] == 9)
+		System.out.println("x " + (x + 1) + " y " + y);
+		if (block.getCode() > 5 && logicMatrix[x + 1][y] == 9) {
 			return false;
+		}
 
 		if (block.getCode() == 15 && logicMatrix[x + 1][y] == 7)
 			return false;
@@ -123,8 +128,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		if (block.getCode() == 7 && (y == row - 2 || y == 1 || x == 1))
 			return false;
 
-		if ((block.getCode() == 5 && block.getCode() != 0)
-				&& (logicMatrix[x + 1][y] == 7 || logicMatrix[x + 1][y] == 15))
+		if ((block.getCode() == 5) && (logicMatrix[x + 1][y] == 7 || logicMatrix[x + 1][y] == 15))
 			return false;
 
 		if ((((block.getCode() == 6 || block.getCode() == 10 || block.getCode() == 14) && block.getCode() != 0))
@@ -143,7 +147,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		if (gemsCounter >= 3)
 			gemsCheck = true;
 
-		if (logicMatrix[x][y] == 18) {
+		if (logicMatrix[x][y] == 3) {
 			gemsCounter++;
 		}
 	}
@@ -159,8 +163,9 @@ public class EditorPane extends Pane implements UpdatablePane {
 	private void drawImage(int x, int y, ImageView code) {
 		if (checkMatrix(x, y)) {
 			if (matrix[y][x] == null) {
-				if (!waterCheck(y, x, code))
-					return;
+				if (x != column - 1 && y != row - 1)
+					if (!waterCheck(y, x, code))
+						return;
 				ImageView rect = new ImageView();
 				rect.setImage(code.getImage());
 				rect.setFitHeight(65);
@@ -214,7 +219,6 @@ public class EditorPane extends Pane implements UpdatablePane {
 			}
 		}
 	}
-
 
 	private boolean checkMatrix(int x, int y) {
 		return ((x < column && y < row) && (x >= 0 && y >= 0));

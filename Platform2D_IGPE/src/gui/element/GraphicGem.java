@@ -7,7 +7,7 @@ public class GraphicGem extends AbstractGraphicItem{
 
 	public GraphicGem(Item logicGem) {
 		super(logicGem);
-		this.setImage(ImageProvider.getInstance().getItems("gem"));
+		this.setImage(ImageProvider.getInstance().getItems("Gem"));
 	}
 
 	@Override

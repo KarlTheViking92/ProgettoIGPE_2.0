@@ -6,11 +6,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class AbstractPopup extends Pane implements Popup{
 
 	protected static final Font POPUP_FONT = Font.loadFont("file:resources/font/Engcomica.otf", 30);
-	
+	protected Text message = new Text();
 	protected boolean delete = false;
 	protected Rectangle background;
 	
@@ -58,5 +59,4 @@ public class AbstractPopup extends Pane implements Popup{
 	public void restart() {
 		delete = false;
 	}
-
 }

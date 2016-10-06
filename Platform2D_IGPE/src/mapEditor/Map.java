@@ -36,10 +36,10 @@ public class Map extends GridPane implements UpdatablePane {
 	private String cssFile = "file:resources/styleFiles/editorpane.css";
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
 	private Popup errorPopup;
-	private Popup savemapPopup = new SavemapPopup(screen.getWidth() * 0.4, screen.getHeight() * 0.4);
+	private Popup savemapPopup;
 	private String nameLevel;
 	StackPane center = new StackPane();
-	
+
 	public Map(int r, int c, Scene s) {
 		this.right = new ScrollPane();
 		this.getStylesheets().add(cssFile);
@@ -51,23 +51,27 @@ public class Map extends GridPane implements UpdatablePane {
 		setConstraints();
 		right.setFitToWidth(true);
 		right.setFitToHeight(true);
-		
+
 		center.setAlignment(Pos.CENTER);
 		center.getChildren().add(editor);
 		right.setId("rightpane");
 		right.setContent(center);
 
 		// %%%%%%%%%%%%%%%%%%%%%%%%%
-			test.setPrefWidth(screen.getWidth()*0.9);
-			test.setPrefHeight(screen.getHeight());
-//			test.setLayoutX(0);
-//			test.setLayoutY(0);
-//			test.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-			System.out.println("test " + test.getPrefWidth()*0.5 + " " +  test.getPrefHeight()*0.5);
-			errorPopup = new PopupError(screen.getWidth()*0.4, screen.getHeight()*0.4);
-			errorPopup.setPosition(test.getPrefWidth()*0.5, test.getPrefHeight()*0.5);
+		test.setPrefWidth(screen.getWidth() * 0.9);
+		test.setPrefHeight(screen.getHeight());
+		// test.setLayoutX(0);
+		// test.setLayoutY(0);
+		// test.setBackground(new Background(new BackgroundFill(Color.RED,
+		// CornerRadii.EMPTY, Insets.EMPTY)));
+		// System.out.println("test " + test.getPrefWidth()*0.5 + " " +
+		// test.getPrefHeight()*0.5);
+		errorPopup = new PopupError(screen.getWidth() * 0.4, screen.getHeight() * 0.4);
+		errorPopup.setPosition(test.getPrefWidth() * 0.5, test.getPrefHeight() * 0.5);
+		savemapPopup = new SavemapPopup(screen.getWidth() * 0.4, screen.getHeight() * 0.4);
+		savemapPopup.setPosition(test.getPrefWidth() * 0.5, test.getPrefHeight() * 0.5);
 		// %%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		this.add(left, 0, 0);
 		this.add(right, 1, 0);
 		// auto scrollpane event
@@ -123,26 +127,32 @@ public class Map extends GridPane implements UpdatablePane {
 	}
 
 	public void saveMap() {
-		System.out.println("posizioni " + (screen.getWidth() / 2) + " " + (screen.getHeight() / 2));
-		double x = (editor.getWidth() * 0.5 - left.getWidth());
-		double y = (editor.getHeight() * 0.5);
+		// System.out.println("posizioni " + (screen.getWidth() / 2) + " " +
+		// (screen.getHeight() / 2));
+		// double x = (editor.getWidth() * 0.5 - left.getWidth());
+		// double y = (editor.getHeight() * 0.5);
 		if (editor.canSave()) {
-			savemapPopup.setPosition(x, y);
-			editor.getChildren().add((Node) savemapPopup);
+			if (!test.getChildren().contains(savemapPopup)) {
+				// savemapPopup.setPosition(x, y);
+				test.getChildren().add((Node) savemapPopup);
+				right.setHvalue(0);
+				right.setVvalue(0);
+			}
+			center.getChildren().add(test);
 			eventDisabled = true;
 		} else {
-			/*if (!editor.getChildren().contains(errorPopup)) {
-				// getErrorPopup().setLayoutX((editor.getMaxWidth() / 2) -
-				// (getErrorPopup().getPrefWidth() / 2) - left.getPrefWidth());
-				// getErrorPopup().setLayoutY((editor.getMaxHeight() / 2) -
-				// (getErrorPopup().getPrefHeight() / 2));
-				errorPopup.setPosition(x, y);
-				editor.getChildren().add((Node) errorPopup);
-				eventDisabled = true;
-			}*/
+			/*
+			 * if (!editor.getChildren().contains(errorPopup)) { //
+			 * getErrorPopup().setLayoutX((editor.getMaxWidth() / 2) - //
+			 * (getErrorPopup().getPrefWidth() / 2) - left.getPrefWidth()); //
+			 * getErrorPopup().setLayoutY((editor.getMaxHeight() / 2) - //
+			 * (getErrorPopup().getPrefHeight() / 2)); errorPopup.setPosition(x,
+			 * y); editor.getChildren().add((Node) errorPopup); eventDisabled =
+			 * true; }
+			 */
 			eventDisabled = true;
-			if(!test.getChildren().contains(errorPopup)){
-				test.getChildren().add((Node)errorPopup);
+			if (!test.getChildren().contains(errorPopup)) {
+				test.getChildren().add((Node) errorPopup);
 				right.setHvalue(0);
 				right.setVvalue(0);
 			}
@@ -162,6 +172,8 @@ public class Map extends GridPane implements UpdatablePane {
 			center.getChildren().remove(savemapPopup);
 			savemapPopup.restart();
 			eventDisabled = false;
+			test.getChildren().clear();
+			center.getChildren().remove(test);
 		}
 		editor.update();
 	}

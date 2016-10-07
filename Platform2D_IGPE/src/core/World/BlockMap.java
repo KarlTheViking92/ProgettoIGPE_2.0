@@ -10,7 +10,9 @@ import core.element.Item;
 import core.element.Position;
 import core.element.block.Block;
 import core.element.block.BlockFactory;
+import core.element.block.SpawnBlock;
 import core.element.block.StandardBlock;
+import core.gameManagers.PlayManager;
 import javafx.geometry.Point2D;
 
 public class BlockMap {
@@ -68,26 +70,24 @@ public class BlockMap {
 
 				if (logicalMap[y][x] == 0) {
 					blocks[y][x] = null;
-				} else if (logicalMap[y][x] == 15) { // player
-					spawnPoint = new Point2D(x * BLOCKSIZE, y * BLOCKSIZE);
-				}
-
-				else if (logicalMap[y][x] == 3) { // conta una gemma
+				} else if (logicalMap[y][x] == 3) { // conta una gemma
 					// gemPosition.add(new Point2D(x, y));
 					gemList.add(new Gem(x * BLOCKSIZE, y * BLOCKSIZE, 50, 50));
 					gems++;
-				}
-
-				else if (logicalMap[y][x] == 2) { // spawn point
-
 				} else {
 					// forse la position è sbagliata
 					blocks[y][x] = factory.makeBlock(logicalMap[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
 					if (blocks[y][x] instanceof StandardBlock) {
 						blocks[y][x].setColor(coloredMap[y][x]);
 					}
-					if (!blocklist.contains(blocks[y][x]))
+					if (!blocklist.contains(blocks[y][x])) {
 						blocklist.add(blocks[y][x]);
+					}
+				}
+				if (logicalMap[y][x] == 15) { // player
+					spawnPoint = new Point2D(
+							(x * BLOCKSIZE) + (BLOCKSIZE / 2) - PlayManager.getInstance().getPlayer().getWidth() / 2,
+							y * BLOCKSIZE - BLOCKSIZE);
 				}
 
 			}

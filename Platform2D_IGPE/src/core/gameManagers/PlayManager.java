@@ -42,7 +42,8 @@ public class PlayManager {
 		world = new AbstractWorld();
 		currentPlayer = new Player("Vincenzo", 10, 1, world);
 		players.add(currentPlayer);
-		world.loadMap("resources/Levels/customLevel/m");
+//		world.loadMap("resources/Levels/customLevel/Livello Bello");
+		world.loadMap("resources/Levels/customLevel/Livello Bello");
 		world.initialize();
 		
 //		this.players = world.getPlayers();

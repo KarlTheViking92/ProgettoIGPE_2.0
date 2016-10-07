@@ -10,7 +10,7 @@ public class GraphicBlockFactory {
 	public GraphicElement makeBlock(Block b) {
 
 		try {
-			System.out.println(b.getClass().getSimpleName());
+//			System.out.println(b.getClass().getSimpleName());
 //			System.out.println("gui.element.block."+b.getClass().getSimpleName()+"Graphic");
 			Class block = Class.forName("gui.element."+b.getClass().getSimpleName()+"Graphic");
 			

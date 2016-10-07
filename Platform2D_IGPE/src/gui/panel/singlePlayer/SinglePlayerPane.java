@@ -143,7 +143,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 			scene.getCamera().setTranslateZ(HDRESOLUTION);
 */
 		// System.out.println( scene.getCamera());
-		scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
+		scene.getCamera().setTranslateZ(HDRESOLUTION);
 //		this.group.getChildren().add(player);
 		this.group.getChildren().add(drawer);
 

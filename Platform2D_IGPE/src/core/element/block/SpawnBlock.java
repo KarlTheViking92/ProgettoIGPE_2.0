@@ -4,7 +4,7 @@ import core.element.Position;
 
 public class SpawnBlock extends AbstractBlock{
 
-	public SpawnBlock(Position position, int code) {
+	public SpawnBlock(Position position) {
 		super(position, 15);
 	}
 

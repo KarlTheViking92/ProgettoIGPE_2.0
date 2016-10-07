@@ -50,6 +50,7 @@ public class BlockFactory {
 		try {
 //			System.out.println(code);
 //			System.out.println("core.element.block." + blockSet.get(code));
+//			System.out.println("logic Block: "+blockSet.get(code));
 			Class block = Class.forName("core.element.block." + blockSet.get(code));
 			
 			return (Block) block.getConstructor(Position.class).newInstance(pos);

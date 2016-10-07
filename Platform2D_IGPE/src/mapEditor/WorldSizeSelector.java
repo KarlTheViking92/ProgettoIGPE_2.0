@@ -1,6 +1,8 @@
 package mapEditor;
 
+import gui.GameProperties;
 import gui.ImageProvider;
+import gui.panel.AbstractGamePage;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -8,8 +10,9 @@ import javafx.scene.effect.Glow;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 
-public class WorldSizeSelector extends Pane implements UpdatablePane {
-	private Rectangle2D screen = Screen.getPrimary().getBounds();
+//public class WorldSizeSelector extends Pane implements UpdatablePane {
+public class WorldSizeSelector extends AbstractGamePage {
+//	private Rectangle2D screen = Screen.getPrimary().getBounds();
 	private Map mapEditor;
 	private MyImage next;
 	private MyImage back;

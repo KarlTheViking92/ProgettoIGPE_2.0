@@ -40,7 +40,8 @@ public class SelectPlayer extends AbstractGamePage {
 //		this.setHeight(screen.getHeight());
 //		this.setWidth(screen.getWidth());
 		this.preview = new ImageView();
-		this.background.setFill(new ImagePattern(new Image("file:resources/images/SelectPlayerMenu.png")));
+//		this.background.setFill(new ImagePattern(new Image("file:resources/images/SelectPlayerMenu.png")));
+		this.setBackground("SelectPlayerMenu.png");
 		this.previewBackground.setImage(new Image("file:resources/images/borderPreview.png"));
 		this.leftArrow.setImage(new Image("file:resources/images/leftArrow.png"));
 		this.rightArrow.setImage(new Image("file:resources/images/rightArrow.png"));
@@ -52,7 +53,6 @@ public class SelectPlayer extends AbstractGamePage {
 		previews.add(ImageProvider.getInstance().getImage("previewCiccio"));
 
 		next.setOnMouseClicked(e -> {
-			System.out.println(nameField.getText().hashCode());
 			if(!nameField.getText().equals("")){
 				System.out.println(nameField.getText());
 				System.out.println(previewIndex);

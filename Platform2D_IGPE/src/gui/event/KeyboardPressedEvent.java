@@ -36,6 +36,18 @@ public class KeyboardPressedEvent implements EventHandler<KeyEvent>{
 			manager.playerJump();
 			break;
 			
+		case I:
+			gamePane.cameraPosition[1]-=10;
+			break;
+		case L:
+			gamePane.cameraPosition[0]+=10;
+			break;
+		case J:
+			gamePane.cameraPosition[0]-=10;
+			break;
+		case K:
+			gamePane.cameraPosition[1]+=10;
+			break;
 		default:
 			break;
 		}

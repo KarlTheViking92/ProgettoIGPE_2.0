@@ -19,6 +19,7 @@ import gui.element.StandardBlockGraphic;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,6 +39,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private CharacterDrawer drawer;
 	private PlayManager manager;
 
+	public double[] cameraPosition = {0.0,0.0};
 	private double width = 0;
 	private double height = 0;
 
@@ -72,8 +74,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		this.background.setFill(new ImagePattern(new Image("file:resources/images/bkgrImg.png")));
 		this.setWidth(width);
 		this.setHeight(height);
-
-		cameraDistance = new Point2D(500.0, 500.0);
+		
+		cameraDistance = new Point2D(700.0, 700.0);
 		mapLimit = new Point2D(400.0, 200.0); // con 100.00,50.00 funziona in questo caso almeno
 		// this.setOnKeyPressed(new KeyboardPressedEvent(this));
 		// this.setOnKeyReleased(new KeyboardReleasedEvent(this));
@@ -141,7 +143,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 			scene.getCamera().setTranslateZ(HDRESOLUTION);
 */
 		// System.out.println( scene.getCamera());
-
+		scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
 //		this.group.getChildren().add(player);
 		this.group.getChildren().add(drawer);
 
@@ -156,12 +158,13 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		updateCamera();
 		updateBlocks();
 //		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
+		System.out.println("player in " + manager.getPlayer().getX() + "  " + manager.getPlayer().getY());
 		drawer.draw();
 
 	}
 
 	private void updateCamera() {
-		if (manager.getPlayer().getX() < (manager.getLevelWidth() - mapLimit.getX())
+/*		if (manager.getPlayer().getX() < (manager.getLevelWidth() - mapLimit.getX())
 				&& manager.getPlayer().getX() > 450) {
 			scene.getCamera().setTranslateX(manager.getPlayer().getX() - cameraDistance.getX());
 		} else {
@@ -177,7 +180,14 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 			scene.getCamera().setTranslateY(
 					((manager.getPlayer().getY() < 200) ? 200 : (manager.getLevelHeight() - mapLimit.getY()))
 							- cameraDistance.getY() + ((manager.getPlayer().getY() % 2 == 0) ? 0.1 : -0.1));
-		}
+		}*/
+		scene.getCamera().setLayoutX(manager.getPlayer().getX() - 800);
+		scene.getCamera().setLayoutY(manager.getPlayer().getY() - 500);
+		//scene.getCamera().setTranslateX(cameraPosition[0]);
+		//scene.getCamera().setTranslateY(cameraPosition[1]);
+		System.out.println(scene.getCamera().getTranslateX() + "   "  + scene.getCamera().getTranslateY());
+//		scene.getCamera().setTranslateZ();
+//		System.out.println(((PerspectiveCamera)scene.getCamera()).getFieldOfView());
 	}
 
 	private void updateBlocks(){

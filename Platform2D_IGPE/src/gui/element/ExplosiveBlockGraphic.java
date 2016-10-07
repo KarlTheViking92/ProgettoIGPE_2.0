@@ -1,43 +1,37 @@
 package gui.element;
 
-import com.sun.imageio.plugins.common.I18N;
-
 import core.element.block.Block;
 import gui.ImageProvider;
 import gui.animation.SpriteAnimation;
 import javafx.scene.image.Image;
 
 public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
+	
 	private final static String ANIMATION_PATH = "file:resources/images/animation/Explosion";
+	private static final double SCALEFACTOR = 4;
+	
 	private double originalWidth, originalHeight;
 	private double originalX, originalY;
-	private double opacity = 1;
+	
 	private SpriteAnimation explosion;
-	private final static Image[] EXPLOSION_FRAMES = {
-			new Image(ANIMATION_PATH+"/1.png"),
-			new Image(ANIMATION_PATH+"/2.png"),
-			new Image(ANIMATION_PATH+"/3.png"),
-			new Image(ANIMATION_PATH+"/4.png"),
-			new Image(ANIMATION_PATH+"/5.png"),
-			new Image(ANIMATION_PATH+"/6.png"),
-			new Image(ANIMATION_PATH+"/7.png"),
-			new Image(ANIMATION_PATH+"/8.png"),
-			new Image(ANIMATION_PATH+"/9.png"),
-			new Image(ANIMATION_PATH+"/10.png"),
-			new Image(ANIMATION_PATH+"/11.png"),
-			new Image(ANIMATION_PATH+"/12.png"),
-			new Image(ANIMATION_PATH+"/13.png"),
-			new Image(ANIMATION_PATH+"/14.png"),
+	
+	private final static Image[] EXPLOSION_FRAMES = { new Image(ANIMATION_PATH + "/1.png"),
+			new Image(ANIMATION_PATH + "/2.png"), new Image(ANIMATION_PATH + "/3.png"),
+			new Image(ANIMATION_PATH + "/4.png"), new Image(ANIMATION_PATH + "/5.png"),
+			new Image(ANIMATION_PATH + "/6.png"), new Image(ANIMATION_PATH + "/7.png"),
+			new Image(ANIMATION_PATH + "/8.png"), new Image(ANIMATION_PATH + "/9.png"),
+			new Image(ANIMATION_PATH + "/10.png"), new Image(ANIMATION_PATH + "/11.png"),
+			new Image(ANIMATION_PATH + "/12.png"), new Image(ANIMATION_PATH + "/13.png"),
+			new Image(ANIMATION_PATH + "/14.png"),
 
 	};
-	private static final double SCALEFACTOR = 4;
 
 	public ExplosiveBlockGraphic(Block logic) {
 		super(logic);
-		
-		originalWidth = this.getFitWidth(); originalHeight = this.getFitHeight();
-		originalX = this.getLayoutX(); originalY = this.getLayoutY();
-		
+		originalWidth = this.getFitWidth();
+		originalHeight = this.getFitHeight();
+		originalX = this.getLayoutX();
+		originalY = this.getLayoutY();
 		this.setImage(ImageProvider.getInstance().getSpecialBlock("ExplosiveBlock"));
 		explosion = new SpriteAnimation(EXPLOSION_FRAMES, 150);
 	}
@@ -48,15 +42,11 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 
 		if (logicBlock.isAnimated() && !explosion.isFinished()) {
 			this.setImage(explosion.nextFrame());
-			System.out.println("new size is " + originalWidth*SCALEFACTOR + "  " + originalHeight*SCALEFACTOR);
-			this.setFitWidth(originalWidth*SCALEFACTOR);
-			this.setFitHeight(originalWidth*SCALEFACTOR);
-			this.setLayoutX(originalX - ((originalWidth*SCALEFACTOR)/3));
-			this.setLayoutY(originalY - ((originalWidth*SCALEFACTOR)/3));
-		}
-
-		else { 
-	
+			this.setFitWidth(originalWidth * SCALEFACTOR);
+			this.setFitHeight(originalWidth * SCALEFACTOR);
+			this.setLayoutX(originalX - ((originalWidth * SCALEFACTOR) / 3));
+			this.setLayoutY(originalY - ((originalWidth * SCALEFACTOR) / 3));
+		} else {
 			this.setImage(ImageProvider.getInstance().getSpecialBlock("ExplosiveBlock"));
 			explosion.restartAnimation();
 			this.setFitWidth(originalWidth);
@@ -64,6 +54,5 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 			this.setLayoutX(originalX);
 			this.setLayoutY(originalY);
 		}
-
 	}
 }

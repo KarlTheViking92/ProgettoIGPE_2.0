@@ -46,7 +46,6 @@ public class GameMenu extends Pane implements UpdatablePane {
 		final Media media = new Media(music.toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setStartTime(Duration.millis(525));
-
 		// InputStream is =
 		// Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
 		// Image img = new Image(is);

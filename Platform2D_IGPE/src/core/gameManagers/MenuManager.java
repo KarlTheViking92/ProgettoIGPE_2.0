@@ -1,6 +1,5 @@
 package core.gameManagers;
 
-import core.element.character.Player;
 import gui.GameMain;
 import gui.event.KeyboardPressedEvent;
 import gui.event.KeyboardReleasedEvent;
@@ -19,10 +18,10 @@ public class MenuManager {
 	private GameMain game;
 
 	private UpdatablePane currentPane;
-	
+	private Pane lastPane = new Pane();
+
 	private GameMenu menu;
 	private Pane root = new Pane();
-//	private Pane 
 	private SinglePlayerPane singlePlayer;
 	private PlayManager matchManager = PlayManager.getInstance();
 	private Camera camera = new PerspectiveCamera();
@@ -51,18 +50,20 @@ public class MenuManager {
 		root.getChildren().add(menu);
 	}
 
-	
 	public void goToSinglePlayer() {
 		menu.stopMusic();
 		root.getChildren().clear();
 		Pane p = new Pane();
 		singlePlayer = new SinglePlayerPane(game.getScene());
-		p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
-		p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
+		// p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
+		// p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
 		// game.getScene().setCamera(camera);
 		// crea il player ?
 		matchManager.init();
-//		matchManager.setCurrentPlayer(new Player("", life, damage, world));
+		// matchManager.setCurrentPlayer(new Player("", life, damage, world));
+		// camera.setNearClip(0);
+		// camera.setFarClip(-10);
+		// ((PerspectiveCamera) camera).setFieldOfView(35);
 		game.getScene().setCamera(camera);
 		singlePlayer.drawWorld();
 		currentPane = singlePlayer;
@@ -70,6 +71,7 @@ public class MenuManager {
 		game.getScene().setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
 		p.getChildren().add(singlePlayer);
 		root.getChildren().add(p);
+
 	}
 
 	public void updateGame() {
@@ -78,5 +80,15 @@ public class MenuManager {
 
 	public Pane getRoot() {
 		return root;
+	}
+
+	public void nextPage() {
+		// currentPane.nextPage();
+		System.out.println("pagina successiva");
+	}
+
+	public void previousPage() {
+		// currentPane.prevoiusPage();
+		System.out.println("pagina precedente");
 	}
 }

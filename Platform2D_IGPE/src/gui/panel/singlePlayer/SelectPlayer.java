@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.ImageProvider;
+import gui.panel.AbstractGamePage;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -18,12 +19,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Screen;
 
-public class SelectPlayer extends Pane implements UpdatablePane {
+public class SelectPlayer extends AbstractGamePage {
 
 	public static final Font FONT_BIG = Font.loadFont("file:resources/font/Engcomica.otf", 55);
 	public static final Font FONT_SMALL = Font.loadFont("file:resources/font/Engcomica.otf", 30);
-	private Rectangle2D screen = Screen.getPrimary().getBounds();
-	private Rectangle background = new Rectangle(screen.getWidth(), screen.getHeight());
+//	private Rectangle2D screen = Screen.getPrimary().getBounds();
+//	private Rectangle background = new Rectangle(screen.getWidth(), screen.getHeight());
 	private List<Image> previews = new ArrayList<>();
 	private ImageView preview;
 	private ImageView previewBackground = new ImageView();
@@ -36,8 +37,8 @@ public class SelectPlayer extends Pane implements UpdatablePane {
 	private int previewIndex = 0;
 	
 	public SelectPlayer() {
-		this.setHeight(screen.getHeight());
-		this.setWidth(screen.getWidth());
+//		this.setHeight(screen.getHeight());
+//		this.setWidth(screen.getWidth());
 		this.preview = new ImageView();
 		this.background.setFill(new ImagePattern(new Image("file:resources/images/SelectPlayerMenu.png")));
 		this.previewBackground.setImage(new Image("file:resources/images/borderPreview.png"));
@@ -55,16 +56,19 @@ public class SelectPlayer extends Pane implements UpdatablePane {
 			if(!nameField.getText().equals("")){
 				System.out.println(nameField.getText());
 				System.out.println(previewIndex);
+				nextPage();
 		}
 			else
 				System.out.println("stringa vuota");
 		});
-		
+		this.back.setOnMouseClicked(e -> {
+			previousPage();
+		});
 		leftArrow.setOnMouseClicked(e -> { previewIndex--; previewIndex = (previewIndex == -1 ) ? previews.size()-1 : previewIndex;});
 		rightArrow.setOnMouseClicked(e -> { previewIndex++; previewIndex = previewIndex%previews.size();});
 		initComponent();
 		
-		this.getChildren().addAll(background,previewBackground, preview, leftArrow, rightArrow, nameField, t, next, back);
+		this.getChildren().addAll(previewBackground, preview, leftArrow, rightArrow, nameField, t, next, back);
 	}
 
 	@Override

@@ -21,8 +21,6 @@ import javafx.stage.Screen;
 
 public class SelectPlayer extends AbstractGamePage {
 
-	public static final Font FONT_BIG = Font.loadFont("file:resources/font/Engcomica.otf", 55);
-	public static final Font FONT_SMALL = Font.loadFont("file:resources/font/Engcomica.otf", 30);
 //	private Rectangle2D screen = Screen.getPrimary().getBounds();
 //	private Rectangle background = new Rectangle(screen.getWidth(), screen.getHeight());
 	private List<Image> previews = new ArrayList<>();
@@ -33,6 +31,7 @@ public class SelectPlayer extends AbstractGamePage {
 	private CustomTextField nameField = new CustomTextField();
 	private ImageView next = new ImageView();
 	private ImageView back = new ImageView();
+//	private Text title = new Text("Select your player");
 	private Text t = new Text("Choose Your Name");
 	private int previewIndex = 0;
 	
@@ -41,12 +40,12 @@ public class SelectPlayer extends AbstractGamePage {
 //		this.setWidth(screen.getWidth());
 		this.preview = new ImageView();
 //		this.background.setFill(new ImagePattern(new Image("file:resources/images/SelectPlayerMenu.png")));
-		this.setBackground("SelectPlayerMenu.png");
+//		this.setBackground("SelectPlayerMenu.png");
 		this.previewBackground.setImage(new Image("file:resources/images/borderPreview.png"));
 		this.leftArrow.setImage(new Image("file:resources/images/leftArrow.png"));
 		this.rightArrow.setImage(new Image("file:resources/images/rightArrow.png"));
-		this.next.setImage(new Image("file:resources/images/editor/startButton.png"));
-		this.back.setImage(new Image("file:resources/images/editor/backButton.png"));
+		this.next.setImage(new Image("file:resources/images/editor/Button_Next.png"));
+		this.back.setImage(new Image("file:resources/images/editor/Button_Back.png"));
 
 		previews.add(ImageProvider.getInstance().getImage("previewVincenzo"));
 		previews.add(ImageProvider.getInstance().getImage("previewCarlo"));
@@ -68,7 +67,7 @@ public class SelectPlayer extends AbstractGamePage {
 		rightArrow.setOnMouseClicked(e -> { previewIndex++; previewIndex = previewIndex%previews.size();});
 		initComponent();
 		
-		this.getChildren().addAll(previewBackground, preview, leftArrow, rightArrow, nameField, t, next, back);
+		this.getChildren().addAll(title,previewBackground, preview, leftArrow, rightArrow, nameField, t, next, back);
 	}
 
 	@Override
@@ -77,11 +76,16 @@ public class SelectPlayer extends AbstractGamePage {
 	}
 	
 	private void initComponent(){
-
-		this.previewBackground.setFitHeight(500);
-		this.previewBackground.setFitWidth(500);
-		this.preview.setFitWidth(150);
-		this.preview.setFitHeight(300);
+		this.title.setText("Select your player");
+		this.title.setLayoutX(screen.getWidth()*0.5 - (title.getBoundsInLocal().getWidth()/2));
+//		this.previewBackground.setFitHeight(500);
+//		this.previewBackground.setFitWidth(500);
+		this.previewBackground.setFitHeight(screen.getWidth()*0.3);
+		this.previewBackground.setFitWidth(screen.getWidth()*0.3);
+//		this.preview.setFitWidth(150);
+//		this.preview.setFitHeight(300);
+		this.preview.setFitWidth(previewBackground.getFitWidth()*0.3);
+		this.preview.setFitHeight(previewBackground.getFitHeight()*0.5);
 		this.previewBackground.setLayoutX((screen.getWidth()*0.5) - (previewBackground.getFitWidth()/2));
 		this.previewBackground.setLayoutY((screen.getHeight()*0.5) - (previewBackground.getFitHeight()/2));
 		this.preview.setLayoutX(previewBackground.getLayoutX() + (previewBackground.getFitWidth()*0.5) - (preview.getFitWidth()/2));
@@ -91,17 +95,21 @@ public class SelectPlayer extends AbstractGamePage {
 		this.leftArrow.setLayoutY(previewBackground.getLayoutY() + (previewBackground.getFitHeight() * 0.5) - (leftArrow.getFitHeight()/2));
 		this.rightArrow.setLayoutX(previewBackground.getLayoutX() + previewBackground.getFitWidth());
 		this.rightArrow.setLayoutY(leftArrow.getLayoutY());
-		this.t.setFont(FONT_BIG);
+		this.t.setFont(FONT_SMALL);
 		this.t.setFill(Color.web("#DC8014"));
 		this.t.setStroke(Color.BLACK);
-		this.t.setLayoutX(previewBackground.getLayoutX() + (previewBackground.getFitWidth()*0.5) - (t.getLayoutBounds().getWidth()/2));
+		this.t.setLayoutX(screen.getWidth()*0.5 - (t.getLayoutBounds().getWidth()/2));
 		this.t.setLayoutY(previewBackground.getLayoutY() + previewBackground.getFitHeight() + 40);
-		this.nameField.setLayoutX(previewBackground.getLayoutX() + (previewBackground.getFitWidth()*0.5) - (nameField.getWidth()/2));
+		this.nameField.setLayoutX(screen.getWidth()*0.5 - (nameField.getWidth()/2));
 		this.nameField.setLayoutY(previewBackground.getLayoutY() + previewBackground.getFitHeight() + 50);
 		this.back.setLayoutX(screen.getWidth()*0.1);
 		this.next.setLayoutX(screen.getWidth()*0.8);
 		this.back.setLayoutY(screen.getHeight()*0.8);
 		this.next.setLayoutY(screen.getHeight()*0.8);
+		this.next.setFitWidth(screen.getWidth()*0.08);
+		this.next.setFitHeight(screen.getWidth()*0.08);
+		this.back.setFitWidth(screen.getWidth()*0.08);
+		this.back.setFitHeight(screen.getWidth()*0.08);
 		
 	}
 	

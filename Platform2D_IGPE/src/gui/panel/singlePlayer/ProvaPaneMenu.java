@@ -13,7 +13,8 @@ public class ProvaPaneMenu extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		SelectPlayer b = new SelectPlayer();
+//		SelectPlayer b = new SelectPlayer();
+		SelectMap b = new SelectMap();
 		Scene scene = new Scene(b,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
 		stage.setScene(scene);
 		stage.setFullScreen(true);

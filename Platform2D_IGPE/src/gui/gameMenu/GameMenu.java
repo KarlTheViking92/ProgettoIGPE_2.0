@@ -111,7 +111,7 @@ public class GameMenu extends Pane implements UpdatablePane {
 
 		MyMenuButton btnSing = new MyMenuButton("singlePlayer", "Single Player", text);
 		btnSing.setTranslateX(screen.getWidth() * 0.30);
-		btnSing.setTranslateY(screen.getHeight() * 0.45);
+		btnSing.setTranslateY(screen.getHeight() * 0.48);
 		btnSing.setOnMouseClicked(event -> {
 			// FadeTransition ft = new FadeTransition(Duration.seconds(0.5),
 			// this);

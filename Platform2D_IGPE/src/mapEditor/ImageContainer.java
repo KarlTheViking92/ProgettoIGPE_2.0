@@ -1,9 +1,15 @@
 package mapEditor;
 
 import gui.ImageProvider;
+import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.effect.Glow;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
@@ -12,6 +18,7 @@ public class ImageContainer extends Group {
 	private MyImage preview;
 	private MyImage increase;
 	private MyImage decrease;
+	private Pane numberContainer = new Pane();
 	private Text number;
 	private String name;
 	private int size;
@@ -25,7 +32,10 @@ public class ImageContainer extends Group {
 		this.number = new Text();
 		this.number.setFont(FONT);
 		this.number.setTextOrigin(VPos.TOP);
-		this.number.setBoundsType(TextBoundsType.VISUAL);
+		this.number.setFill(Color.web("#E9E484"));
+		this.number.setStroke(Color.web("#E98A16"));
+		this.number.setStrokeWidth(2);
+//		this.number.setBoundsType(TextBoundsType.VISUAL);
 		this.preview = new MyImage(provider.getEditorImage("world" + name));
 		this.increase = new MyImage(provider.getEditorImage("increase"));
 		this.decrease = new MyImage(provider.getEditorImage("decrease"));
@@ -53,16 +63,22 @@ public class ImageContainer extends Group {
 		this.decrease.setOnMouseReleased(e -> {
 			decrease.setEffect(null);
 		});
-
-		this.getChildren().addAll(preview, decrease, number, increase);
+		this.numberContainer.getChildren().add(number);
+		this.getChildren().addAll(preview, decrease, numberContainer, increase);
 	}
 
 	private void setPosition(double x, double y) {
 		preview.setPosition(x, y);
 		decrease.setPosition(preview.getLayoutX() + preview.getFitWidth() + SPACING, preview.getLayoutY());
-		number.setLayoutX(decrease.getLayoutX() + decrease.getFitWidth() + SPACING);
-		number.setLayoutY(preview.getLayoutY());
-		increase.setPosition(number.getLayoutX() + number.getLayoutBounds().getWidth() + SPACING, preview.getLayoutY());
+//		number.setLayoutX(decrease.getLayoutX() + decrease.getFitWidth() + SPACING);
+//		number.setLayoutY(preview.getLayoutY() + number.getBoundsInLocal().getHeight()/2);
+		numberContainer.setPrefWidth(preview.getFitWidth());
+		numberContainer.setPrefHeight(preview.getFitHeight());
+		numberContainer.setLayoutX(decrease.getLayoutX() + decrease.getFitWidth() + SPACING);
+		numberContainer.setLayoutY(preview.getLayoutY());
+		number.setLayoutX(numberContainer.getPrefWidth()*0.5 - number.getBoundsInLocal().getWidth()/2);
+		number.setLayoutY(numberContainer.getPrefHeight()*0.5 - number.getBoundsInLocal().getHeight()/2);
+		increase.setPosition(numberContainer.getLayoutX() + numberContainer.getPrefWidth() + SPACING, preview.getLayoutY());
 	}
 	
 	public int getSize(){

@@ -29,12 +29,13 @@ public class WorldSizeSelector extends AbstractGamePage {
 	}
 
 	private void init() {
+		this.setBackground("editor/EditorMenuBackground.png");
 		this.getStylesheets().add(cssFile);
-		this.getStyleClass().add("worldsize");
+//		this.getStyleClass().add("worldsize");
 		this.setPrefWidth(screen.getWidth());
 		this.setPrefHeight(screen.getHeight());
-		this.next = new MyImage(ImageProvider.getInstance().getEditorImage("startButton"));
-		this.back = new MyImage(ImageProvider.getInstance().getEditorImage("BackButton1"));
+		this.next = new MyImage(ImageProvider.getInstance().getEditorImage("Button_Next"));
+		this.back = new MyImage(ImageProvider.getInstance().getEditorImage("Button_Back"));
 		this.height = new ImageContainer("Height", 15, screen.getWidth() * 0.3, screen.getHeight() * 0.25);
 		this.width = new ImageContainer("Width", 40, screen.getWidth() * 0.3, screen.getHeight() * 0.5);
 		back.setPosition(screen.getWidth() * 0.1, screen.getHeight() * 0.75);

@@ -19,10 +19,10 @@ public class MyMenuButton extends ImageView {
 		buttonInfo = stringInfo;
 		info = i;
 		
-		if(Screen.getPrimary().getBounds().getHeight() < 1080){
-			this.setFitHeight(100);
-			this.setFitWidth(100);
-		}
+//		if(Screen.getPrimary().getBounds().getHeight() < 1080){
+			this.setFitHeight(Screen.getPrimary().getBounds().getHeight()*0.15);
+			this.setFitWidth(Screen.getPrimary().getBounds().getHeight()*0.15);
+//		}
 			
 		
 		String onPath = name+"On";

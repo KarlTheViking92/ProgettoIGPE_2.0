@@ -38,11 +38,13 @@ public class GameMenu extends Pane implements UpdatablePane {
 	private final MediaPlayer mediaPlayer;
 	// private Rectangle text = new Rectangle(800,100);
 	private Text text = new Text("");
-
+	private final double SPACING = 60.0; 
+	
 	public GameMenu(Scene primary) throws Exception {
 		this.root = primary;
 		File music = new File("resources/music/mainMenu.mp3");
 		final Media media = new Media(music.toURI().toString());
+		
 		mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setStartTime(Duration.millis(525));
 		// InputStream is =
@@ -78,7 +80,7 @@ public class GameMenu extends Pane implements UpdatablePane {
 		this.root = primary;
 		HBox menu0 = new HBox(30);
 		HBox menu1 = new HBox(50);
-		VBox menu2 = new VBox(10);
+//		VBox menu2 = new VBox(10);
 
 		/*
 		 * System.out.println(screen.getWidth() * 0.30);
@@ -92,15 +94,15 @@ public class GameMenu extends Pane implements UpdatablePane {
 		 * "menu0 " + menu0.getTranslateX() + " menu1 " +
 		 * menu1.getTranslateX());
 		 */
-		final int offset = 400;
+//		final int offset = 400;
 		// menu1.setTranslateX(offset);
 
 		// MenuButton btnEditor = new MenuButton("EDITOR");
 
 		menu0.setTranslateX(screen.getWidth() * 0.27);
 		menu0.setTranslateY(screen.getHeight() * 0.35);
-		menu0.setPrefWidth(800);
-		menu0.setPrefHeight(100);
+		menu0.setPrefWidth(screen.getWidth()*0.4);
+		menu0.setPrefHeight(screen.getHeight()*0.1);
 		menu0.getChildren().add(text);
 		menu0.setAlignment(Pos.CENTER);
 		text.setFill(Color.WHITE);
@@ -131,7 +133,7 @@ public class GameMenu extends Pane implements UpdatablePane {
 		 * ft.play(); });
 		 */
 		MyMenuButton btnMulti = new MyMenuButton("multiPlayer", "MultiPlayer", text);
-		btnMulti.setTranslateX(btnSing.getTranslateX() + 230);
+		btnMulti.setTranslateX(btnSing.getTranslateX() + btnSing.getFitWidth() + SPACING);
 		btnMulti.setTranslateY(btnSing.getTranslateY());
 		/*
 		 * btnResume.setOnMouseClicked(event -> {
@@ -143,7 +145,7 @@ public class GameMenu extends Pane implements UpdatablePane {
 		 */
 
 		MyMenuButton btnEditor = new MyMenuButton("editor", "Editor", text);
-		btnEditor.setTranslateX(btnMulti.getTranslateX() + 200);
+		btnEditor.setTranslateX(btnMulti.getTranslateX() + btnMulti.getFitWidth() + SPACING);
 		btnEditor.setTranslateY(btnMulti.getTranslateY());
 		btnEditor.setOnMouseClicked(event -> {
 
@@ -157,6 +159,8 @@ public class GameMenu extends Pane implements UpdatablePane {
 		});
 
 		MyMenuButton btnOptions = new MyMenuButton("options", "Options", text);
+		btnOptions.setFitWidth(screen.getWidth()*0.08);
+		btnOptions.setFitHeight(screen.getHeight()*0.08);
 		btnOptions.setTranslateX(screen.getWidth() * 0.35);
 		// menu1.setTranslateY(screen.getHeight()*0.60);
 		btnOptions.setTranslateY(screen.getHeight() * 0.70);
@@ -184,8 +188,10 @@ public class GameMenu extends Pane implements UpdatablePane {
 
 		// MenuButton btnExit = new MenuButton("EXIT");
 		MyMenuButton btnExit = new MyMenuButton("exit", "Exit Game", text);
-		btnExit.setTranslateX(btnOptions.getTranslateX() + 250);
+		btnExit.setTranslateX(btnOptions.getTranslateX() + btnOptions.getFitWidth() + SPACING*2);
 		btnExit.setTranslateY(btnOptions.getTranslateY());
+		btnExit.setFitWidth(screen.getWidth()*0.08);
+		btnExit.setFitHeight(screen.getHeight()*0.08);
 		btnExit.setOnMouseClicked(event -> {
 			// GameMenuDemo.this.playSound("select");
 			System.exit(0);

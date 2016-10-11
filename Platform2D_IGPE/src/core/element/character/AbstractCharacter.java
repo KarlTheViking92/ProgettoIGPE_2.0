@@ -9,6 +9,7 @@ public abstract class AbstractCharacter implements Character {
 	private String name;
 	private int life;
 	private Position position;
+	private Position lastCheck;
 	private int damage;
 	private Direction direction = Direction.STOP;
 	protected int gems = 0;
@@ -310,6 +311,7 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public void setPosition(Position p) {
 		position = p;
+		lastCheck = p;
 	}
 
 	@Override
@@ -320,6 +322,19 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public boolean isSuperJumping() {
 		return superJumping;
+	}
+	
+	@Override
+	public void setLastSpawnPoint(double x, double y) {
+		lastCheck.setX(x);
+		lastCheck.setY(y);
+		
+	}
+	
+	@Override
+	public void respawn() {
+		setPosition(lastCheck);
+		life = 1;
 	}
 	// @Override
 	// public void update() {

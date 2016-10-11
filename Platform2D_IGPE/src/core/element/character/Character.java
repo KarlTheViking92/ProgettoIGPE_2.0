@@ -57,5 +57,9 @@ public interface Character {
 	public abstract void collectGem();
 	
 	public abstract int getCollectedGems();
+	
+	public abstract void respawn();
+	
+	public abstract void setLastSpawnPoint(double x, double y);
 
 }

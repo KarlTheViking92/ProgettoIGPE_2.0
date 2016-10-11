@@ -68,7 +68,7 @@ public class PlayManager {
 			if (!player.isDead()) {
 				player.update();
 			} else {
-				System.out.println("si muartu");
+				player.respawn();
 			}
 		}
 		world.update();

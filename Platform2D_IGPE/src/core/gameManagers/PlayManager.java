@@ -68,6 +68,7 @@ public class PlayManager {
 			if (!player.isDead()) {
 				player.update();
 			} else {
+				System.out.println("sei morto");
 				player.respawn();
 			}
 		}

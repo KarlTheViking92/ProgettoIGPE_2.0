@@ -168,6 +168,8 @@ public abstract class AbstractCharacter implements Character {
 			}
 		}
 
+		// System.out.println("last check attuale : " + lastCheck.getX() + " " +
+		// lastCheck.getY());
 		switch (direction) {
 		case RIGHT:
 			if (!world.checkPlayerCollision(this, getX() + VELOCITY_X, getY())) {
@@ -311,29 +313,37 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public void setPosition(Position p) {
 		position = p;
-		lastCheck = p;
+		if (lastCheck == null) {
+			lastCheck = new Position(world.getMap().getSpawnPoint().getX(), world.getMap().getSpawnPoint().getY());
+			// System.out.println("last check in setPosition è:
+			// "+lastCheck.getX()+" "+lastCheck.getY());
+		}
+		// System.out.println("LA VARIABILE POSITION _______ è:
+		// "+position.getX()+" "+position.getY());
 	}
 
 	@Override
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public boolean isSuperJumping() {
 		return superJumping;
 	}
-	
+
 	@Override
 	public void setLastSpawnPoint(double x, double y) {
-		lastCheck.setX(x);
-		lastCheck.setY(y);
-		
+		lastCheck = new Position(x, y);
+
+//		System.out.println("le posizioni dell'ultimo spawn point sono: " + lastCheck.getX() + " " + lastCheck.getY());
+
 	}
-	
+
 	@Override
 	public void respawn() {
 		setPosition(lastCheck);
+//		System.out.println("sto respawnando in: " + lastCheck);
 		life = 1;
 	}
 	// @Override

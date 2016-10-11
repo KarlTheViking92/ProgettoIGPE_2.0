@@ -158,7 +158,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		updateCamera();
 		updateBlocks();
 //		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
-		System.out.println("player in " + manager.getPlayer().getX() + "  " + manager.getPlayer().getY());
+//		System.out.println("player in " + manager.getPlayer().getX() + "  " + manager.getPlayer().getY());
 		drawer.draw();
 
 	}
@@ -182,10 +182,10 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 							- cameraDistance.getY() + ((manager.getPlayer().getY() % 2 == 0) ? 0.1 : -0.1));
 		}*/
 		scene.getCamera().setLayoutX(manager.getPlayer().getX() - 800);
-		scene.getCamera().setLayoutY(manager.getPlayer().getY() - 500);
+		scene.getCamera().setLayoutY(manager.getPlayer().getY() - 1000);
 		//scene.getCamera().setTranslateX(cameraPosition[0]);
 		//scene.getCamera().setTranslateY(cameraPosition[1]);
-		System.out.println(scene.getCamera().getTranslateX() + "   "  + scene.getCamera().getTranslateY());
+//		System.out.println(scene.getCamera().getTranslateX() + "   "  + scene.getCamera().getTranslateY());
 //		scene.getCamera().setTranslateZ();
 //		System.out.println(((PerspectiveCamera)scene.getCamera()).getFieldOfView());
 	}

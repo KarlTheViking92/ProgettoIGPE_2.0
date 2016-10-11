@@ -19,6 +19,11 @@ public class SpriteAnimation {
 		this.numberFrames = frames.length;
 	}
 
+	
+	public void setLoop(int index){
+		currentIndex = index;
+	}
+	
 	public void restartAnimation() {
 		currentIndex = 0;
 	}

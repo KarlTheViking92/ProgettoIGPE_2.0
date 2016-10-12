@@ -60,6 +60,8 @@ public interface Character {
 	
 	public abstract void respawn();
 	
+	public abstract void superJump();
+	
 	public abstract void setLastSpawnPoint(double x, double y);
 
 }

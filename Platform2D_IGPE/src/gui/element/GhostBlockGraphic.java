@@ -9,7 +9,7 @@ public class GhostBlockGraphic extends AbstractGraphicBlock {
 	
 	public GhostBlockGraphic(Block logic) {
 		super(logic);
-		this.setImage(ImageProvider.getInstance().getSimpleBlock("C4", "rock"));
+		this.setImage(ImageProvider.getInstance().getSpecialBlock("GhostBlock"));
 	}
 
 	@Override

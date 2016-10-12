@@ -3,6 +3,7 @@ package core.element.character;
 import core.World.World;
 import core.element.Item;
 import core.element.Position;
+import sun.util.resources.cldr.sah.CalendarData_sah_RU;
 
 public abstract class AbstractCharacter implements Character {
 
@@ -142,6 +143,19 @@ public abstract class AbstractCharacter implements Character {
 			}
 		}
 
+	}
+
+	@Override
+	public void superJump() {
+		if (canDoubleJump) {
+			if (jumping || falling) {
+				currentJumpSpeed = JUMPSPEED * 2;
+				canDoubleJump = false;
+				jumping = false;
+				falling = false;
+				doubleJump = true;
+			}
+		}
 	}
 
 	@Override
@@ -336,14 +350,15 @@ public abstract class AbstractCharacter implements Character {
 	public void setLastSpawnPoint(double x, double y) {
 		lastCheck = new Position(x, y);
 
-//		System.out.println("le posizioni dell'ultimo spawn point sono: " + lastCheck.getX() + " " + lastCheck.getY());
+		// System.out.println("le posizioni dell'ultimo spawn point sono: " +
+		// lastCheck.getX() + " " + lastCheck.getY());
 
 	}
 
 	@Override
 	public void respawn() {
 		setPosition(lastCheck);
-//		System.out.println("sto respawnando in: " + lastCheck);
+		// System.out.println("sto respawnando in: " + lastCheck);
 		life = 1;
 	}
 	// @Override

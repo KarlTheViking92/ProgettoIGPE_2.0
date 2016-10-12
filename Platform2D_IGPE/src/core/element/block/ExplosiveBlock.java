@@ -38,7 +38,7 @@ public class ExplosiveBlock extends AbstractBlock {
 				explosion = true;
 				animated = true;
 			}
-			if (!isPlayerInsideBlock() && !this.isPlayerInsideBlock() && explosion && current - lastMillis >= 3000 ) {
+			if (!this.isPlayerInsideBlock() && explosion && current - lastMillis >= 3000 ) {
 				System.out.println("rigenerato");
 				explosion = false;
 				beginExplosion = false;

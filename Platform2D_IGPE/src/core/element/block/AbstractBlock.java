@@ -11,6 +11,7 @@ public class AbstractBlock implements Block {
 	private int code;
 	private String color;
 	protected boolean inside = false;
+	protected boolean collided = false;
 
 	@Override
 	public int getCode() {

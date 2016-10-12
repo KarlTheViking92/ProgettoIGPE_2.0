@@ -6,10 +6,8 @@ import gui.animation.SpriteAnimation;
 import javafx.scene.image.Image;
 
 public class CheckPointBlockGraphic extends AbstractGraphicBlock {
-	private final static String ANIMATION_PATH = "file:resources/images/animation/CheckPoint/CheckFrame1";
-	private final static String RISING_PATH = "file:resources/images/animation/CheckPoint/CheckFrame2";
+	private final static String ANIMATION_PATH = "file:resources/images/animation/CheckPoint";
 	private SpriteAnimation moving_flag;
-	private SpriteAnimation rising_flag;
 
 	private final static Image[] FLAG_MOVING = { new Image(ANIMATION_PATH + "/1.png"),
 			new Image(ANIMATION_PATH + "/2.png"), new Image(ANIMATION_PATH + "/3.png"),
@@ -17,7 +15,7 @@ public class CheckPointBlockGraphic extends AbstractGraphicBlock {
 			new Image(ANIMATION_PATH + "/6.png"), new Image(ANIMATION_PATH + "/7.png"),
 			new Image(ANIMATION_PATH + "/8.png"), new Image(ANIMATION_PATH + "/9.png"),
 			new Image(ANIMATION_PATH + "/10.png"), new Image(ANIMATION_PATH + "/11.png"),
-			new Image(ANIMATION_PATH + "/12.png"), };
+			new Image(ANIMATION_PATH + "/12.png")};
 
 	public CheckPointBlockGraphic(Block logic) {
 		super(logic);

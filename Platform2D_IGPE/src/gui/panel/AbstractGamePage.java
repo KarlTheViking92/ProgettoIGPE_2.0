@@ -46,7 +46,7 @@ public class AbstractGamePage extends Pane implements GamePage{
 
 	@Override
 	public void setBackground(String name) {
-		background.setFill(new ImagePattern(new Image("file:resources/images/"+name)));
+		background.setFill(new ImagePattern(new Image("file:resources/images/backgrounds/"+name)));
 	}
 
 }

@@ -1,12 +1,8 @@
 package gui.popup;
 
-import gui.ImageProvider;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mapEditor.EditorManager;
 
@@ -20,7 +16,7 @@ public class SavemapPopup extends AbstractPopup {
 	public SavemapPopup(double width, double height) {
 		super(width, height);
 		message = new Text("INSERISCI IL NOME DELLA MAPPA");
-		message.setLayoutX(this.getWidth() * 0.4 - (message.getBoundsInLocal().getWidth() / 2));
+		message.setLayoutX(this.getWidth() * 0.45 - (message.getBoundsInLocal().getWidth() / 2));
 		message.setLayoutY(getHeight() * 0.2);
 		message.setFont(POPUP_FONT);
 		this.ok = new Button("Save");

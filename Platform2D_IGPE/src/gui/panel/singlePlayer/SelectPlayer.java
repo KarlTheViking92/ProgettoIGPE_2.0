@@ -41,7 +41,7 @@ public class SelectPlayer extends AbstractGamePage {
 		this.preview = new ImageView();
 //		this.background.setFill(new ImagePattern(new Image("file:resources/images/SelectPlayerMenu.png")));
 //		this.setBackground("SelectPlayerMenu.png");
-		this.previewBackground.setImage(new Image("file:resources/images/borderPreview.png"));
+		this.previewBackground.setImage(new Image("file:resources/images/backgrounds/borderPreview.png"));
 		this.leftArrow.setImage(new Image("file:resources/images/leftArrow.png"));
 		this.rightArrow.setImage(new Image("file:resources/images/rightArrow.png"));
 		this.next.setImage(new Image("file:resources/images/editor/Button_Next.png"));

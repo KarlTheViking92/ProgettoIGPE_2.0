@@ -257,28 +257,6 @@ public abstract class AbstractCharacter implements Character {
 
 		}
 
-		if (superJumping) {
-			if (!world.checkPlayerCollision(this, getX(), getY() - currentJumpSpeed)) {
-				Y = position.getY() - currentJumpSpeed;
-				currentJumpSpeed -= 0.1;
-				if (currentJumpSpeed < 1) {
-					currentJumpSpeed = JUMPSPEED;
-					currentFallSpeed = 0.1;
-					doubleJump = false;
-					superJumping = false;
-					falling = true;
-				}
-			} else {
-				currentJumpSpeed = JUMPSPEED;
-				currentFallSpeed = 0.1;
-				vx = 0;
-				doubleJump = false;
-				superJumping = false;
-				falling = true;
-				grounded = false;
-			}
-		}
-
 		if (falling) {
 			if (!world.checkPlayerCollision(this, getX(), getY() + currentFallSpeed)) {
 				Y = position.getY() + currentFallSpeed;
@@ -306,6 +284,9 @@ public abstract class AbstractCharacter implements Character {
 			}
 		}
 
+		  System.out.println(" JUMPING " + jumping);
+		  System.out.println(" FALLING " + falling);
+		
 		if (!world.checkPlayerCollision(this, X, Y)) {
 			position.setX(X);
 			position.setY(Y);

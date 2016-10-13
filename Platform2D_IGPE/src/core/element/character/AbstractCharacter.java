@@ -179,6 +179,7 @@ public abstract class AbstractCharacter implements Character {
 		for (Item gem : world.getGems()) {
 			if (gem.collide(X, Y, WIDTH, HEIGHT) && !gem.isCollected()) {
 				gem.collect();
+				collectGem();
 			}
 		}
 

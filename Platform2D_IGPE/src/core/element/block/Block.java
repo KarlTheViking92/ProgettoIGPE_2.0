@@ -17,4 +17,5 @@ public interface Block  {
 	public abstract void setColor(String s);
 	public abstract boolean isPlayerInsideBlock();
 	public abstract void setPlayerState(Character c);
+	public abstract void setAnimated (boolean a);
 }

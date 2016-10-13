@@ -12,5 +12,6 @@ public class Player extends AbstractCharacter{
 	@Override
 	public void collectGem() {
 		gems++;
+		System.out.println("gemmaaaaaaa: __________________:"+gems);
 	}
 }

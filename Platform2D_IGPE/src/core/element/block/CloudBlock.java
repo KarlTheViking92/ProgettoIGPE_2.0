@@ -12,7 +12,8 @@ public class CloudBlock extends AbstractBlock {
 
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
-		if(super.collide(x, y, height, width)) inside = true;
+		if (super.collide(x, y, height, width))
+			inside = true;
 		else inside = false;
 		if (PlayManager.getInstance().getPlayer().getY() + height > getY()) {
 			return false;

@@ -9,7 +9,6 @@ public class SuperJumpBlockGraphic extends AbstractGraphicBlock {
 
 	private final static String ANIMATION_PATH = "file:resources/images/animation/SuperJump";
 	private SpriteAnimation sprint;
-	private static final double SCALEFACTOR = 10;
 
  	private double originalWidth, originalHeight;
 	private double originalX, originalY;
@@ -32,12 +31,14 @@ public class SuperJumpBlockGraphic extends AbstractGraphicBlock {
 
 	@Override
 	public void update() {
+		
+		if (sprint.isFinished())
+			logicBlock.setAnimated(false);
+			
 		if (logicBlock.isAnimated()) {
 			this.setImage(sprint.nextFrame());
-			this.setFitWidth(originalWidth * SCALEFACTOR / 9.7);
-			this.setFitHeight(originalWidth * SCALEFACTOR /3.8);
-			this.setLayoutX(originalX - ((originalWidth * SCALEFACTOR) / 286));
-			this.setLayoutY(originalY - ((originalWidth * SCALEFACTOR) / 6));
+			this.setFitHeight(originalHeight + 120);
+			this.setLayoutY(originalY-120);
 	 	} else {
 			this.setImage(ImageProvider.getInstance().getSpecialBlock("SuperJumpBlock"));
 			sprint.restartAnimation();

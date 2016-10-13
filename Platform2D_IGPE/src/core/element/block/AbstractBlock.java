@@ -104,4 +104,10 @@ public class AbstractBlock implements Block {
 		return animated;
 	}
 
+	@Override
+	public void setAnimated(boolean a) {
+		animated = a; 
+		
+	}
+
 }

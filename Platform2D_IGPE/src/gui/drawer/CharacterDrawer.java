@@ -64,7 +64,6 @@ public class CharacterDrawer extends ImageView {
 			oldDirection = character.getDirection();
 		}
 		if (character.isJumping() || character.isSuperJumping()){
-			System.out.println("jump!!!");
 			this.setImage(animation.getCharacterJumpAnimation());    
 		}else if(character.isFalling()){
 			this.setImage(animation.getCharacterFallAnimation());

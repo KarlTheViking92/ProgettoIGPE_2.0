@@ -10,20 +10,24 @@ public class SuperJumpBlock extends AbstractBlock {
 	}
 
 	@Override
+	public boolean collision(double x, double y, int height, int width) {
+		if (super.collision(x, y, height, width))
+			animated = true;
+
+		return super.collision(x, y, height, width);
+	}
+
+	@Override
 	public void setPlayerState(Character c) {
-//		c.superJump();
-		collided = true;
+		 c.superJump();
 	}
 
 	@Override
 	public void update() {
-		if (collided) {
+	/*	if (collided) {
 			animated = true;
 			collided = false;
-		} else {
-			animated = false;
-			collided = false;
-		}
+		}*/
 
 	}
 }

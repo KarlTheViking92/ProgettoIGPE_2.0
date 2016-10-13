@@ -24,6 +24,9 @@ public class PlayManager {
 	private List<Player> players = new ArrayList<>();
 	private Player currentPlayer;
 	private boolean isDead = false;
+	
+	private long lastMillis;
+	private long current;
 
 	private PlayManager() {
 	}
@@ -67,8 +70,12 @@ public class PlayManager {
 		for (Player player : players) {
 			if (!player.isDead()) {
 				player.update();
+				lastMillis = System.currentTimeMillis();
 			} else {
 				System.out.println("sei morto");
+				current = System.currentTimeMillis();
+				
+				if ( current - lastMillis >= 1000)
 				player.respawn();
 			}
 		}

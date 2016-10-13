@@ -39,8 +39,11 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 	// settare il timer nella logica per innescare la sequenza di distruzione
 
 	public void update() {
+		
+		if( logicBlock.isAnimated() && explosion.isFinished())
+			this.setImage(null);
 
-		if (logicBlock.isAnimated() && !explosion.isFinished()) {
+		else if (logicBlock.isAnimated() && !explosion.isFinished()) {
 			this.setImage(explosion.nextFrame());
 			this.setFitWidth(originalWidth * SCALEFACTOR);
 			this.setFitHeight(originalWidth * SCALEFACTOR);

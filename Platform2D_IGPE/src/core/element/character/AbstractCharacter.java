@@ -28,7 +28,7 @@ public abstract class AbstractCharacter implements Character {
 
 	private boolean canJump = true, jumping = false, superJumping = false, falling = true, grounded = false;
 	private boolean right = false, moving = false;
-	private boolean doubleJump = false, canDoubleJump = true;
+	private boolean doubleJump = false, canDoubleJump = true, canSuperJump = true;
 	// jumping
 	private final double JUMPSPEED = 4;
 	private double currentJumpSpeed = JUMPSPEED;
@@ -147,14 +147,12 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void superJump() {
-		if (canDoubleJump) {
-			if (jumping || falling) {
-				currentJumpSpeed = JUMPSPEED * 2;
-				canDoubleJump = false;
-				jumping = false;
-				falling = false;
-				doubleJump = true;
-			}
+		if (canSuperJump) {
+			currentJumpSpeed = JUMPSPEED * 2.2;
+			canSuperJump = false;
+			jumping = false;
+			falling = false;
+			superJumping = true;
 		}
 	}
 
@@ -258,6 +256,29 @@ public abstract class AbstractCharacter implements Character {
 			}
 
 		}
+
+		if (superJumping) {
+			if (!world.checkPlayerCollision(this, getX(), getY() - currentJumpSpeed)) {
+				Y = position.getY() - currentJumpSpeed;
+				currentJumpSpeed -= 0.1;
+				if (currentJumpSpeed < 1) {
+					currentJumpSpeed = JUMPSPEED;
+					currentFallSpeed = 0.1;
+					doubleJump = false;
+					superJumping = false;
+					falling = true;
+				}
+			} else {
+				currentJumpSpeed = JUMPSPEED;
+				currentFallSpeed = 0.1;
+				vx = 0;
+				doubleJump = false;
+				superJumping = false;
+				falling = true;
+				grounded = false;
+			}
+		}
+
 		if (falling) {
 			if (!world.checkPlayerCollision(this, getX(), getY() + currentFallSpeed)) {
 				Y = position.getY() + currentFallSpeed;
@@ -274,12 +295,13 @@ public abstract class AbstractCharacter implements Character {
 				superJumping = false;
 				canJump = true;
 				canDoubleJump = true;
+				canSuperJump = true;
 				falling = false;
 				grounded = true;
 			}
 		}
 		if (!world.checkPlayerCollision(this, getX(), getY() + currentFallSpeed)) {
-			if (!jumping && !doubleJump) {
+			if (!jumping && !doubleJump && !superJumping) {
 				falling = true;
 			}
 		}

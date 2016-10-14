@@ -9,6 +9,7 @@ import core.element.Item;
 import core.element.block.Block;
 import core.element.character.Direction;
 import core.element.character.Player;
+import game.GameSelector;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
@@ -38,15 +39,17 @@ public class PlayManager {
 		return instance;
 	}
 
-	public void init() {
+	public void init(GameSelector game) {
 		// il player devo istanziarlo in questa clase solo dopo che il mondo è stato istanziato
 		// la funzione che da posizione al player non può trovarsi in world, il world deve solo conoscere la posizione del player 
 		// altrimenti uno aspetta l'altro per istanziarsi e muoiono tutti
 		world = new AbstractWorld();
-		currentPlayer = new Player("Vincenzo", 10, 1, world);
+		currentPlayer = new Player(game.getPlayerName(), 10, 1, world);
+		currentPlayer.setType(game.getPlayerType());
 		players.add(currentPlayer);
 //		world.loadMap("resources/Levels/customLevel/Livello Bello");
-		world.loadMap("resources/Levels/customLevel/Livello Bello");
+		System.out.println("nel manager la map è " + game.getMapName());
+		world.loadMap(game.getMapName());
 		world.initialize();
 		
 //		this.players = world.getPlayers();

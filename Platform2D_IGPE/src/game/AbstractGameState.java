@@ -2,15 +2,16 @@ package game;
 
 import gui.panel.GamePage;
 
-public class AbstractGameState implements GameState{
-	
+public class AbstractGameState implements GameState {
+
+	protected GameSelector gameInfo = new GameSelector();
 	protected SequencePage pages;
 	protected GamePage current;
-	
-	public AbstractGameState(GamePage...gamePages) {
+
+	public AbstractGameState(GamePage... gamePages) {
 		pages = new SequencePage(gamePages);
 		current = pages.getCurrentPage();
-		
+
 	}
 
 	@Override
@@ -32,13 +33,43 @@ public class AbstractGameState implements GameState{
 
 	@Override
 	public void update() {
-		current.update();
+		if (current != null)
+			current.update();
 	}
 
 	@Override
 	public void reset() {
 		pages.resetSequence();
 		current = pages.getCurrentPage();
+	}
+
+	@Override
+	public void setPlayer(String name, String type) {
+		gameInfo.setPlayerName(name);
+		gameInfo.setPlayerType(type);
+	}
+
+	@Override
+	public void setMapName(String name) {
+		gameInfo.setMapName(name);
+	}
+
+	@Override
+	public void loadState() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initState() {
+		for (GamePage page : pages) {
+			page.setGameState(this);
+		}
+	}
+
+	@Override
+	public GameSelector getSelector() {
+		return gameInfo;
 	}
 
 }

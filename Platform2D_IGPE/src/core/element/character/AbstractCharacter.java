@@ -8,7 +8,7 @@ import sun.util.resources.cldr.sah.CalendarData_sah_RU;
 
 public abstract class AbstractCharacter implements Character {
 
-	private String name;
+	private String name, type;
 	private int life;
 	private Position position;
 	private Position lastCheck;
@@ -60,6 +60,14 @@ public abstract class AbstractCharacter implements Character {
 	@Override
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+	@Override
+	public String getType() {
+		return type;
+	}
+	@Override
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	// private boolean isPressed(KeyCode k) {
@@ -367,14 +375,13 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void setPosition(Position p) {
-		position = p;
+		System.out.println("chiamo setposition");
+		this.position = p;
 		if (lastCheck == null) {
-			lastCheck = new Position(world.getMap().getSpawnPoint().getX(), world.getMap().getSpawnPoint().getY());
-			// System.out.println("last check in setPosition è:
-			// "+lastCheck.getX()+" "+lastCheck.getY());
+			lastCheck = p;
+//			lastCheck = new Position(world.getMap().getSpawnPoint().getX(), world.getMap().getSpawnPoint().getY());
+			System.out.println("setto lo spawnpoint nel personaggio");
 		}
-		// System.out.println("LA VARIABILE POSITION _______ è:
-		// "+position.getX()+" "+position.getY());
 	}
 
 	@Override
@@ -389,8 +396,9 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void setLastSpawnPoint(double x, double y) {
-		lastCheck = new Position(x, y);
-
+//		lastCheck = new Position(x, y);
+		lastCheck.setX(x);
+		lastCheck.setX(y);
 		// System.out.println("le posizioni dell'ultimo spawn point sono: " +
 		// lastCheck.getX() + " " + lastCheck.getY());
 
@@ -402,101 +410,4 @@ public abstract class AbstractCharacter implements Character {
 		// System.out.println("sto respawnando in: " + lastCheck);
 		life = 1;
 	}
-	// @Override
-	// public void update() {
-	//
-	// List<Block> blocks = world.getNearBlocks();
-	//
-	// double X = getX();
-	// double Y = getY();
-	// // System.out.println(" JUMPING " + jumping);
-	// // System.out.println(" FALLING " + falling);
-	// // System.out.println("GROUNDED " + grounded);
-	// // System.out.println(" ******************** ");
-	// // System.out.println();
-	// // System.out.println("controllo " + world.getNearBlocks().size() +"
-	// // blocchi");
-	//
-	// if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
-	// if (!jumping) {
-	// falling = true;
-	// }
-	// }
-	//
-	// switch (direction) {
-	// case RIGHT:
-	// // if (!world.checkPlayerCollision(getX() + VELOCITY_X, getY())) {
-	// X = position.getX() + VELOCITY_X;
-	// // return;
-	//// currentSpeed_X = VELOCITY_X;
-	// // }
-	//
-	// break;
-	//
-	// case LEFT:
-	// // if (!world.checkPlayerCollision(getX() - VELOCITY_X, getY())) {
-	// // X = position.getX() - VELOCITY_X;
-	// currentSpeed_X = -VELOCITY_X;
-	// // }
-	// break;
-	//
-	//
-	// case STOP: currentSpeed_X = 0; currentSpeed_Y = 0; break;
-	//
-	// default:
-	// break;
-	// }
-	//
-	// if (jumping) {
-	//
-	// if (!world.checkPlayerCollision(getX(), getY() - currentJumpSpeed)) {
-	//
-	// Y = position.getY() - currentJumpSpeed;
-	// currentJumpSpeed -= 0.1;
-	//
-	// currentSpeed_Y = -VELOCITY_Y;
-	// // currentSpeed_Y += currentJumpSpeed;
-	// if (currentJumpSpeed < 1) {
-	// currentJumpSpeed = JUMPSPEED;
-	// jumping = false;
-	// falling = true;
-	// }
-	// } else {
-	// currentJumpSpeed = JUMPSPEED;
-	// jumping = false;
-	// falling = true;
-	// grounded = false;
-	// }
-	//
-	// }
-	// if (falling) {
-	// if (!world.checkPlayerCollision(getX(), getY() + currentFallSpeed)) {
-	// // System.out.println("NON COLLIDO");
-	// // System.out.println("current fall speed " + currentFallSpeed);
-	// Y = position.getY() + currentFallSpeed;
-	// // currentSpeed_Y += 0.1;
-	//
-	// currentSpeed_Y = VELOCITY_Y;
-	// if (currentFallSpeed <= MAXFALLSPEED) {
-	// currentFallSpeed += 0.1;
-	// }
-	//
-	// } else {
-	// // System.out.println("COLLIDO");
-	// currentFallSpeed = 0.1;
-	// currentSpeed_Y = 0;
-	// falling = false;
-	// grounded = true;
-	// // currentSpeed_X = 0;
-	// // currentSpeed_Y = 0;
-	// }
-	// }
-	//
-	// // System.out.println("NEW X POSITION: " + X);
-	// // System.out.println("NEW Y POSITION: " + Y);
-	// if (!world.checkPlayerCollision(getX() + currentSpeed_X, getY() +
-	// currentSpeed_Y)) {
-	// position.setX(X);
-	//// position.setX(getX() + currentSpeed_X);
-	// position.setY(getY() + currentSpeed_Y);
 }

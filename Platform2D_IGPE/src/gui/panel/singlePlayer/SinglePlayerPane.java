@@ -61,12 +61,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		if (Screen.getPrimary().getBounds().getHeight() < 1080)
 			resolution = true;
 
-		System.out.println(Screen.getPrimary().getBounds().getHeight());
 		scene = s;
 		this.getChildren().add(group);
 
 		manager = PlayManager.getInstance();
-		manager.init();
+//		manager.init();
 		width = manager.getLevelWidth();
 		height = manager.getLevelHeight();
 		this.background = new Rectangle(Screen.getPrimary().getBounds().getWidth(),
@@ -88,8 +87,6 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 	public void drawWorld() {
 
-		System.out.println(this.getWidth());
-		System.out.println(this.getHeight());
 
 		for (int y = manager.getBlocksMatrix().length - 1; y >= 0; y--) {
 			for (int x = 0; x < manager.getBlocksMatrix()[y].length; x++) {
@@ -106,7 +103,6 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 				}
 			}
 		}
-		System.out.println(group.getChildren().size());
 		for (Item gem : manager.getGemList()) {
 //			ImageView img = new ImageView();
 //			img.setImage(ImageProvider.getInstance().getImage("gem"));
@@ -120,13 +116,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 			this.imgs.add(img);
 			this.group.getChildren().add((ImageView)img);
 		}
-		System.out.println(group.getChildren().size());
 		// player = new Rectangle(manager.getPlayer().getX(),
 		// manager.getPlayer().getY(), manager.getPlayer().getWidth(),
 		// manager.getPlayer().getHeight() );
 
 		player = new ImageView();
-		System.out.println("plaier " + manager.getPlayer());
 		drawer = new CharacterDrawer(manager.getPlayer());
 //		player.setImage(ImageProvider.getInstance().getImage(23));
 		player.setImage(ImageProvider.getInstance().getSimpleBlock("Cube3", "yellow"));
@@ -135,15 +129,15 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		player.setLayoutX(manager.getPlayer().getX());
 		player.setLayoutY(manager.getPlayer().getY());
 
-		System.out.println("camera");
-		System.out.println(scene.getCamera());
-	/*	if (!resolution)
+//		System.out.println("camera");
+//		System.out.println(scene.getCamera());
+/*		if (!resolution)
 			scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
 		else
 			scene.getCamera().setTranslateZ(HDRESOLUTION);
 */
 		// System.out.println( scene.getCamera());
-		scene.getCamera().setTranslateZ(HDRESOLUTION);
+//		scene.getCamera().setTranslateZ(HDRESOLUTION);
 //		this.group.getChildren().add(player);
 		this.group.getChildren().add(drawer);
 

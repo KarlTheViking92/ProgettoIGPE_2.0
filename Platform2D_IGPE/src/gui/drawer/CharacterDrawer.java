@@ -25,12 +25,11 @@ public class CharacterDrawer extends ImageView {
 	}
 
 	private CharacterAnimation loadAnimation(Character c) {
-		String name = "gui.animation." + c.getName() + "Animation";
+		String name = "gui.animation." + c.getType() + "Animation";
 
 		Class animation;
 		try {
 
-			System.out.println(name);
 			animation = Class.forName(name);
 			return (CharacterAnimation) animation.newInstance();
 

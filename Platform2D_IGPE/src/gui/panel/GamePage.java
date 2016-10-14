@@ -1,5 +1,6 @@
 package gui.panel;
 
+import game.GameState;
 import javafx.scene.text.Font;
 
 public interface GamePage extends UpdatablePane{
@@ -9,6 +10,8 @@ public interface GamePage extends UpdatablePane{
 	
 	public abstract void nextPage();
 	public abstract void previousPage();
+	
+	public void setGameState(GameState state);
 	
 	public abstract void setBackground(String path);
 }

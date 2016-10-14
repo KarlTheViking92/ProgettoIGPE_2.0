@@ -46,8 +46,8 @@ public class MainFrame extends Application {
 		
 		singlePlayer = new SinglePlayerPane(scene);
 		
-		System.out.println("x del pannello " + (screen.getWidth()/2 - singlePlayer.getWidth()/2));
-		System.out.println("y del pannello " + (screen.getHeight()/2 - singlePlayer.getHeight()/2));
+//		System.out.println("x del pannello " + (screen.getWidth()/2 - singlePlayer.getWidth()/2));
+//		System.out.println("y del pannello " + (screen.getHeight()/2 - singlePlayer.getHeight()/2));
 		p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
 		p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
 //		System.out.println(scene.getCamera());

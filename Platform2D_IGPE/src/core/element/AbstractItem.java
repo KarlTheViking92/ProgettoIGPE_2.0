@@ -49,7 +49,7 @@ public class AbstractItem implements Item {
 
 	@Override
 	public void collect() {
-		System.out.println("ho preso la gemma");
+//		System.out.println("ho preso la gemma");
 		collected = true;
 	}
 }

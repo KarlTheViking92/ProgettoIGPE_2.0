@@ -14,7 +14,6 @@ public class TrapBlock extends AbstractBlock {
 
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
-		// TODO Auto-generated method stub
 		lastMillis = System.currentTimeMillis();
 		return super.collision(x, y, height, width);
 

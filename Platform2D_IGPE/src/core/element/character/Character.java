@@ -15,6 +15,9 @@ public interface Character {
 	public abstract Direction getDirection();
 
 	public abstract void setDirection(Direction direction);
+	
+	public abstract void setType(String type);
+	public abstract String getType();
 
 	public abstract double getX();
 

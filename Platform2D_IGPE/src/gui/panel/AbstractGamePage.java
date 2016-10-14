@@ -1,6 +1,7 @@
 package gui.panel;
 
 import core.gameManagers.MenuManager;
+import game.GameState;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -15,6 +16,7 @@ public class AbstractGamePage extends Pane implements GamePage{
 	protected Rectangle2D screen = Screen.getPrimary().getBounds();
 	protected Rectangle background;
 	protected Text title = new Text();
+	protected GameState state;
 
 	public AbstractGamePage() {
 		background = new Rectangle(screen.getWidth(), screen.getHeight());
@@ -47,6 +49,11 @@ public class AbstractGamePage extends Pane implements GamePage{
 	@Override
 	public void setBackground(String name) {
 		background.setFill(new ImagePattern(new Image("file:resources/images/backgrounds/"+name)));
+	}
+
+	@Override
+	public void setGameState(GameState state) {
+		this.state = state;
 	}
 
 }

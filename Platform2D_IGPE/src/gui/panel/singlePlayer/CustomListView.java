@@ -38,7 +38,6 @@ public class CustomListView extends AbstractCustomComponent {
 
 	@Override
 	public void reset() {
-		System.out.println("svuoto vbox");
 		container.getChildren().clear();
 	}
 
@@ -54,6 +53,8 @@ public class CustomListView extends AbstractCustomComponent {
 	}
 
 	public void selectMap(CustomListObject selected) {
+		if(selectedItem != null)
+			selectedItem.resetBackground();
 		selectedItem = selected;
 	}
 }

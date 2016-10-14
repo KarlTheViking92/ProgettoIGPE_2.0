@@ -5,30 +5,30 @@ import java.util.List;
 
 import gui.panel.GamePage;
 
-public class SequencePage {
+public class SequencePage extends ArrayList<GamePage>{
 
-	private List<GamePage> pages = new ArrayList<>();
+//	private List<GamePage> pages = new ArrayList<>();
 	private int index = 0;
 
 	public SequencePage(GamePage... gamePages) {
 		for (GamePage page : gamePages) {
-			pages.add(page);
+			this.add(page);
 		}
 	}
 	
 	public GamePage getCurrentPage(){
-		if(index >= 0 && index <= pages.size())
-			return pages.get(index);
+		if(index >= 0 && index <= this.size())
+			return this.get(index);
 		
 		return null;
 	}
 
 	public GamePage getNextPage() {
 		index++;
-		if (index >= pages.size())
+		if (index >= this.size())
 			return null;
 
-		GamePage next = pages.get(index);
+		GamePage next = this.get(index);
 		return next;
 	}
 
@@ -37,7 +37,7 @@ public class SequencePage {
 		if (index < 0)
 			return null;
 
-		GamePage prev = pages.get(index);
+		GamePage prev = this.get(index);
 		return prev;
 	}
 	

@@ -28,15 +28,13 @@ public class CustomListObject extends StackPane {
 			this.background.setFill(STROKE_COLOR);
 		});
 		this.background.setOnMouseExited(e -> {
-			System.out.println("mappa scelta " + list.getSelectedMap());
 			if (list.getSelectedMap() == null || !name.equals(list.getSelectedMap())){
 				this.background.setFill(BACKGROUND_COLOR);
 			}
 		});
 
-		this.setOnMouseReleased(e -> {
+		this.setOnMouseClicked(e -> {
 			this.background.setFill(STROKE_COLOR);
-			System.out.println();
 			list.selectMap(this);
 		});
 		this.setOnMouseReleased(e -> {
@@ -56,6 +54,9 @@ public class CustomListObject extends StackPane {
 
 	public String getName() {
 		return name;
+	}
+	public void resetBackground(){
+		this.background.setFill(BACKGROUND_COLOR);
 	}
 
 }

@@ -64,4 +64,5 @@ public interface Character {
 	
 	public abstract void setLastSpawnPoint(double x, double y);
 
+	public abstract void setSuperJumpDirection(double x, double y);
 }

@@ -34,7 +34,7 @@ public class ExplosiveBlock extends AbstractBlock {
 
 		boolean flag = super.collision(x, y, height, width);
 		if (flag && !beginExplosion) {
-			System.out.println("BOOOOOM");
+//			System.out.println("BOOOOOM");
 			beginExplosion = true;
 			lastMillis = System.currentTimeMillis();
 		}
@@ -55,8 +55,8 @@ public class ExplosiveBlock extends AbstractBlock {
 				animated = true;
 			}
 			if (!inTheBlock() && explosion && current - lastMillis >= 3000) {
-				System.out.println("if 2        X: " + this.getX() + "   Y: " + this.getY());
-				System.out.println("rigenerato");
+//				System.out.println("if 2        X: " + this.getX() + "   Y: " + this.getY());
+//				System.out.println("rigenerato");
 				explosion = false;
 				beginExplosion = false;
 				animated = false;

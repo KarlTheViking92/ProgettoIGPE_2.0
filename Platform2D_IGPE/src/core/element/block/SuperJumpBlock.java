@@ -17,21 +17,33 @@ public class SuperJumpBlock extends AbstractBlock {
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
 		if (super.collision(x, y, height, width)) {
-			System.out.println("PlayerX: " + x + " PlayerY: " + y+" width: "+width +" height: "+height);
-			System.out.println("CuboX: " + this.getX() + " CuboY: " + (this.getY())+" larghezza/altezza "+this.getWIDTH());
-			if (x < this.getX() + this.getWIDTH()) {
+			// System.out.println("PlayerX: " + x + " PlayerY: " + y+" width:
+			// "+width +" height: "+height);
+			// System.out.println("CuboX: " + this.getX() + " CuboY: " +
+			// (this.getY())+" larghezza/altezza "+this.getWIDTH());
+
+			double p_bX = (x + (x + width)) / 2;
+			double p_bY = (y + (y + height)) / 2;
+
+			xSuperJump = 0;
+			ySuperJump = 0;
+
+			if (x < (getX() + getWIDTH()) && (x + width) > (getX() + getWIDTH())) {
 				xSuperJump = 1;
 				System.out.println("sono a destra");
 			}
-			if (x + width > this.getX()) {
+
+			if ((x + width) > getX() && x < getX()) {
 				xSuperJump = -1;
 				System.out.println("sono a sinstra");
 			}
-			if (y + height >= this.getY()) {
+
+			if (y < getY() && (y + height) > getY()) {
 				ySuperJump = -1;
 				System.out.println("sono sopra");
 			}
-			if (y <= this.getY() + this.getHEIGHT()) {
+
+			if (y < (getY() + getHEIGHT()) && (y + height) > (getY() + getHEIGHT())) {
 				ySuperJump = 1;
 				System.out.println("sono sotto");
 			}

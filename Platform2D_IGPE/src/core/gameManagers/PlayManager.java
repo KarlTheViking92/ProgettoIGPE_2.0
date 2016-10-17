@@ -75,7 +75,7 @@ public class PlayManager {
 				player.update();
 				lastMillis = System.currentTimeMillis();
 			} else {
-				System.out.println("sei morto");
+//				System.out.println("sei morto");
 				current = System.currentTimeMillis();
 				
 				if ( current - lastMillis >= 1000)

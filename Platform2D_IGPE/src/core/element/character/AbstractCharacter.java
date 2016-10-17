@@ -11,7 +11,7 @@ public abstract class AbstractCharacter implements Character {
 	private String name, type;
 	private int life;
 	private Position position;
-	private Position lastCheck;
+	private Position lastSpawnPoint;
 	private int damage;
 	private Direction direction = Direction.STOP;
 	private double[] d = new double[] { 0.0, 0.0 };
@@ -61,10 +61,12 @@ public abstract class AbstractCharacter implements Character {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
+
 	@Override
 	public String getType() {
 		return type;
 	}
+
 	@Override
 	public void setType(String type) {
 		this.type = type;
@@ -377,9 +379,8 @@ public abstract class AbstractCharacter implements Character {
 	public void setPosition(Position p) {
 		System.out.println("chiamo setposition");
 		this.position = p;
-		if (lastCheck == null) {
-			lastCheck = p;
-//			lastCheck = new Position(world.getMap().getSpawnPoint().getX(), world.getMap().getSpawnPoint().getY());
+		if (lastSpawnPoint == null) {
+			lastSpawnPoint = new Position(world.getMap().getSpawnPoint().getX(), world.getMap().getSpawnPoint().getY());
 			System.out.println("setto lo spawnpoint nel personaggio");
 		}
 	}
@@ -396,18 +397,13 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void setLastSpawnPoint(double x, double y) {
-//		lastCheck = new Position(x, y);
-		lastCheck.setX(x);
-		lastCheck.setX(y);
-		// System.out.println("le posizioni dell'ultimo spawn point sono: " +
-		// lastCheck.getX() + " " + lastCheck.getY());
-
+		lastSpawnPoint.setX(x);
+		lastSpawnPoint.setY(y);
 	}
 
 	@Override
 	public void respawn() {
-		setPosition(lastCheck);
-		// System.out.println("sto respawnando in: " + lastCheck);
+		setPosition(new Position(lastSpawnPoint.getX(), lastSpawnPoint.getY()));
 		life = 1;
 	}
 }

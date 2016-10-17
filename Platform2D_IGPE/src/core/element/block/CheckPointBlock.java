@@ -10,16 +10,25 @@ public class CheckPointBlock extends AbstractBlock {
 	}
 
 	@Override
-	public void setPlayerState(Character c) {
-		if (c.getY() + c.getHeight() < this.getY()) {
+	public boolean collision(double x, double y, int height, int width) {
+		
+		if(super.collision(x, y, height, width))
 			collided = true;
-			c.setLastSpawnPoint(this.getX() + c.getWidth() / 2, this.getY() - this.getHEIGHT());
-			// System.out.println("posizioni dal checkpoint block: " +
-			// this.getX() + " " + this.getY());
-		}
+		return super.collision(x, y, height, width);
+	}
+	
+	@Override
+	public void setPlayerState(Character c) {
+//		if (c.getY() + c.getHeight() < this.getY()) {
+//			collided = true;
+//		}
+		System.out.println("sono checkpoint block e chiamo la funzione");
+		System.out.println("vorrei settare questo " + (this.getX() + c.getWidth() / 2)+" "+ (this.getY() - this.getHEIGHT()/2));
+		c.setLastSpawnPoint(this.getX() + c.getWidth() / 2, this.getY() - this.getHEIGHT());
 
 	}
 
+	
 	@Override
 	public void update() {
 		if (collided)

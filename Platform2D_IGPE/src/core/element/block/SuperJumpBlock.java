@@ -28,22 +28,22 @@ public class SuperJumpBlock extends AbstractBlock {
 			xSuperJump = 0;
 			ySuperJump = 0;
 
-			if (x < (getX() + getWIDTH()) && (x + width) > (getX() + getWIDTH())) {
+			if (x < (this.getX() + this.getWIDTH()) && (x + width) > (this.getX() + this.getWIDTH())) {
 				xSuperJump = 1;
 				System.out.println("sono a destra");
 			}
 
-			if ((x + width) > getX() && x < getX()) {
+			if ((x + width) > this.getX() && x < this.getX()) {
 				xSuperJump = -1;
 				System.out.println("sono a sinstra");
 			}
 
-			if (y < getY() && (y + height) > getY()) {
+			if (y < this.getY() && (y + height) > this.getY() && p_bX > x && p_bX < x + width) {
 				ySuperJump = -1;
 				System.out.println("sono sopra");
 			}
 
-			if (y < (getY() + getHEIGHT()) && (y + height) > (getY() + getHEIGHT())) {
+			if (y < (this.getY() + this.getHEIGHT()) && (y + height) > (this.getY() + this.getHEIGHT())) {
 				ySuperJump = 1;
 				System.out.println("sono sotto");
 			}

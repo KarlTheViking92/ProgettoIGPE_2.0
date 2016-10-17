@@ -152,17 +152,16 @@ public class AbstractWorld implements World {
 	}
 	@Override
 	public boolean checkPlayerCollision(Character p, double x , double y){
-		
+		boolean collide = false;
 //		System.out.println("player x " + x + " player y " + y);
 		
 		for (Block b : map.getBlockList()) {
 			if(b.collision(x, y,  p.getHeight(), p.getWidth())){
 				b.setPlayerState(p);
-				return true;
+				collide = true;
 			}
 		}
-		
-		return false;
+		return collide;
 	}
 
 	@Override

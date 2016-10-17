@@ -1,6 +1,7 @@
 package core.gameManagers;
 
 import game.GameState;
+import game.MapEditorState;
 import game.SinglePlayerState;
 import gui.GameMain;
 import gui.event.KeyboardPressedEvent;
@@ -19,6 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
+import mapEditor.MapEditor;
+import mapEditor.WorldSizeSelector;
 
 public class MenuManager {
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
@@ -33,6 +36,9 @@ public class MenuManager {
 	// private GameState menuState;
 	private GameState singleGameState;
 	private GameState mapEditorState;
+	
+	private MapEditor editor;
+	private EditorManager editorManager = EditorManager.getInstance();
 
 	private GameMenu menu;
 	private Pane root = new Pane();
@@ -54,26 +60,16 @@ public class MenuManager {
 		this.game = game;
 		try {
 			this.menu = new GameMenu(game.getScene());
-//			System.out.println("inizializzo menu " + menu);
+			// System.out.println("inizializzo menu " + menu);
 			currentPane = menu;
 			root.getChildren().add(menu);
-//			System.out.println(menu.getChildren());
+			// System.out.println(menu.getChildren());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// game.getScene().setCamera(camera);
 
-	}
-
-	public void goToSinglePlayer() {
-		System.out.println("go to singleplayer");
-		menu.stopMusic();
-		root.getChildren().clear();
-		singleGameState = new SinglePlayerState(new SelectPlayer(), new SelectMap());
-		singleGameState.initState();
-		actualState = singleGameState;
-		root.getChildren().add((Node) actualState.getCurrentPage());
 	}
 
 	public void updateGame() {
@@ -92,9 +88,10 @@ public class MenuManager {
 		if (next != null) {
 			root.getChildren().clear();
 			root.getChildren().add((Node) next);
-//			System.out.println("pagina successiva");
-		}else{
-			actualState.loadState();		}
+			// System.out.println("pagina successiva");
+		} else {
+			actualState.loadState();
+		}
 	}
 
 	public void previousPage() {
@@ -104,11 +101,11 @@ public class MenuManager {
 			root.getChildren().clear();
 			root.getChildren().add((Node) prev);
 		} else {
-//			System.out.println("vai al menù principale");
+			// System.out.println("vai al menù principale");
 			goToMainMenu();
 			// System.out.println(root.getChildren());
 		}
-//		System.out.println("pagina precedente");
+		// System.out.println("pagina precedente");
 	}
 
 	private void goToMainMenu() {
@@ -117,6 +114,16 @@ public class MenuManager {
 		menu.startMusic();
 		currentPane = menu;
 		root.getChildren().add(menu);
+	}
+	
+	public void goToSinglePlayer() {
+		System.out.println("go to singleplayer");
+		menu.stopMusic();
+		root.getChildren().clear();
+		singleGameState = new SinglePlayerState(new SelectPlayer(), new SelectMap());
+		singleGameState.initState();
+		actualState = singleGameState;
+		root.getChildren().add((Node) actualState.getCurrentPage());
 	}
 
 	public void startGame() {
@@ -139,5 +146,24 @@ public class MenuManager {
 		game.getScene().setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
 		p.getChildren().add(singlePlayer);
 		root.getChildren().add(p);
+	}
+
+	public void goToEditor() {
+		System.out.println("go to editor");
+		menu.stopMusic();
+		root.getChildren().clear();
+		WorldSizeSelector selector = new WorldSizeSelector();
+		mapEditorState = new MapEditorState(selector);
+		editor = new MapEditor();
+		editorManager.initialize(selector, editor);
+		actualState = mapEditorState;
+		root.getChildren().add((Node) actualState.getCurrentPage());
+	}
+
+	public void startEditor() {
+		editor.loadEditor(editorManager.getWorldHeight(), editorManager.getWorldWidth());
+		currentPane = editor;
+		root.getChildren().clear();
+		root.getChildren().add(editor);
 	}
 }

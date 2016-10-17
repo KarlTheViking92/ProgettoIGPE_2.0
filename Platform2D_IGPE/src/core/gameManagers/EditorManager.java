@@ -1,4 +1,4 @@
-package mapEditor;
+package core.gameManagers;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,18 +8,17 @@ import gui.panel.UpdatablePane;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
+import mapEditor.MainWorldSizeProva;
+import mapEditor.MapEditor;
+import mapEditor.WorldSizeSelector;
 
 public class EditorManager {
 
 	private static EditorManager instance;
-	private MainWorldSizeProva main;
-	private Pane root = new Pane();
 	private WorldSizeSelector worldSize;
-	private Map map;
-	private UpdatablePane currentPane;
-	private Rectangle2D screen = Screen.getPrimary().getBounds();
+	private MapEditor editor;
 	private final String SAVEPATH = "resources/Levels/customLevel/";
-	
+
 	private EditorManager() {
 
 	}
@@ -30,53 +29,30 @@ public class EditorManager {
 		return instance;
 	}
 
-	public void initialize(MainWorldSizeProva main) {
-		this.main = main;
-		worldSize = new WorldSizeSelector(main.getScene());
-		currentPane = worldSize;
-		root.getChildren().add(worldSize);
+	public void initialize(WorldSizeSelector worldSize, MapEditor editor) {
+		this.worldSize = worldSize;
+		this.editor = editor;
+		System.out.println("inizializzo " + this );
 	}
 
-	public void goToEditor(Map mapEditor) {
-		root.getChildren().clear();
-		root.setPrefHeight(screen.getHeight() / 2);
-		root.setPrefWidth(screen.getWidth() / 2);
-		map = mapEditor;
-		currentPane = map;
-		root.getChildren().add(mapEditor);
+
+	public int getWorldWidth(){
+		return worldSize.getSelectedWidth();
 	}
 	
-	public void goToWorldSize(WorldSizeSelector world) {
-		root.getChildren().clear();
-		root.setPrefHeight(screen.getHeight() / 2);
-		root.setPrefWidth(screen.getWidth() / 2);
-		worldSize = world;
-		currentPane = worldSize;
-		root.getChildren().add(world);
-	}
-
-	public MainWorldSizeProva getMain() {
-		return main;
-	}
-
-	public Pane getRoot() {
-		return root;
-	}
-
-	public WorldSizeSelector getWorldSize() {
-		return worldSize;
-	}
-
-	public void updateGame() {
-		currentPane.update();
+	public int getWorldHeight(){
+		return worldSize.getSelectedHeight();
 	}
 	
 	public void saveMap(String mapName) {
 		try {
+			System.out.println("savemap " + this);
 			String logicPath = SAVEPATH + mapName;
 			String colorPath = logicPath + "_color";
-			int [][] logicMatrix = map.getLogicMatrix();
-			String [][] colorMatrix = map.getColorMatrix();
+			System.out.println("editor è : " + editor);
+			System.out.println(editor.hashCode());
+			int[][] logicMatrix = editor.getLogicMatrix();
+			String[][] colorMatrix = editor.getColorMatrix();
 			FileWriter mapLogic = new FileWriter(logicPath);
 			FileWriter mapColors = new FileWriter(colorPath);
 			BufferedWriter outLogic = new BufferedWriter(mapLogic);
@@ -98,5 +74,4 @@ public class EditorManager {
 		}
 	}
 
-	
 }

@@ -25,7 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import mapEditor.AbstractObject;
 
-public class Map extends GridPane implements UpdatablePane {
+public class MapEditor extends GridPane implements UpdatablePane {
 
 	private List<AbstractObject> listImageView;
 	private ChoicePane left;
@@ -40,13 +40,15 @@ public class Map extends GridPane implements UpdatablePane {
 	private String nameLevel;
 	StackPane center = new StackPane();
 
-	public Map(int r, int c, Scene s) {
+	public MapEditor() { }
+	
+	public void loadEditor(int r, int c){
 		this.right = new ScrollPane();
 		this.getStylesheets().add(cssFile);
 		this.setPrefWidth(screen.getWidth());
 		this.setPrefHeight(screen.getHeight());
 		this.listImageView = new ArrayList<>();
-		this.left = new ChoicePane(listImageView, this, s);
+		this.left = new ChoicePane(listImageView, this);
 		this.editor = new EditorPane(r, c, this);
 		setConstraints();
 		right.setFitToWidth(true);

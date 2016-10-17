@@ -1,5 +1,6 @@
 package mapEditor;
 
+import core.gameManagers.EditorManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;

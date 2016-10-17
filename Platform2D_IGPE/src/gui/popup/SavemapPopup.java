@@ -1,10 +1,10 @@
 package gui.popup;
 
+import core.gameManagers.EditorManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import mapEditor.EditorManager;
 
 public class SavemapPopup extends AbstractPopup {
 	private Button ok;

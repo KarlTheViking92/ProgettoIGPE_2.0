@@ -18,7 +18,7 @@ import javafx.scene.shape.Rectangle;
 
 public class EditorPane extends Pane implements UpdatablePane {
 
-	private Map map;
+	private MapEditor map;
 	private int row;
 	private int column;
 	private AbstractObject choice = null;
@@ -39,7 +39,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 	private ImageView currentBlock;
 	private Rectangle shadow = new Rectangle();
 
-	public EditorPane(int row, int column, Map map) {
+	public EditorPane(int row, int column, MapEditor map) {
 		this.currentBlock = new ImageView();
 		this.currentBlock.setFitHeight(65);
 		this.currentBlock.setFitWidth(65);
@@ -109,7 +109,7 @@ public class EditorPane extends Pane implements UpdatablePane {
 		if (block.getCode() == 9 && logicMatrix[x - 1][y] != 0)
 			return false;
 
-		System.out.println("x " + (x + 1) + " y " + y);
+//		System.out.println("x " + (x + 1) + " y " + y);
 		if (block.getCode() > 5 && logicMatrix[x + 1][y] == 9) {
 			return false;
 		}

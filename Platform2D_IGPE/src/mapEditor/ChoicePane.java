@@ -2,6 +2,8 @@ package mapEditor;
 
 import java.util.List;
 
+import core.gameManagers.EditorManager;
+import core.gameManagers.MenuManager;
 import gui.ImageProvider;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -23,11 +25,10 @@ import javafx.stage.Screen;
 public class ChoicePane extends Pane {
 
 	private AbstractObject choice;
-	private Scene s;
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
-	private Map mapEditor;
+	private MapEditor mapEditor;
 	private final int SPACING = 20;
-	private WorldSizeSelector worldSize = new WorldSizeSelector(s);
+	private WorldSizeSelector worldSize = new WorldSizeSelector();
 	private ScrollPane scrollPaneChoice = new ScrollPane();
 	private Pane transparentPane = new Pane();
 	private Rectangle background = new Rectangle();
@@ -41,10 +42,9 @@ public class ChoicePane extends Pane {
 	private ImageView clear;
 	private ImageView back;
 
-	public ChoicePane(List<AbstractObject> listImageView, Map mapEditor, Scene s) {
+	public ChoicePane(List<AbstractObject> listImageView, MapEditor mapEditor) {
 		this.mapEditor = mapEditor;
 		this.choice = null;
-		this.s = s;
 		this.save = new ImageView(ImageProvider.getInstance().getEditorImage("saveEditor"));
 		this.clear = new ImageView(ImageProvider.getInstance().getEditorImage("clearEditor"));
 		this.back = new ImageView(ImageProvider.getInstance().getEditorImage("BackButton"));
@@ -202,7 +202,8 @@ public class ChoicePane extends Pane {
 
 	private void addEvents() {
 		this.back.setOnMouseClicked(e -> {
-			EditorManager.getInstance().goToWorldSize(worldSize);
+//			EditorManager.getInstance().goToWorldSize(worldSize);
+			MenuManager.getInstance().previousPage();
 		});
 		this.save.setOnMousePressed(e -> {
 			save.setEffect(new Glow(0.8));

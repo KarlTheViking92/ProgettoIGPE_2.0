@@ -148,7 +148,7 @@ public class GameMenu extends Pane implements UpdatablePane {
 		btnEditor.setTranslateX(btnMulti.getTranslateX() + btnMulti.getFitWidth() + SPACING);
 		btnEditor.setTranslateY(btnMulti.getTranslateY());
 		btnEditor.setOnMouseClicked(event -> {
-
+			MenuManager.getInstance().goToEditor();
 			// GameMenuDemo.this.playSound("select");
 			// FadeTransition ft = new FadeTransition(Duration.seconds(0.5),
 			// this);

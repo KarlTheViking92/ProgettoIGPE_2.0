@@ -1,8 +1,18 @@
 package gui.panel.singlePlayer;
 
+
+import core.gameManagers.PlayManager;
+import game.GameSelector;
+import gui.event.KeyboardPressedEvent;
+import gui.event.KeyboardReleasedEvent;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -14,15 +24,32 @@ public class ProvaPaneMenu extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 //		SelectPlayer b = new SelectPlayer();
-		SelectMap b = new SelectMap();
-		Scene scene = new Scene(b,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
+		PerspectiveCamera camera = new PerspectiveCamera();
+		camera.setScaleX(0.5);
+		camera.setScaleY(0.5);
+		PlayManager p = PlayManager.getInstance();
+		GameSelector gs = new GameSelector();
+		gs.setPlayerName("c");
+		gs.setPlayerType("Vincenzo");
+		gs.setMapName("resources/Levels/customLevel/Livello Bello");
+		p.init(gs);
+		Pane root = new Pane();
+		Rectangle backgr = new Rectangle(1920, 1080);
+		backgr.setFill(Color.BLACK);
+		Scene scene = new Scene(root,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
+		SinglePlayerPane s = new SinglePlayerPane(scene);
 		stage.setScene(scene);
+		scene.setOnKeyPressed(new KeyboardPressedEvent(s));
+		scene.setOnKeyReleased(new KeyboardReleasedEvent(s));
+		scene.setCamera(camera);
+		s.drawWorld();
+		root.getChildren().addAll(s);
 		stage.setFullScreen(true);
 		new AnimationTimer() {
 			
 			@Override
 			public void handle(long now) {
-				b.update();
+				s.update();
 			}
 		}.start();
 		stage.show();

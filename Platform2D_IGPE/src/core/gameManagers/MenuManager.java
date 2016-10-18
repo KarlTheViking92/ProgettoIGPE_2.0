@@ -15,6 +15,7 @@ import gui.panel.singlePlayer.SinglePlayerPane;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Node;
+import javafx.scene.ParallelCamera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -44,7 +45,7 @@ public class MenuManager {
 	private Pane root = new Pane();
 	private SinglePlayerPane singlePlayer;
 	private PlayManager matchManager = PlayManager.getInstance();
-	private Camera camera = new PerspectiveCamera();
+	private Camera camera = new ParallelCamera();
 
 	private MenuManager() {
 	}
@@ -138,7 +139,9 @@ public class MenuManager {
 		// matchManager.setCurrentPlayer(new Player("", life, damage, world));
 		// camera.setNearClip(0);
 		// camera.setFarClip(-10);
-		// ((PerspectiveCamera) camera).setFieldOfView(35);
+//		((PerspectiveCamera) camera).setFieldOfView(35);
+		camera.setScaleX(0.5);
+		camera.setScaleY(0.5);
 		game.getScene().setCamera(camera);
 		singlePlayer.drawWorld();
 		currentPane = singlePlayer;

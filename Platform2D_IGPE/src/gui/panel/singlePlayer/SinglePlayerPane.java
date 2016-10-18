@@ -19,11 +19,13 @@ import gui.element.StandardBlockGraphic;
 import gui.panel.UpdatablePane;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -35,7 +37,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private final double HDRESOLUTION = 500;
 	private boolean resolution = false; // false for HD, true for FULLHD
 	private Point2D cameraDistance;
-	private Point2D mapLimit;
+	private Point2D widthLimit;
+	private Point2D heightLimit;
 	private CharacterDrawer drawer;
 	private PlayManager manager;
 
@@ -53,9 +56,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private Scene scene;
 
 	private Rectangle background;
-
+	Rectangle r = new Rectangle(10, 10);
 	// private Background background;
-
+	
+	private double SCALEFACTOR = 2;
+	
 	public SinglePlayerPane(Scene s) {
 
 		if (Screen.getPrimary().getBounds().getHeight() < 1080)
@@ -75,7 +80,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		this.setHeight(height);
 		
 		cameraDistance = new Point2D(700.0, 700.0);
-		mapLimit = new Point2D(400.0, 200.0); // con 100.00,50.00 funziona in questo caso almeno
+		widthLimit = new Point2D(width*0.2, width*0.8); // con 100.00,50.00 funziona in questo caso almeno
+		heightLimit = new Point2D(height*0.2, height*0.8);
 		// this.setOnKeyPressed(new KeyboardPressedEvent(this));
 		// this.setOnKeyReleased(new KeyboardReleasedEvent(this));
 
@@ -134,16 +140,20 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 /*		if (!resolution)
 			scene.getCamera().setTranslateZ(FULLHDRESOLUTION);
 		else
-			scene.getCamera().setTranslateZ(HDRESOLUTION);
-*/
+			scene.getCamera().setTranslateZ(HDRESOLUTION); */
 		// System.out.println( scene.getCamera());
-//		scene.getCamera().setTranslateZ(HDRESOLUTION);
+//		scene.getCamera().setTranslateZ(HDRESOLUTION/2);
+		
 //		this.group.getChildren().add(player);
 		this.group.getChildren().add(drawer);
-
+		scene.getCamera().setTranslateX(manager.getPlayer().getX() - (1920/4));
+		scene.getCamera().setTranslateY(manager.getPlayer().getY() - (1080/4));
 		// for (int i = 0; i < group.getChildren().size(); i++) {
 		// group.getChildren().get(i).toBack();
 		// }
+//		this.group.setScaleX(group.getScaleX()*SCALEFACTOR);
+//		this.group.setScaleY(group.getScaleY()*SCALEFACTOR);
+		
 	}
 	
 	@Override
@@ -175,10 +185,24 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 					((manager.getPlayer().getY() < 200) ? 200 : (manager.getLevelHeight() - mapLimit.getY()))
 							- cameraDistance.getY() + ((manager.getPlayer().getY() % 2 == 0) ? 0.1 : -0.1));
 		}*/
-		scene.getCamera().setLayoutX(manager.getPlayer().getX() - 800);
-		scene.getCamera().setLayoutY(manager.getPlayer().getY() - 1000);
-		//scene.getCamera().setTranslateX(cameraPosition[0]);
-		//scene.getCamera().setTranslateY(cameraPosition[1]);
+		double x = manager.getPlayer().getX();
+		double y = manager.getPlayer().getY();
+		
+		/*if((x > widthLimit.getX() && x < widthLimit.getY()) ||(y > heightLimit.getX() && y < heightLimit.getY()) ){
+			System.out.println("puoi aggiornare sulle x");
+		}*/
+		scene.getCamera().setTranslateX(manager.getPlayer().getX() - (1920/4));
+		scene.getCamera().setTranslateY(manager.getPlayer().getY() - (1080/4));
+	/*	
+		if (y > heightLimit.getX() && y < heightLimit.getY()) {
+			System.out.println("puoi aggiornare sulle y");
+			scene.getCamera().setTranslateY(manager.getPlayer().getY() - (1080/4));
+		}*/
+//		r.setLayoutX(cameraPosition[0]);
+//		r.setLayoutY(cameraPosition[1]);
+		
+//		scene.getCamera().setTranslateX(cameraPosition[0]);
+//		scene.getCamera().setTranslateY(cameraPosition[1]);
 //		System.out.println(scene.getCamera().getTranslateX() + "   "  + scene.getCamera().getTranslateY());
 //		scene.getCamera().setTranslateZ();
 //		System.out.println(((PerspectiveCamera)scene.getCamera()).getFieldOfView());

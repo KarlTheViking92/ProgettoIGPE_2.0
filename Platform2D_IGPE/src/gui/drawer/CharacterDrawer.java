@@ -57,7 +57,6 @@ public class CharacterDrawer extends ImageView {
 			oldDirection = character.getDirection();
 		}
 		
-		
 		if(oldDirection == Direction.LEFT && character.getDirection() == Direction.RIGHT){
 			rotation.setAngle(0);
 			oldDirection = character.getDirection();
@@ -70,10 +69,6 @@ public class CharacterDrawer extends ImageView {
 			this.setImage(animation.getCharacterIdleAnimation());
 		else
 			this.setImage(animation.getCharacterMoveAnimation());
-		
-		
-		
-		
-			 
+	 
 	}
 }

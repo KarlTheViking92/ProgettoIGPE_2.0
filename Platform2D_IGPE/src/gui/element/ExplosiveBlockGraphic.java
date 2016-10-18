@@ -13,6 +13,8 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 	private double originalWidth, originalHeight;
 	private double originalX, originalY;
 	
+	private final static Image cube = ImageProvider.getInstance().getSpecialBlock("ExplosiveBlock");
+	
 	private SpriteAnimation explosion;
 	
 	private final static Image[] EXPLOSION_FRAMES = { new Image(ANIMATION_PATH + "/1.png"),
@@ -50,7 +52,7 @@ public class ExplosiveBlockGraphic extends AbstractGraphicBlock {
 			this.setLayoutX(originalX - ((originalWidth * SCALEFACTOR) / 3));
 			this.setLayoutY(originalY - ((originalWidth * SCALEFACTOR) / 3));
 		} else {
-			this.setImage(ImageProvider.getInstance().getSpecialBlock("ExplosiveBlock"));
+			this.setImage(cube);
 			explosion.restartAnimation();
 			this.setFitWidth(originalWidth);
 			this.setFitHeight(originalHeight);

@@ -146,8 +146,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		
 //		this.group.getChildren().add(player);
 		this.group.getChildren().add(drawer);
-		scene.getCamera().setTranslateX(manager.getPlayer().getX() - (1920/4));
-		scene.getCamera().setTranslateY(manager.getPlayer().getY() - (1080/4));
+//		scene.getCamera().setTranslateX(manager.getPlayer().getX() - (1920/4));
+//		scene.getCamera().setTranslateY(manager.getPlayer().getY() - (1080/4));
 		// for (int i = 0; i < group.getChildren().size(); i++) {
 		// group.getChildren().get(i).toBack();
 		// }
@@ -159,7 +159,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	@Override
 	public void update() {
 		manager.update();
-		updateCamera();
+//		updateCamera();
 		updateBlocks();
 //		player.relocate(manager.getPlayer().getX(), manager.getPlayer().getY());
 //		System.out.println("player in " + manager.getPlayer().getX() + "  " + manager.getPlayer().getY());

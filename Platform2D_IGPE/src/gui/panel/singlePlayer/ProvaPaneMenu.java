@@ -24,9 +24,9 @@ public class ProvaPaneMenu extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 //		SelectPlayer b = new SelectPlayer();
-		PerspectiveCamera camera = new PerspectiveCamera();
-		camera.setScaleX(0.5);
-		camera.setScaleY(0.5);
+//		PerspectiveCamera camera = new PerspectiveCamera();
+//		camera.setScaleX(0.5);
+//		camera.setScaleY(0.5);
 		PlayManager p = PlayManager.getInstance();
 		GameSelector gs = new GameSelector();
 		gs.setPlayerName("c");
@@ -41,15 +41,18 @@ public class ProvaPaneMenu extends Application {
 		stage.setScene(scene);
 		scene.setOnKeyPressed(new KeyboardPressedEvent(s));
 		scene.setOnKeyReleased(new KeyboardReleasedEvent(s));
-		scene.setCamera(camera);
+//		scene.setCamera(camera);
 		s.drawWorld();
 		root.getChildren().addAll(s);
+		GameField subscene = new GameField(s, p.getLevelWidth(), p.getLevelHeight());
+		root.getChildren().addAll(backgr,subscene);
 		stage.setFullScreen(true);
 		new AnimationTimer() {
 			
 			@Override
 			public void handle(long now) {
 				s.update();
+				subscene.update();
 			}
 		}.start();
 		stage.show();

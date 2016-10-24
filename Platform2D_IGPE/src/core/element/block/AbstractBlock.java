@@ -1,7 +1,9 @@
 package core.element.block;
 
+import core.World.World;
 import core.element.Position;
 import core.element.character.Character;
+import core.element.character.Direction;
 
 public class AbstractBlock implements Block {
 
@@ -12,6 +14,8 @@ public class AbstractBlock implements Block {
 	private String color;
 	protected boolean inside = false;
 	protected boolean collided = false;
+
+	protected World world;
 
 	@Override
 	public int getCode() {
@@ -29,7 +33,8 @@ public class AbstractBlock implements Block {
 	// TODO posizione da fare intera probabilmente
 	protected Position position;
 
-	public AbstractBlock(Position position, int code) {
+	public AbstractBlock(World w, Position position, int code) {
+		world = w;
 		this.position = position;
 		this.code = code;
 	}
@@ -46,7 +51,7 @@ public class AbstractBlock implements Block {
 
 	// il punto in esame appartiene al blocco?
 	protected boolean collide(double x, double y, int height, int width) {
-		
+
 		if ((this.position.getX() + WIDTH) < x)
 			return false;
 		if (this.position.getX() > (x + width))
@@ -107,8 +112,20 @@ public class AbstractBlock implements Block {
 
 	@Override
 	public void setAnimated(boolean a) {
-		animated = a; 
-		
+		animated = a;
+
+	}
+
+	@Override
+	public void setX(double x) {
+		position.setX(x);
+
+	}
+
+	@Override
+	public void setY(double y) {
+		position.setY(y);
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package core.element.block;
 
+import core.World.World;
 import core.element.Position;
 import core.element.character.Character;
 
@@ -8,8 +9,8 @@ public class TrapBlock extends AbstractBlock {
 	private long current;
 	private long lastMillis;
 
-	public TrapBlock(Position position) {
-		super(position, 13);
+	public TrapBlock(World w,Position position) {
+		super(w,position, 13);
 	}
 
 	@Override

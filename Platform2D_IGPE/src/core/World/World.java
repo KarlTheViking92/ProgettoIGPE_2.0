@@ -32,6 +32,7 @@ public interface World {
 	abstract public Block[][] getMatrix();
 	
 	abstract public boolean checkPlayerCollision(Character player, double x , double y);
+	abstract public boolean checkBlockCollision(Block b,double x, double y, int w);
 	// checkpoint
 	
 	abstract public Point2D getCheckPoint();

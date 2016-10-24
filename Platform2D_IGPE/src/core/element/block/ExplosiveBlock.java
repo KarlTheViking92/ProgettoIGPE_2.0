@@ -1,5 +1,6 @@
 package core.element.block;
 
+import core.World.World;
 import core.element.Position;
 import core.element.character.Player;
 import core.gameManagers.PlayManager;
@@ -13,8 +14,8 @@ public class ExplosiveBlock extends AbstractBlock {
 	private Player c = PlayManager.getInstance().getPlayer();
 	private double Y = this.getY() + 50;
 
-	public ExplosiveBlock(Position position) {
-		super(position, 14);
+	public ExplosiveBlock(World w,Position position) {
+		super(w,position, 14);
 	}
 
 	public boolean inTheBlock() {

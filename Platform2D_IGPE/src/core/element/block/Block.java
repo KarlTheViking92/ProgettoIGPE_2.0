@@ -1,6 +1,7 @@
 package core.element.block;
 
 import core.element.character.Character;
+import core.element.character.Direction;
 
 public interface Block  {
 	public abstract double getX();
@@ -18,4 +19,7 @@ public interface Block  {
 	public abstract boolean isPlayerInsideBlock();
 	public abstract void setPlayerState(Character c);
 	public abstract void setAnimated (boolean a);
+	public abstract void setX(double x);
+	public abstract void setY(double y);
+	
 }

@@ -13,4 +13,9 @@ public class Player extends AbstractCharacter{
 	public void collectGem() {
 		gems++;
 	}
+	
+	public void faicose(double x, double y){
+		position.setX(x);
+		position.setY(y);
+	}
 }

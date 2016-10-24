@@ -1,11 +1,12 @@
 package core.element.block;
 
+import core.World.World;
 import core.element.Position;
 
 public class GhostBlock extends AbstractBlock {
 
-	public GhostBlock(Position position) {
-		super(position, 10);
+	public GhostBlock(World w,Position position) {
+		super(w,position, 10);
 	}
 
 	@Override

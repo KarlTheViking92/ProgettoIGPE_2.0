@@ -1,12 +1,13 @@
 package core.element.block;
 
+import core.World.World;
 import core.element.Position;
 import core.element.character.Character;
 
 public class CheckPointBlock extends AbstractBlock {
 
-	public CheckPointBlock(Position position) {
-		super(position, 8);
+	public CheckPointBlock(World w, Position position) {
+		super(w,position, 8);
 	}
 
 	@Override

@@ -7,16 +7,17 @@ public interface Character {
 	public abstract void hurt();
 
 	public abstract boolean isDead();
-	
+
 	public abstract void kill();
-	
+
 	public abstract void setPosition(Position p);
 
 	public abstract Direction getDirection();
 
 	public abstract void setDirection(Direction direction);
-	
+
 	public abstract void setType(String type);
+
 	public abstract String getType();
 
 	public abstract double getX();
@@ -32,7 +33,7 @@ public interface Character {
 	public abstract int getHeight();
 
 	public abstract int getDamage();
-	
+
 	public abstract String getName();
 
 	public abstract void setDamage(int damage);
@@ -46,7 +47,7 @@ public interface Character {
 	public abstract void hit();
 
 	public abstract void update();
-	
+
 	public abstract boolean isJumping();
 
 	public abstract boolean isSuperJumping();
@@ -54,18 +55,23 @@ public interface Character {
 	public abstract boolean canJump();
 
 	public abstract boolean canDoubleJump();
-	
+
 	public abstract boolean isFalling();
-	
+
 	public abstract void collectGem();
-	
+
 	public abstract int getCollectedGems();
-	
+
 	public abstract void respawn();
-	
+
 	public abstract void superJump();
-	
+
 	public abstract void setLastSpawnPoint(double x, double y);
 
 	public abstract void setSuperJumpDirection(double x, double y);
+
+	public abstract boolean canSuperJump();
+
+	public abstract float getVelocityX();
+
 }

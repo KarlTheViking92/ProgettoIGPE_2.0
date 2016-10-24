@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+
+import core.World.World;
 import core.element.Position;
 import gui.GameProperties;
 
@@ -45,7 +47,7 @@ public class BlockFactory {
 	}
 
 	// factory method reflection 
-	public Block makeBlock(int code, Position pos) {
+	public Block makeBlock(World w,int code, Position pos) {
 
 		try {
 //			System.out.println(code);
@@ -53,7 +55,7 @@ public class BlockFactory {
 //			System.out.println("logic Block: "+blockSet.get(code));
 			Class block = Class.forName("core.element.block." + blockSet.get(code));
 			
-			return (Block) block.getConstructor(Position.class).newInstance(pos);
+			return (Block) block.getConstructor(World.class,Position.class).newInstance(w,pos);
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -75,7 +75,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		height = manager.getLevelHeight();
 		this.background = new Rectangle(Screen.getPrimary().getBounds().getWidth(),
 				Screen.getPrimary().getBounds().getHeight());
-		this.background.setFill(new ImagePattern(new Image("file:resources/images/bkgrImg.png")));
+//		this.background.setFill(new ImagePattern(new Image("file:resources/images/bkgrImg.png")));
 		this.setWidth(width);
 		this.setHeight(height);
 		
@@ -153,7 +153,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// }
 //		this.group.setScaleX(group.getScaleX()*SCALEFACTOR);
 //		this.group.setScaleY(group.getScaleY()*SCALEFACTOR);
-		
+		System.out.println(group.getChildren());
 	}
 	
 	@Override

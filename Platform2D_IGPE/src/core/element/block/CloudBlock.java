@@ -1,12 +1,13 @@
 package core.element.block;
 
+import core.World.World;
 import core.element.Position;
 import core.gameManagers.PlayManager;
 
 public class CloudBlock extends AbstractBlock {
 
-	public CloudBlock(Position position) {
-		super(position,7);
+	public CloudBlock(World w, Position position) {
+		super(w,position,7);
 		this.setHeight(5);
 	}
 

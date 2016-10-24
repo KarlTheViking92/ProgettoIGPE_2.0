@@ -67,18 +67,18 @@ public class GameField extends SubScene {
 		if (x > widthLimit.getX() && x < widthLimit.getY()) {
 			this.camera.setTranslateX(manager.getPlayer().getX() - (screen.getWidth() / 4));
 		}else{
-			System.out.println("se non la muovi la x sta in ");
-			System.out.println(camera.getTranslateX());
-			System.out.println(widthLimit.getY());
-			System.out.println("sei così "+ (widthLimit.getY() - (screen.getWidth() / 4)));
+//			System.out.println("se non la muovi la x sta in ");
+//			System.out.println(camera.getTranslateX());
+//			System.out.println(widthLimit.getY());
+//			System.out.println("sei così "+ (widthLimit.getY() - (screen.getWidth() / 4)));
 		}
 		if (y > heightLimit.getX() && y < heightLimit.getY()) {
 			this.camera.setTranslateY(manager.getPlayer().getY() - (screen.getHeight() / 4));
 		}else{
-			System.out.println("se non la muovi la y sta in ");
-			System.out.println(camera.getTranslateY());
-			System.out.println(heightLimit.getY());
-			System.out.println("sei così "+ (heightLimit.getY() - (screen.getHeight() / 4)));
+//			System.out.println("se non la muovi la y sta in ");
+//			System.out.println(camera.getTranslateY());
+//			System.out.println(heightLimit.getY());
+//			System.out.println("sei così "+ (heightLimit.getY() - (screen.getHeight() / 4)));
 		}
 	}
 

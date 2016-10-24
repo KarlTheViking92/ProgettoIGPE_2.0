@@ -55,8 +55,11 @@ public class BlockMap {
 	// private List<Point2D> gemPosition = new ArrayList<>();
 	private List<Item> gemList = new ArrayList<>();
 
+	private World world;
+
 	// constructor
-	public BlockMap(String path) {
+	public BlockMap(String path, World w) {
+		this.world = w;
 		this.factory = new BlockFactory();
 		this.path = path;
 	}
@@ -76,7 +79,7 @@ public class BlockMap {
 					gems++;
 				} else {
 					// forse la position è sbagliata
-					blocks[y][x] = factory.makeBlock(logicalMap[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					blocks[y][x] = factory.makeBlock(world,logicalMap[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
 					if (blocks[y][x] instanceof StandardBlock) {
 						blocks[y][x].setColor(coloredMap[y][x]);
 					}

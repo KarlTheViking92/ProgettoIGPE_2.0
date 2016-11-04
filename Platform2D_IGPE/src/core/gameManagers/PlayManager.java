@@ -70,6 +70,7 @@ public class PlayManager {
 	}
 
 	public void update() {
+		world.update();
 		for (Player player : players) {
 			if (!player.isDead()) {
 				player.update();
@@ -82,7 +83,7 @@ public class PlayManager {
 				player.respawn();
 			}
 		}
-		world.update();
+		
 
 	}
 

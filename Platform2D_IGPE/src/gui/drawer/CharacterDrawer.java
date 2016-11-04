@@ -61,7 +61,7 @@ public class CharacterDrawer extends ImageView {
 			rotation.setAngle(0);
 			oldDirection = character.getDirection();
 		}
-		if (character.isJumping() || character.isSuperJumping()){
+		if (character.isJumping() || character.isDoubleJumping() || character.isSuperJumping()){
 			this.setImage(animation.getCharacterJumpAnimation());    
 		}else if(character.isFalling()){
 			this.setImage(animation.getCharacterFallAnimation());

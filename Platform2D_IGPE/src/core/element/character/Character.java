@@ -11,6 +11,8 @@ public interface Character {
 	public abstract void kill();
 
 	public abstract void setPosition(Position p);
+	
+	public abstract void moveCharacter(double spostamento);
 
 	public abstract Direction getDirection();
 
@@ -49,6 +51,8 @@ public interface Character {
 	public abstract void update();
 
 	public abstract boolean isJumping();
+
+	public abstract boolean isDoubleJumping();
 
 	public abstract boolean isSuperJumping();
 

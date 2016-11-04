@@ -3,8 +3,6 @@ package core.element.character;
 import core.World.World;
 import core.element.Item;
 import core.element.Position;
-import javafx.geometry.Point2D;
-import sun.util.resources.cldr.sah.CalendarData_sah_RU;
 
 public abstract class AbstractCharacter implements Character {
 
@@ -14,6 +12,7 @@ public abstract class AbstractCharacter implements Character {
 	private Position lastSpawnPoint;
 	private int damage;
 	private Direction direction = Direction.STOP;
+	private double delta = 0;
 	private double[] d = new double[] { 0.0, 0.0 };
 	protected int gems = 0;
 	// aggiustare width e height
@@ -27,13 +26,16 @@ public abstract class AbstractCharacter implements Character {
 
 	private float vx, vy;
 
-	private boolean canJump = true, jumping = false, superJumping = false, falling = true, grounded = false,
-			provaSuperJumping = false;
-	private boolean right = false, moving = false;
+	private boolean canJump = true, jumping = false, superJumping = false, falling = true, grounded = false;
+	private boolean moving = false , blockMoving = false;
 	private boolean doubleJump = false, canDoubleJump = true, canSuperJump = true;
 	// jumping
 	private final double JUMPSPEED = 4;
 	private double currentJumpSpeed = JUMPSPEED;
+	
+	//super jump
+	private final double SUPERJUMP = 8;
+	private double currentSuperJumpSpeed = SUPERJUMP;
 
 	// falling
 	private final double MAXFALLSPEED = 5;
@@ -164,11 +166,12 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void superJump() {
-		if (canSuperJump) {
-			currentJumpSpeed = JUMPSPEED * 1.5;
-			canSuperJump = false;
-			provaSuperJumping = true;
-		}
+		System.out.println("metto a true");
+		superJumping = true;
+		falling = false;
+//		currentSuperJumpSpeed = SUPERJUMP;
+		d[0] = 0;
+		d[1] = 0;
 	}
 
 	@Override
@@ -191,15 +194,17 @@ public abstract class AbstractCharacter implements Character {
 	public void update() {
 
 		// List<Block> blocks = world.getNearBlocks();
-
 		double X = getX();
 		double Y = getY();
-
 		for (Item gem : world.getGems()) {
 			if (gem.collide(X, Y, WIDTH, HEIGHT) && !gem.isCollected()) {
 				gem.collect();
 				collectGem();
 			}
+		}
+		if(blockMoving){
+			X = getX() + delta;
+			blockMoving = false;
 		}
 
 		// System.out.println("last check attuale : " + lastCheck.getX() + " " +
@@ -208,51 +213,22 @@ public abstract class AbstractCharacter implements Character {
 		case RIGHT:
 			if (!world.checkPlayerCollision(this, getX() + VELOCITY_X, getY())) {
 				X = position.getX() + VELOCITY_X;
-				// return;
 			}
 
 			vx = VELOCITY_X;
-			// moving = true;
 			break;
 
 		case LEFT:
 			if (!world.checkPlayerCollision(this, getX() - VELOCITY_X, getY())) {
 				X = position.getX() - VELOCITY_X;
 			}
-			// moving = true;
 			vx = -VELOCITY_X;
 			break;
 
 		case STOP:
-			moving = false;
 			break;
 		default:
 			break;
-		}
-
-		if (moving) {
-			X += vx;
-		}
-
-		if (provaSuperJumping) {
-			if (!world.checkPlayerCollision(this, getX() + currentJumpSpeed * d[0], getY() + currentJumpSpeed * d[1])) {
-				Y = position.getY() + (currentJumpSpeed * d[1]);
-				X = position.getX() + (currentJumpSpeed * d[0]);
-				currentJumpSpeed -= 0.1;
-				superJumping = true;
-				if (currentJumpSpeed < 1) {
-					currentJumpSpeed = JUMPSPEED;
-					superJumping = false;
-					provaSuperJumping = false;
-				}
-			} else {
-				currentJumpSpeed = JUMPSPEED;
-				currentFallSpeed = 0.1;
-				vx = 0;
-				superJumping = false;
-				provaSuperJumping = false;
-			}
-
 		}
 
 		if (jumping) {
@@ -279,12 +255,12 @@ public abstract class AbstractCharacter implements Character {
 			if (!world.checkPlayerCollision(this, getX(), getY() - currentJumpSpeed)) {
 				Y = position.getY() - currentJumpSpeed;
 				currentJumpSpeed -= 0.1;
-				superJumping = true;
+//				superJumping = true;
 				if (currentJumpSpeed < 1) {
 					currentJumpSpeed = JUMPSPEED;
 					currentFallSpeed = 0.1;
 					doubleJump = false;
-					superJumping = false;
+//					superJumping = false;
 					falling = true;
 				}
 			} else {
@@ -292,11 +268,32 @@ public abstract class AbstractCharacter implements Character {
 				currentFallSpeed = 0.1;
 				vx = 0;
 				doubleJump = false;
-				superJumping = false;
+//				superJumping = false;
 				falling = true;
 				grounded = false;
 			}
 
+		}
+		
+		if (superJumping) {
+			System.out.println((getY() + currentSuperJumpSpeed * d[1]));
+
+			if (!world.checkPlayerCollision(this, getX() + currentJumpSpeed * d[0], getY() + currentSuperJumpSpeed * d[1])) {
+				Y = position.getY() + (currentSuperJumpSpeed * d[1]);
+//				X = position.getX() + (currentSuperJumpSpeed * d[0]);
+				falling = false;
+				currentSuperJumpSpeed -= 0.1;
+				if (currentSuperJumpSpeed < 1) {
+					currentSuperJumpSpeed = SUPERJUMP;
+					superJumping = false;
+				}
+			} else {
+				System.out.println("metto a false");
+				currentSuperJumpSpeed = SUPERJUMP;
+				superJumping = false;
+//				falling  =   true;
+			}
+			
 		}
 
 		if (falling) {
@@ -308,13 +305,14 @@ public abstract class AbstractCharacter implements Character {
 				}
 
 			} else {
+				System.out.println("ehila");
 				currentFallSpeed = 0.1;
 				currentJumpSpeed = JUMPSPEED;
+				currentSuperJumpSpeed = SUPERJUMP;
 				vx = 0;
 				doubleJump = false;
-				superJumping = false;
 				canJump = true;
-				provaSuperJumping = false;
+				superJumping = false;
 				canDoubleJump = true;
 				canSuperJump = true;
 				falling = false;
@@ -322,7 +320,7 @@ public abstract class AbstractCharacter implements Character {
 			}
 		}
 		if (!world.checkPlayerCollision(this, getX(), getY() + currentFallSpeed)) {
-			if (!jumping && !doubleJump && !provaSuperJumping) {
+			if (!jumping && !doubleJump && !superJumping) {
 				falling = true;
 			}
 		}
@@ -333,10 +331,9 @@ public abstract class AbstractCharacter implements Character {
 		if (!world.checkPlayerCollision(this, X, Y)) {
 			position.setX(X);
 			position.setY(Y);
-		} else
-			moving = false;
-
-		// System.out.println("player position: "+this.getX()+" "+this.getY());
+		} 
+//		else
+//			moving = false;
 	}
 
 	@Override
@@ -380,7 +377,11 @@ public abstract class AbstractCharacter implements Character {
 
 	@Override
 	public void setPosition(Position p) {
-		this.position = p;
+		// this.position = p;
+		double x = p.getX();
+		double y = p.getY();
+
+		this.position = new Position(x, y);
 		if (lastSpawnPoint == null) {
 			lastSpawnPoint = new Position(world.getMap().getSpawnPoint().getX(), world.getMap().getSpawnPoint().getY());
 		}
@@ -394,10 +395,15 @@ public abstract class AbstractCharacter implements Character {
 	}
 
 	@Override
-	public boolean isSuperJumping() {
-		return superJumping;
+	public boolean isDoubleJumping() {
+		return doubleJump;
 	}
 
+	@Override
+		public boolean isSuperJumping() {
+			return superJumping;
+		}
+	
 	@Override
 	public void setLastSpawnPoint(double x, double y) {
 		lastSpawnPoint.setX(x);
@@ -408,5 +414,11 @@ public abstract class AbstractCharacter implements Character {
 	public void respawn() {
 		setPosition(new Position(lastSpawnPoint.getX(), lastSpawnPoint.getY()));
 		life = 1;
+	}
+
+	@Override
+	public void moveCharacter(double delta) {
+		blockMoving = true;
+		this.delta = delta;
 	}
 }

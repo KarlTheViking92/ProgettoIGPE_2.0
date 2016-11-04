@@ -10,8 +10,10 @@ import javafx.application.Application;
 import javafx.scene.ParallelCamera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -31,11 +33,11 @@ public class ProvaPaneMenu extends Application {
 		GameSelector gs = new GameSelector();
 		gs.setPlayerName("c");
 		gs.setPlayerType("Vincenzo");
-		gs.setMapName("resources/Levels/customLevel/Livello Bello");
+		gs.setMapName("resources/Levels/customLevel/testSuperJ");
 		p.init(gs);
 		Pane root = new Pane();
 		Rectangle backgr = new Rectangle(1920, 1080);
-		backgr.setFill(Color.BLACK);
+//		backgr.setFill(Color.BLACK);
 		Scene scene = new Scene(root,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
 		SinglePlayerPane s = new SinglePlayerPane(scene);
 		stage.setScene(scene);
@@ -44,8 +46,10 @@ public class ProvaPaneMenu extends Application {
 //		scene.setCamera(camera);
 		s.drawWorld();
 		root.getChildren().addAll(s);
-		GameField subscene = new GameField(s, p.getLevelWidth(), p.getLevelHeight());
-		root.getChildren().addAll(backgr,subscene);
+		Rectangle bkgr = new Rectangle(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+		bkgr.setFill(new ImagePattern(new Image("file:resources/images/backgrounds/bkgrImg.png")));
+		GameField subscene = new GameField(s,Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+		root.getChildren().addAll(bkgr,subscene);
 		stage.setFullScreen(true);
 		new AnimationTimer() {
 			

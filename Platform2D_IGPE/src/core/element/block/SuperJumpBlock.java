@@ -3,8 +3,6 @@ package core.element.block;
 import core.World.World;
 import core.element.Position;
 import core.element.character.Character;
-import core.element.character.Player;
-import core.gameManagers.PlayManager;
 
 public class SuperJumpBlock extends AbstractBlock {
 
@@ -18,38 +16,34 @@ public class SuperJumpBlock extends AbstractBlock {
 	@Override
 	public boolean collision(double x, double y, int height, int width) {
 		if (super.collision(x, y, height, width)) {
-			// System.out.println("PlayerX: " + x + " PlayerY: " + y + " width:"
-			// + width + " height: " + height);
-			// System.out.println(
-			// "CuboX: " + this.getX() + " CuboY: " + (this.getY()) + "
-			// larghezza/altezza " + this.getWIDTH());
-			// double p_bX = (x + (x + width)) / 2;
-			// double p_bY = (y + (y + height)) / 2;
 			xSuperJump = 0.0;
 			ySuperJump = 0.0;
-			// System.out.println("collido");
-
-//			if (x < this.getX() && y > this.getY() && y + height < this.getY() + this.getHEIGHT()) {
-//				xSuperJump = -2;
-//				System.out.println("sono a sinistra");
-//			}
-//		 if (x + width > this.getX() + this.getWIDTH() && y > this.getY()
-//					&& y + height < this.getY() + this.getHEIGHT()) {
-//				xSuperJump = 2;
-//				System.out.println("sono a destra");
-//			}
-//			 if (y + height > this.getY() + this.getHEIGHT() && x > this.getX() && x + width < this.getX() + this.getWIDTH()) {
-//				ySuperJump = 2;
-//				System.out.println("sono sotto");
-//			}
-//
-			 if (y < this.getY() /*&& x > this.getX()
-					&& x + width < this.getX() + this.getWIDTH()*/) {
-				ySuperJump = -2;
-//				System.out.println("sono sopra");
+			
+			double Y = y + height/2;
+			double X = x + width/2;
+//			System.out.println("blocco è x: " + getX() +" y: " + getY());
+//			System.out.println("X : " + X + " Y: " + Y);
+			if (x <= this.getX() && (Y >= getY() && Y <= getY()+HEIGHT)) {
+				System.out.println("sono a sinistra");
+				xSuperJump = -1;
+			}
+			
+			else if (x >= this.getX()+WIDTH && (Y >= getY() && Y <= getY()+HEIGHT)) {
+				xSuperJump = 1;
+				System.out.println("sono a destra");
+			}
+			 if (X >= getX() && X <= getX()+WIDTH && y < getY()) {
+				System.out.println("sono sopra");
+				ySuperJump = -1;
 				animated = true;
 			}
+			 else if (X >= getX() && X <= getX()+WIDTH && y > getY()) {
+				 System.out.println("sono sotto");
+				 ySuperJump = 1;
+				 
+			 }
 
+			 
 		}
 
 		return super.collision(x, y, height, width);
@@ -57,8 +51,9 @@ public class SuperJumpBlock extends AbstractBlock {
 
 	@Override
 	public void setPlayerState(Character c) {
+		System.out.println("superjump");
+		c.superJump();
 		c.setSuperJumpDirection(xSuperJump, ySuperJump);
-		 c.superJump();
 	}
 
 	@Override

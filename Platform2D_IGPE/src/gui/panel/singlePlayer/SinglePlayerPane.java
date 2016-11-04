@@ -153,7 +153,6 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// }
 //		this.group.setScaleX(group.getScaleX()*SCALEFACTOR);
 //		this.group.setScaleY(group.getScaleY()*SCALEFACTOR);
-		System.out.println(group.getChildren());
 	}
 	
 	@Override

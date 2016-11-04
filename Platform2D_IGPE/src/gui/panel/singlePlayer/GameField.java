@@ -43,7 +43,6 @@ public class GameField extends SubScene {
 		double y = manager.getPlayer().getY();
 
 		if ((x > widthLimit.getX() && x < widthLimit.getY()) && (y > heightLimit.getX() && y < heightLimit.getY())) {
-			System.out.println("setto al primo if");
 			this.camera.setTranslateX(manager.getPlayer().getX() - (screen.getWidth() / 4));
 			this.camera.setTranslateY(manager.getPlayer().getY() - (screen.getHeight() / 4));
 		}

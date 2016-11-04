@@ -36,7 +36,7 @@ public class EndingLevelBlockGraphic extends AbstractGraphicBlock {
 				this.setImage(ENDING_FRAMES[0]);
 			if ( c.getCollectedGems() == 2)
 				this.setImage(ENDING_FRAMES[1]);
-			if ( c.getCollectedGems() == 3)
+			if ( c.getCollectedGems() >= 3)
 				this.setImage(ENDING_FRAMES[2]);
 	}
 }

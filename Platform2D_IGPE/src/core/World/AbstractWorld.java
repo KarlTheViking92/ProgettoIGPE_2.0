@@ -7,6 +7,7 @@ import core.element.Item;
 import core.element.Position;
 import core.element.block.Block;
 import core.element.block.MoveableBlock;
+import core.element.block.SuperJumpBlock;
 import core.element.character.Character;
 import core.element.character.Player;
 import core.gameManagers.PlayManager;
@@ -93,8 +94,6 @@ public class AbstractWorld implements World {
 	public void update() {
 
 		// TODO Auto-generated method stub
-
-		// for tutti i blocchi chiama update
 		for (Block b : map.getBlockList()) {
 			b.update();
 		}

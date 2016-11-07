@@ -45,7 +45,6 @@ public class MenuManager {
 	private Pane root = new Pane();
 	private SinglePlayerPane singlePlayer;
 	private PlayManager matchManager = PlayManager.getInstance();
-	private Camera camera = new ParallelCamera();
 
 	private MenuManager() {
 	}
@@ -66,10 +65,8 @@ public class MenuManager {
 			root.getChildren().add(menu);
 			// System.out.println(menu.getChildren());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// game.getScene().setCamera(camera);
 
 	}
 
@@ -128,27 +125,19 @@ public class MenuManager {
 	}
 
 	public void startGame() {
-		Pane p = new Pane();
+//		Pane p = new Pane();
 		matchManager.init(actualState.getSelector());
 		singlePlayer = new SinglePlayerPane(game.getScene());
-		root.getChildren().clear();
-		// p.setLayoutX(screen.getWidth()/2 - singlePlayer.getWidth()/2);
-		// p.setLayoutY(screen.getHeight()/2 - singlePlayer.getHeight()/2);
-		// game.getScene().setCamera(camera);
-		// crea il player ?
-		// matchManager.setCurrentPlayer(new Player("", life, damage, world));
-		// camera.setNearClip(0);
-		// camera.setFarClip(-10);
-//		((PerspectiveCamera) camera).setFieldOfView(35);
-		camera.setScaleX(0.5);
-		camera.setScaleY(0.5);
-		game.getScene().setCamera(camera);
-		singlePlayer.drawWorld();
+		
 		currentPane = singlePlayer;
 		game.getScene().setOnKeyPressed(new KeyboardPressedEvent(singlePlayer));
 		game.getScene().setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
-		p.getChildren().add(singlePlayer);
-		root.getChildren().add(p);
+		singlePlayer.draw();
+//		p.getChildren().add(singlePlayer);
+		root.getChildren().clear();
+		System.out.println(root.getChildren().size());
+		root.getChildren().add(singlePlayer);
+		System.out.println(singlePlayer.getChildren());
 	}
 
 	public void goToEditor() {

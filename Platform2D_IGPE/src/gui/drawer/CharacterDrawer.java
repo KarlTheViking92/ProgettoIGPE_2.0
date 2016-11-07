@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
 public class CharacterDrawer extends ImageView {
-
+	
 	private Character character;
 	private CharacterAnimation animation;
 	private Direction oldDirection;
@@ -15,7 +15,7 @@ public class CharacterDrawer extends ImageView {
 
 	public CharacterDrawer(Character c) {
 		character = c;
-		animation = loadAnimation(c);
+//		animation = loadAnimation(c);
 		oldDirection = Direction.RIGHT;
 		this.getTransforms().add(rotation);
 		rotation.setAxis(Rotate.Y_AXIS);
@@ -24,27 +24,27 @@ public class CharacterDrawer extends ImageView {
 		// TODO Auto-generated constructor stub
 	}
 
-	private CharacterAnimation loadAnimation(Character c) {
-		String name = "gui.animation." + c.getType() + "Animation";
-
-		Class animation;
-		try {
-
-			animation = Class.forName(name);
-			return (CharacterAnimation) animation.newInstance();
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	private CharacterAnimation loadAnimation(Character c) {
+//		String name = "gui.animation." + c.getType() + "Animation";
+//
+//		Class animation;
+//		try {
+//
+//			animation = Class.forName(name);
+//			return (CharacterAnimation) animation.newInstance();
+//
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 	public void draw(){
 		this.setLayoutX(character.getX());

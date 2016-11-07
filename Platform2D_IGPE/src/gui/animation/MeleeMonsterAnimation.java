@@ -6,28 +6,34 @@ public class MeleeMonsterAnimation implements CharacterAnimation {
 
 	private final static String PATH_FRAME = "file:resources/images/enemies/MeleeMonster";
 
-	private final static Image[] MOVING_FRAMES = { new Image(PATH_FRAME + "/Moving/1.png"),
+	private final static Image[] RUN_FRAMES = { new Image(PATH_FRAME + "/Moving/1.png"),
 			new Image(PATH_FRAME + "/Moving/2.png"), new Image(PATH_FRAME + "/Moving/3.png"),
 			new Image(PATH_FRAME + "/Moving/4.png"), new Image(PATH_FRAME + "/Moving/5.png"),
 			new Image(PATH_FRAME + "/Moving/6.png"), new Image(PATH_FRAME + "/Moving/6.png"),
 
 	};
 
-	private SpriteAnimation movingAnimation;
+	private final static Image[] STATIC_FRAMES = { new Image(PATH_FRAME + "/Static/frame1.png"),
+			new Image(PATH_FRAME + "/Static/frame2.png"),
+
+	};
+	
+	private SpriteAnimation runAnimation;
+	private SpriteAnimation staticAnimation;
 
 	public MeleeMonsterAnimation() {
-		movingAnimation = new SpriteAnimation(MOVING_FRAMES, 100);
+		runAnimation = new SpriteAnimation(RUN_FRAMES, 100);
+		staticAnimation = new SpriteAnimation(STATIC_FRAMES, 300);
 	}
 
 	@Override
 	public Image getCharacterMoveAnimation() {
-		return movingAnimation.nextFrame();
+		return runAnimation.nextFrame();
 	}
 
 	@Override
 	public Image getCharacterIdleAnimation() {
-		// TODO Auto-generated method stub
-		return null;
+		return staticAnimation.nextFrame();
 	}
 
 	@Override

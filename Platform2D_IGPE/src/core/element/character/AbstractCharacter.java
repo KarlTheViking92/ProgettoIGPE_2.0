@@ -189,6 +189,10 @@ public abstract class AbstractCharacter implements Character {
 	public void hit() {
 		// TODO Auto-generated method stub
 	}
+	
+	@Override
+	public void searchPlayer(Player p) {
+	}
 
 	@Override
 	public void setSuperJumpDirection(double x, double y) {
@@ -202,6 +206,11 @@ public abstract class AbstractCharacter implements Character {
 		// List<Block> blocks = world.getNearBlocks();
 		double X = getX();
 		double Y = getY();
+		
+//		for(Character meleeEnemy : world.getEnemies()){
+//			meleeEnemy.searchPlayer();
+//		}
+		
 		for (Item gem : world.getGems()) {
 			if (gem.collide(X, Y, WIDTH, HEIGHT) && !gem.isCollected()) {
 				gem.collect();
@@ -312,7 +321,6 @@ public abstract class AbstractCharacter implements Character {
 				}
 
 			} else {
-				System.out.println("ehila");
 				currentFallSpeed = 0.1;
 				currentJumpSpeed = JUMPSPEED;
 				currentSuperJumpSpeed = SUPERJUMP;

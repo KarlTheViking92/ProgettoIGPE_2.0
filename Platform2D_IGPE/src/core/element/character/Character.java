@@ -79,5 +79,7 @@ public interface Character {
 	public abstract float getVelocityX();
 	
 	public abstract void setX(double x);
+	
+	public abstract void searchPlayer(Player p);
 
 }

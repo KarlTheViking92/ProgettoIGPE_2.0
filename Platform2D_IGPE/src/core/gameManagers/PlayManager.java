@@ -7,7 +7,9 @@ import core.World.AbstractWorld;
 import core.World.World;
 import core.element.Item;
 import core.element.block.Block;
+import core.element.character.Character;
 import core.element.character.Direction;
+import core.element.character.MeleeEnemy;
 import core.element.character.Player;
 import game.GameSelector;
 import javafx.geometry.Point2D;
@@ -24,8 +26,9 @@ public class PlayManager {
 
 	private List<Player> players = new ArrayList<>();
 	private Player currentPlayer;
+	private List<Character> currentEnemy;
 	private boolean isDead = false;
-	
+
 	private long lastMillis;
 	private long current;
 
@@ -40,19 +43,25 @@ public class PlayManager {
 	}
 
 	public void init(GameSelector game) {
-		// il player devo istanziarlo in questa clase solo dopo che il mondo è stato istanziato
-		// la funzione che da posizione al player non può trovarsi in world, il world deve solo conoscere la posizione del player 
+		// il player devo istanziarlo in questa clase solo dopo che il mondo è
+		// stato istanziato
+		// la funzione che da posizione al player non può trovarsi in world, il
+		// world deve solo conoscere la posizione del player
 		// altrimenti uno aspetta l'altro per istanziarsi e muoiono tutti
 		world = new AbstractWorld();
+
+		// per ora proviamo a metterlo qui il mostro PER PROVA, VINCE NON TI
+		// INCAZZARE MANNAGGIA AL DEMONIO
+
 		currentPlayer = new Player(game.getPlayerName(), 10, 1, world);
 		currentPlayer.setType(game.getPlayerType());
 		players.add(currentPlayer);
-//		world.loadMap("resources/Levels/customLevel/Livello Bello");
+		// world.loadMap("resources/Levels/customLevel/Livello Bello");
 		System.out.println("nel manager la map è " + game.getMapName());
 		world.loadMap(game.getMapName());
 		world.initialize();
-		
-//		this.players = world.getPlayers();
+		currentEnemy = world.getEnemies();
+		// this.players = world.getPlayers();
 
 	}
 
@@ -76,14 +85,13 @@ public class PlayManager {
 				player.update();
 				lastMillis = System.currentTimeMillis();
 			} else {
-//				System.out.println("sei morto");
+				// System.out.println("sei morto");
 				current = System.currentTimeMillis();
-				
-				if ( current - lastMillis >= 1000)
-				player.respawn();
+
+				if (current - lastMillis >= 1000)
+					player.respawn();
 			}
 		}
-		
 
 	}
 
@@ -112,6 +120,11 @@ public class PlayManager {
 		// return players;
 	}
 
+	public List<Character> getMeleeEnemy() {
+		return currentEnemy;
+	}
+
+	
 	public void playerJump() {
 
 		if (currentPlayer.canJump() && currentPlayer.canDoubleJump()) {

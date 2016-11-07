@@ -12,6 +12,8 @@ import core.element.block.Block;
 import core.element.block.BlockFactory;
 import core.element.block.SpawnBlock;
 import core.element.block.StandardBlock;
+import core.element.character.Character;
+import core.element.character.MeleeEnemy;
 import core.gameManagers.PlayManager;
 import javafx.geometry.Point2D;
 
@@ -54,6 +56,7 @@ public class BlockMap {
 	private int gems = 0;
 	// private List<Point2D> gemPosition = new ArrayList<>();
 	private List<Item> gemList = new ArrayList<>();
+	public List<Character> enemies = new ArrayList<>();
 
 	private World world;
 
@@ -77,9 +80,15 @@ public class BlockMap {
 					// gemPosition.add(new Point2D(x, y));
 					gemList.add(new Gem(x * BLOCKSIZE, y * BLOCKSIZE, 50, 50));
 					gems++;
+				}else if(logicalMap[y][x] == 16){
+					System.out.println("c'è un ciccioriolo");
+					System.out.println(x * BLOCKSIZE+" "+ y * BLOCKSIZE);
+					MeleeEnemy enemy = new MeleeEnemy("ciccio", 5, 5, world, new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					enemies.add(enemy);
 				} else {
 					// forse la position Ã¨ sbagliata
-					blocks[y][x] = factory.makeBlock(world,logicalMap[y][x], new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					blocks[y][x] = factory.makeBlock(world, logicalMap[y][x],
+							new Position(x * BLOCKSIZE, y * BLOCKSIZE));
 					if (blocks[y][x] instanceof StandardBlock) {
 						blocks[y][x].setColor(coloredMap[y][x]);
 					}
@@ -87,11 +96,17 @@ public class BlockMap {
 						blocklist.add(blocks[y][x]);
 					}
 				}
+				
 				if (logicalMap[y][x] == 15) { // player
 					spawnPoint = new Point2D(
 							(x * BLOCKSIZE) + (BLOCKSIZE / 2) - PlayManager.getInstance().getPlayer().getWidth() / 2,
 							y * BLOCKSIZE - BLOCKSIZE);
 				}
+
+//				if (logicalMap[y][x] == 16) { // melee enemey
+//					meleeEnemyList
+//							.add(new MeleeEnemy("Ginetto", 1, 1, world, new Position(x * BLOCKSIZE, y * BLOCKSIZE)));
+//				}
 
 			}
 		}

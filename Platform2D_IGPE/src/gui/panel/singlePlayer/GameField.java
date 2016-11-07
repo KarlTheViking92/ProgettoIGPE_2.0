@@ -25,8 +25,8 @@ public class GameField extends SubScene {
 		super(root, w, h);
 		manager = PlayManager.getInstance();
 		gamePanel = game;
-		this.camera.setScaleX(0.5);
-		this.camera.setScaleY(0.5);
+//		this.camera.setScaleX(0.5);
+//		this.camera.setScaleY(0.5);
 
 		this.setCamera(camera);
 		// this.setOnKeyPressed(new KeyboardPressedEvent(gamePanel));

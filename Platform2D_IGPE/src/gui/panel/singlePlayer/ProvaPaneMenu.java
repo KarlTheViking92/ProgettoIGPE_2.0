@@ -33,7 +33,7 @@ public class ProvaPaneMenu extends Application {
 		GameSelector gs = new GameSelector();
 		gs.setPlayerName("c");
 		gs.setPlayerType("Vincenzo");
-		gs.setMapName("resources/Levels/customLevel/testSuperJ");
+		gs.setMapName("resources/Levels/customLevel/testolo");
 		p.init(gs);
 		Pane root = new Pane();
 		Rectangle backgr = new Rectangle(1920, 1080);

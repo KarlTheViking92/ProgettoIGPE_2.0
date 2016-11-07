@@ -25,7 +25,7 @@ public class AbstractWorld implements World {
 	private int levelKeys;
 	private int levelGemNumber;
 	private List<Item> gems;
-
+	private List<Character> enemis;
 	private String level;
 
 	public AbstractWorld() {
@@ -59,8 +59,7 @@ public class AbstractWorld implements World {
 
 	@Override
 	public List<Character> getEnemies() {
-		// TODO Auto-generated method stub
-		return null;
+		return enemis;
 	}
 
 	@Override
@@ -72,6 +71,7 @@ public class AbstractWorld implements World {
 		this.width = (float) (map.getColumns() * map.getBlockSize());
 		this.height = (float) (map.getRows() * map.getBlockSize());
 		this.players = new ArrayList<>();
+		this.enemis = map.enemies;
 		// for (Player player : players) {
 		//// player = new Player("giocatore1", new
 		// Position(map.getSpawnPoint().getX(), map.getSpawnPoint().getY()), 10,
@@ -79,6 +79,7 @@ public class AbstractWorld implements World {
 		// }
 		PlayManager.getInstance().getPlayer()
 				.setPosition(new Position(map.getSpawnPoint().getX(), map.getSpawnPoint().getY()));
+
 		System.out.println("inizializzo il mondo");
 		this.levelKeys = 3;
 		this.levelGemNumber = map.getGems();
@@ -181,12 +182,12 @@ public class AbstractWorld implements World {
 	public boolean checkBlockCollision(Block b, double x, double y, int w) {
 		boolean sameType = false;
 		for (Block block : map.getBlockList()) {
-			if(b.getClass() == block.getClass() && b != block){
+			if (b.getClass() == block.getClass() && b != block) {
 				sameType = true;
 			}
 			if (b != block && x >= block.getX() && x <= block.getX() + block.getWIDTH() && y == block.getY()) {
-				if(sameType && block instanceof MoveableBlock  ){
-					((MoveableBlock)block).swap();
+				if (sameType && block instanceof MoveableBlock) {
+					((MoveableBlock) block).swap();
 				}
 				return true;
 			}

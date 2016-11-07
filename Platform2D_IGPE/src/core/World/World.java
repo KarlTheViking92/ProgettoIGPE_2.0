@@ -6,8 +6,8 @@ import java.util.List;
 import core.element.Item;
 import core.element.block.Block;
 import core.element.character.Character;
+import core.element.character.Player;
 import javafx.geometry.Point2D;
-import core.element.character.*;
 
 public interface World {
 	

@@ -77,5 +77,7 @@ public interface Character {
 	public abstract boolean canSuperJump();
 
 	public abstract float getVelocityX();
+	
+	public abstract void setX(double x);
 
 }

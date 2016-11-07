@@ -9,6 +9,8 @@ import core.element.block.Block;
 import core.element.block.CloudBlock;
 import core.element.block.GhostBlock;
 import core.element.block.WaterBlock;
+import core.element.character.Character;
+import core.element.character.MeleeEnemy;
 import core.gameManagers.PlayManager;
 import gui.ImageProvider;
 import gui.drawer.CharacterDrawer;
@@ -42,6 +44,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private CharacterDrawer drawer;
 	private PlayManager manager;
 
+	// nemico provvisorio
+	private ImageView ciccioCattivo;
+	
+	// --------------------------------
+	
 	public double[] cameraPosition = {0.0,0.0};
 	private double width = 0;
 	private double height = 0;
@@ -135,6 +142,13 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		player.setLayoutX(manager.getPlayer().getX());
 		player.setLayoutY(manager.getPlayer().getY());
 
+		List<Character> l = manager.getMeleeEnemy();
+		
+		MeleeEnemy e  = (MeleeEnemy)l.get(0);
+		System.out.println(e);
+		ciccioCattivo = new ImageView(ImageProvider.getInstance().getSpecialBlock("CloudBlock"));
+		ciccioCattivo.setLayoutX(e.getX());
+		ciccioCattivo.setLayoutY(e.getY());
 //		System.out.println("camera");
 //		System.out.println(scene.getCamera());
 /*		if (!resolution)
@@ -144,7 +158,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		// System.out.println( scene.getCamera());
 //		scene.getCamera().setTranslateZ(HDRESOLUTION/2);
 		
-//		this.group.getChildren().add(player);
+		this.group.getChildren().add(ciccioCattivo);
 		this.group.getChildren().add(drawer);
 //		scene.getCamera().setTranslateX(manager.getPlayer().getX() - (1920/4));
 //		scene.getCamera().setTranslateY(manager.getPlayer().getY() - (1080/4));

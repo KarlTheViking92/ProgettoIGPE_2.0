@@ -1,14 +1,17 @@
 package gui.panel.singlePlayer;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import core.element.Item;
 import core.element.block.Block;
+import core.element.character.Character;
+import core.element.character.MeleeEnemy;
 import core.gameManagers.PlayManager;
 import gui.ImageProvider;
-import gui.drawer.CharacterDrawer;
+import gui.drawer.Drawer;
+import gui.drawer.MeleeEnemyDrawer;
+import gui.drawer.PlayerDrawer;
 import gui.element.GraphicBlockFactory;
 import gui.element.GraphicElement;
 import gui.element.GraphicGem;
@@ -17,6 +20,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
 import javafx.scene.image.ImageView;
@@ -27,10 +31,10 @@ public class GameField extends SubScene {
 
 	private static Pane root = new Pane();
 	private Camera camera = new PerspectiveCamera();
-	
+
 	private PlayManager manager;
 	private SinglePlayerPane gamePanel;
-	private CharacterDrawer drawer;
+	private List<Drawer> drawers = new ArrayList<>();
 	private List<GraphicElement> imgs = new ArrayList<>();
 	private GraphicBlockFactory factory = new GraphicBlockFactory();
 	private Group group = new Group();
@@ -44,7 +48,10 @@ public class GameField extends SubScene {
 		gamePanel = game;
 		this.camera.setScaleX(0.5);
 		this.camera.setScaleY(0.5);
-		drawer = new CharacterDrawer(manager.getPlayer());
+		drawers.add(new PlayerDrawer(manager.getPlayer()));
+		for (Character meleeEnemy : manager.getMeleeEnemy()) {
+			drawers.add(new MeleeEnemyDrawer(meleeEnemy));
+		}
 		this.setCamera(camera);
 
 		widthLimit = new Point2D(manager.getLevelWidth() * 0.24, manager.getLevelWidth() * 0.75);
@@ -52,7 +59,7 @@ public class GameField extends SubScene {
 		initCamera();
 		root.setStyle("-fx-background: null; -fx-background-color: null; ");
 		root.getChildren().add(group);
-		
+
 	}
 
 	private void initCamera() {
@@ -80,47 +87,52 @@ public class GameField extends SubScene {
 	public void update() {
 		updateCamera();
 		updateBlocks();
-		drawer.draw();
+		for (Drawer drawer : drawers) {
+			drawer.draw();
+		}
 	}
-	
+
 	public void drawWorld() {
 
 		for (int y = manager.getBlocksMatrix().length - 1; y >= 0; y--) {
 			for (int x = 0; x < manager.getBlocksMatrix()[y].length; x++) {
 				Block b = manager.getBlocksMatrix()[y][x];
 				if (b != null) {
-					
+
 					GraphicElement img = factory.makeBlock(b);
 					imgs.add(img);
-					this.group.getChildren().add((ImageView)img);
+					this.group.getChildren().add((ImageView) img);
 				}
 			}
 		}
 		for (Item gem : manager.getGemList()) {
 			GraphicElement img = new GraphicGem(gem);
 			this.imgs.add(img);
-			this.group.getChildren().add((ImageView)img);
+			this.group.getChildren().add((ImageView) img);
 		}
-//		List<Character> l = manager.getMeleeEnemy();
-//		
-//		MeleeEnemy e  = (MeleeEnemy)l.get(0);
-//		System.out.println(e);
-//		ciccioCattivo = new ImageView(ImageProvider.getInstance().getSpecialBlock("CloudBlock"));
-//		ciccioCattivo.setLayoutX(e.getX());
-//		ciccioCattivo.setLayoutY(e.getY());
-		
-//		this.group.getChildren().add(ciccioCattivo);
-		this.group.getChildren().add(drawer);
-				
+		// List<Character> l = manager.getMeleeEnemy();
+		//
+		// MeleeEnemy e = (MeleeEnemy)l.get(0);
+		// System.out.println(e);
+		// ciccioCattivo = new
+		// ImageView(ImageProvider.getInstance().getSpecialBlock("CloudBlock"));
+		// ciccioCattivo.setLayoutX(e.getX());
+		// ciccioCattivo.setLayoutY(e.getY());
+
+		// this.group.getChildren().add(ciccioCattivo);
+		for (Drawer drawer : drawers) {
+			this.group.getChildren().add((Node) drawer);
+		}
+
 	}
-	
-	private void updateBlocks(){
-		for(GraphicElement block : imgs){
+
+	private void updateBlocks() {
+		for (GraphicElement block : imgs) {
 			block.update();
 		}
 	}
-	
-	private void updateCamera(){
+
+	private void updateCamera() {
 		double x = manager.getPlayer().getX();
 		double y = manager.getPlayer().getY();
 		if (x > widthLimit.getX() && x < widthLimit.getY()) {

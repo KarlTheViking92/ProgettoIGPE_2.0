@@ -2,7 +2,7 @@ package gui.animation;
 
 import javafx.scene.image.Image;
 
-public class MeleeMonsterAnimation implements CharacterAnimation {
+public class MeleeEnemyAnimation implements CharacterAnimation {
 
 	private final static String PATH_FRAME = "file:resources/images/enemies/MeleeMonster";
 
@@ -21,7 +21,7 @@ public class MeleeMonsterAnimation implements CharacterAnimation {
 	private SpriteAnimation runAnimation;
 	private SpriteAnimation staticAnimation;
 
-	public MeleeMonsterAnimation() {
+	public MeleeEnemyAnimation() {
 		runAnimation = new SpriteAnimation(RUN_FRAMES, 100);
 		staticAnimation = new SpriteAnimation(STATIC_FRAMES, 300);
 	}

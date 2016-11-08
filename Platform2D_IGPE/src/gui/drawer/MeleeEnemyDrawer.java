@@ -3,9 +3,9 @@ package gui.drawer;
 import core.element.character.Character;
 import core.element.character.Direction;
 
-public class MeleeMonsterDrawer extends AbstractDrawer {
+public class MeleeEnemyDrawer extends AbstractDrawer {
 
-	public MeleeMonsterDrawer(Character c) {
+	public MeleeEnemyDrawer(Character c) {
 		super(c);
 		// TODO Auto-generated constructor stub
 	}

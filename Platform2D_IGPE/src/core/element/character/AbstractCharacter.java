@@ -26,7 +26,7 @@ public abstract class AbstractCharacter implements Character {
 
 	private float vx, vy;
 
-	private boolean canJump = true, jumping = false, superJumping = false, falling = true, grounded = false;
+	protected boolean canJump = true, jumping = false, superJumping = false, falling = true, grounded = false;
 	private boolean moving = false, blockMoving = false;
 	private boolean doubleJump = false, canDoubleJump = true, canSuperJump = true;
 	// jumping
@@ -38,8 +38,8 @@ public abstract class AbstractCharacter implements Character {
 	private double currentSuperJumpSpeed = SUPERJUMP;
 
 	// falling
-	private final double MAXFALLSPEED = 5;
-	private double currentFallSpeed = 0.1;
+	protected final double MAXFALLSPEED = 5;
+	protected double currentFallSpeed = 0.1;
 
 	// World
 

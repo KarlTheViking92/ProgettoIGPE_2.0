@@ -80,6 +80,10 @@ public class PlayManager {
 
 	public void update() {
 		world.update();
+		for (Character meleeenemy : currentEnemy) {
+			meleeenemy.searchPlayer(currentPlayer);
+			meleeenemy.update();
+		}
 		for (Player player : players) {
 			if (!player.isDead()) {
 				player.update();
@@ -124,7 +128,6 @@ public class PlayManager {
 		return currentEnemy;
 	}
 
-	
 	public void playerJump() {
 
 		if (currentPlayer.canJump() && currentPlayer.canDoubleJump()) {

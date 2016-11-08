@@ -29,21 +29,21 @@ public class ProvaPaneMenu extends Application {
 //		PerspectiveCamera camera = new PerspectiveCamera();
 //		camera.setScaleX(0.5);
 //		camera.setScaleY(0.5);
-/*		PlayManager p = PlayManager.getInstance();
+		PlayManager p = PlayManager.getInstance();
 		GameSelector gs = new GameSelector();
 		gs.setPlayerName("c");
 		gs.setPlayerType("Vincenzo");
 		gs.setMapName("resources/Levels/customLevel/testolo");
-		p.init(gs); */
+		p.init(gs); 
 		Pane root = new Pane();
 		Scene scene = new Scene(root,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
-//		SinglePlayerPane s = new SinglePlayerPane(scene);
+		SinglePlayerPane s = new SinglePlayerPane(scene);
 		stage.setScene(scene);
-//		scene.setOnKeyPressed(new KeyboardPressedEvent(s));
-//		scene.setOnKeyReleased(new KeyboardReleasedEvent(s));
+		scene.setOnKeyPressed(new KeyboardPressedEvent(s));
+		scene.setOnKeyReleased(new KeyboardReleasedEvent(s));
 //		scene.setCamera(camera);
-//		s.draw();
-/*		root.getChildren().addAll(s);
+		s.draw();
+		root.getChildren().addAll(s);
 		
 //		GameField subscene = new GameField(s,Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
 //		root.getChildren().addAll(bkgr,subscene);
@@ -55,9 +55,9 @@ public class ProvaPaneMenu extends Application {
 				s.update();
 //				subscene.update();
 			}
-		}.start();*/
-		PausePane p = new PausePane();
-		root.getChildren().add(p);
+		}.start();
+//		PausePane p = new PausePane();
+//		root.getChildren().add(p);
 		stage.show();
 	}
 

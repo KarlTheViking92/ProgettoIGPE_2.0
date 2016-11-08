@@ -83,7 +83,7 @@ public class BlockMap {
 				}else if(logicalMap[y][x] == 16){
 					System.out.println("c'è un ciccioriolo");
 					System.out.println(x * BLOCKSIZE+" "+ y * BLOCKSIZE);
-					MeleeEnemy enemy = new MeleeEnemy("ciccio", 5, 5, world, new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					MeleeEnemy enemy = new MeleeEnemy("MeleeEnemy", 5, 5, world, new Position(x * BLOCKSIZE, y * BLOCKSIZE));
 					enemies.add(enemy);
 				} else {
 					// forse la position Ã¨ sbagliata

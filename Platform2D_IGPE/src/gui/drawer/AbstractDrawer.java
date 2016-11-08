@@ -47,7 +47,7 @@ public class AbstractDrawer extends ImageView implements Drawer {
 	public CharacterAnimation loadAnimation(Character c) {
 
 		String name = "gui.animation." + c.getType() + "Animation";
-
+		System.out.println("name: "+name+ "  "+c.getType());
 		Class animation;
 		try {
 

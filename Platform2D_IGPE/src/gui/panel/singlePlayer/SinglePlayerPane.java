@@ -1,33 +1,12 @@
 package gui.panel.singlePlayer;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import core.element.Item;
-import core.element.block.Block;
-import core.element.block.CloudBlock;
-import core.element.block.GhostBlock;
-import core.element.block.WaterBlock;
-import core.element.character.Character;
-import core.element.character.MeleeEnemy;
 import core.gameManagers.PlayManager;
-import gui.ImageProvider;
-import gui.drawer.CharacterDrawer;
-import gui.element.GraphicBlockFactory;
-import gui.element.GraphicElement;
-import gui.element.GraphicGem;
-import gui.element.StandardBlockGraphic;
 import gui.panel.UpdatablePane;
-import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -41,7 +20,6 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 //	private Point2D cameraDistance;
 //	private Point2D widthLimit;
 //	private Point2D heightLimit;
-	private CharacterDrawer drawer;
 	private PlayManager manager;
 	
 	private GameField subscene;

@@ -37,7 +37,7 @@ public class MenuManager {
 	// private GameState menuState;
 	private GameState singleGameState;
 	private GameState mapEditorState;
-	
+
 	private MapEditor editor;
 	private EditorManager editorManager = EditorManager.getInstance();
 
@@ -63,6 +63,7 @@ public class MenuManager {
 			// System.out.println("inizializzo menu " + menu);
 			currentPane = menu;
 			root.getChildren().add(menu);
+			singlePlayer = new SinglePlayerPane(game.getScene());
 			// System.out.println(menu.getChildren());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,14 +107,14 @@ public class MenuManager {
 		// System.out.println("pagina precedente");
 	}
 
-	private void goToMainMenu() {
+	public void goToMainMenu() {
 		root.getChildren().clear();
 		actualState = null;
 		menu.startMusic();
 		currentPane = menu;
 		root.getChildren().add(menu);
 	}
-	
+
 	public void goToSinglePlayer() {
 		System.out.println("go to singleplayer");
 		menu.stopMusic();
@@ -125,17 +126,20 @@ public class MenuManager {
 	}
 
 	public void startGame() {
-//		Pane p = new Pane();
+		// Pane p = new Pane();
+		matchManager.restart();
 		matchManager.init(actualState.getSelector());
-		singlePlayer = new SinglePlayerPane(game.getScene());
-		
+		if (singlePlayer != null){
+			singlePlayer.restart();
+		}
+
+
 		currentPane = singlePlayer;
 		game.getScene().setOnKeyPressed(new KeyboardPressedEvent(singlePlayer));
 		game.getScene().setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
 		singlePlayer.draw();
-//		p.getChildren().add(singlePlayer);
+		// p.getChildren().add(singlePlayer);
 		root.getChildren().clear();
-		System.out.println(root.getChildren().size());
 		root.getChildren().add(singlePlayer);
 		System.out.println(singlePlayer.getChildren());
 	}
@@ -158,4 +162,9 @@ public class MenuManager {
 		root.getChildren().clear();
 		root.getChildren().add(editor);
 	}
+
+	public void exitGame() {
+		System.exit(0);
+	}
+
 }

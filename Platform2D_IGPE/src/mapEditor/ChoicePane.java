@@ -155,6 +155,7 @@ public class ChoicePane extends Pane {
 	private void addEnemy() {
 		List<String> cubes = ImageProvider.getInstance().getEnemyPaths();
 		for (int i = 0; i < cubes.size(); i++) {
+			System.out.println("Sto caricando " + cubes.get(i));
 			AbstractObject abstractObject = new AbstractObject(
 					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getEnemy(cubes.get(i)));

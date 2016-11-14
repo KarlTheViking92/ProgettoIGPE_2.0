@@ -48,15 +48,9 @@ public class GameField extends SubScene {
 		gamePanel = game;
 		this.camera.setScaleX(0.5);
 		this.camera.setScaleY(0.5);
-		drawers.add(new PlayerDrawer(manager.getPlayer()));
-		for (Character meleeEnemy : manager.getMeleeEnemy()) {
-			drawers.add(new MeleeEnemyDrawer(meleeEnemy));
-		}
+		
 		this.setCamera(camera);
-
-		widthLimit = new Point2D(manager.getLevelWidth() * 0.24, manager.getLevelWidth() * 0.75);
-		heightLimit = new Point2D(manager.getLevelHeight() * 0.15, manager.getLevelHeight() * 0.86);
-		initCamera();
+		
 		root.setStyle("-fx-background: null; -fx-background-color: null; ");
 		root.getChildren().add(group);
 
@@ -93,7 +87,15 @@ public class GameField extends SubScene {
 	}
 
 	public void drawWorld() {
-
+		widthLimit = new Point2D(manager.getLevelWidth() * 0.24, manager.getLevelWidth() * 0.75);
+		heightLimit = new Point2D(manager.getLevelHeight() * 0.15, manager.getLevelHeight() * 0.86);
+		
+		drawers.add(new PlayerDrawer(manager.getPlayer()));
+		for (Character meleeEnemy : manager.getMeleeEnemy()) {
+			drawers.add(new MeleeEnemyDrawer(meleeEnemy));
+		}
+		initCamera();
+		
 		for (int y = manager.getBlocksMatrix().length - 1; y >= 0; y--) {
 			for (int x = 0; x < manager.getBlocksMatrix()[y].length; x++) {
 				Block b = manager.getBlocksMatrix()[y][x];
@@ -143,4 +145,9 @@ public class GameField extends SubScene {
 		}
 	}
 
+	public void clearSubscene(){
+		this.group.getChildren().clear();
+		this.drawers.clear();
+		this.imgs.clear();
+	}
 }

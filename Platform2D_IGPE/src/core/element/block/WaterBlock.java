@@ -18,10 +18,6 @@ public class WaterBlock extends AbstractBlock {
 	@Override
 	protected boolean collide(double x, double y, int height, int width) {
 
-		/*
-		 * if(this.getY() < y+height && this.getY()+getHEIGHT() >= y){
-		 * System.out.println("entro in water"); return false; }
-		 */
 		if ((this.getX() + getWIDTH()) < x)
 			return false;
 		if (this.getX() > (x + width))

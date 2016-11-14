@@ -12,6 +12,7 @@ import core.element.character.Direction;
 import core.element.character.MeleeEnemy;
 import core.element.character.Player;
 import game.GameSelector;
+import gui.panel.singlePlayer.SinglePlayerPane;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
@@ -21,12 +22,13 @@ public class PlayManager {
 
 	private World world;
 
-	private boolean running = false;
+//	private boolean running = false;
+	private boolean finishLevel = false;
 	private boolean pause = false;
 
 	private List<Player> players = new ArrayList<>();
 	private Player currentPlayer;
-	private List<Character> currentEnemy;
+	private List<Character> currentEnemy = new ArrayList<>();
 	private boolean isDead = false;
 
 	private long lastMillis;
@@ -43,30 +45,22 @@ public class PlayManager {
 	}
 
 	public void init(GameSelector game) {
-		// il player devo istanziarlo in questa clase solo dopo che il mondo è
-		// stato istanziato
-		// la funzione che da posizione al player non può trovarsi in world, il
-		// world deve solo conoscere la posizione del player
-		// altrimenti uno aspetta l'altro per istanziarsi e muoiono tutti
+		
+		System.out.println("ricarico il manager");
 		world = new AbstractWorld();
-
-		// per ora proviamo a metterlo qui il mostro PER PROVA, VINCE NON TI
-		// INCAZZARE MANNAGGIA AL DEMONIO
 
 		currentPlayer = new Player(game.getPlayerName(), 10, 1, world);
 		currentPlayer.setType(game.getPlayerType());
 		players.add(currentPlayer);
-		// world.loadMap("resources/Levels/customLevel/Livello Bello");
 		System.out.println("nel manager la map è " + game.getMapName());
 		world.loadMap(game.getMapName());
 		world.initialize();
 		currentEnemy = world.getEnemies();
-		// this.players = world.getPlayers();
 
 	}
 
 	public void start() {
-		running = true;
+//		running = true;
 	}
 
 	public void pause() {
@@ -74,10 +68,29 @@ public class PlayManager {
 	}
 
 	public void resume() {
-		if (pause)
+		if (pause){
 			pause = false;
+			
+		}
+	}
+	
+	public void restart(){
+		resume();
+		finishLevel = false;
+		world = null;
+		currentEnemy.clear();
+		players.clear();
+	}
+	
+	public boolean isPaused(){
+		return pause;
 	}
 
+	public void finishLevel(){
+		if(currentPlayer.getCollectedGems() >= 3)
+			finishLevel = true;
+	}
+	
 	public void update() {
 		world.update();
 		for (Character meleeenemy : currentEnemy) {
@@ -138,6 +151,10 @@ public class PlayManager {
 
 	public List<Item> getGemList() {
 		return world.getGems();
+	}
+
+	public boolean isFinished() {
+		return finishLevel;
 	}
 
 }

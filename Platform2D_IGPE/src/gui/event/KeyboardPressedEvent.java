@@ -48,6 +48,10 @@ public class KeyboardPressedEvent implements EventHandler<KeyEvent>{
 		case K:
 			gamePane.cameraPosition[1]+=10;
 			break;
+			
+		case P:
+			manager.pause();
+			break;
 		default:
 			break;
 		}

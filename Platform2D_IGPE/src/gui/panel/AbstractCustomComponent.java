@@ -58,7 +58,7 @@ public class AbstractCustomComponent extends Pane implements CustomComponent{
 
 	@Override
 	public void addItem(Node n) {
-		
+		this.getChildren().add(n);
 	}
 
 }

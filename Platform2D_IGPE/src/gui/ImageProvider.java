@@ -72,6 +72,7 @@ public class ImageProvider {
 			} else if (token[2].contains("enemies")) {
 				match = regex.matcher(token[3]);
 				if (match.find()) {
+					System.out.println(match.group(1));
 					enemyPaths.add(match.group(1));
 					enemy.put(match.group(1), new Image("file:" + image));
 				}

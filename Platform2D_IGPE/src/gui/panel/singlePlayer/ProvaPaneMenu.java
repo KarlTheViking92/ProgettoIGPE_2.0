@@ -5,8 +5,13 @@ import core.gameManagers.PlayManager;
 import game.GameSelector;
 import gui.event.KeyboardPressedEvent;
 import gui.event.KeyboardReleasedEvent;
+import gui.hud.GemIndicator;
+import gui.hud.Hud;
+import gui.panel.finishPanel.FinishPane;
+import gui.panel.finishPanel.MatchInfo;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.ParallelCamera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
@@ -29,22 +34,29 @@ public class ProvaPaneMenu extends Application {
 //		PerspectiveCamera camera = new PerspectiveCamera();
 //		camera.setScaleX(0.5);
 //		camera.setScaleY(0.5);
-		PlayManager p = PlayManager.getInstance();
-		GameSelector gs = new GameSelector();
-		gs.setPlayerName("c");
-		gs.setPlayerType("Vincenzo");
-		gs.setMapName("resources/Levels/customLevel/testolo");
-		p.init(gs); 
+//		PlayManager p = PlayManager.getInstance();
+//		GameSelector gs = new GameSelector();
+//		gs.setPlayerName("c");
+//		gs.setPlayerType("Vincenzo");
+//		gs.setMapName("resources/Levels/customLevel/testolo");
+//		p.init(gs); 
+		Hud h = new Hud();
+		h.init();
+		FinishPane f = new FinishPane(new MatchInfo("ciccio", "00:20", 3));
+		f.init();
+//		GemIndicator g = new GemIndicator();
 		Pane root = new Pane();
 		Scene scene = new Scene(root,Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight());
-		SinglePlayerPane s = new SinglePlayerPane(scene);
+//		Scene scene = new Scene(root,500,500);
+//		SinglePlayerPane s = new SinglePlayerPane(scene);
 		stage.setScene(scene);
-		scene.setOnKeyPressed(new KeyboardPressedEvent(s));
+	/*	scene.setOnKeyPressed(new KeyboardPressedEvent(s));
 		scene.setOnKeyReleased(new KeyboardReleasedEvent(s));
 //		scene.setCamera(camera);
 		s.draw();
-		root.getChildren().addAll(s);
-		
+		root.getChildren().addAll(s);*/
+//		h.init();
+		root.getChildren().add(f);
 //		GameField subscene = new GameField(s,Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
 //		root.getChildren().addAll(bkgr,subscene);
 		stage.setFullScreen(true);
@@ -52,8 +64,9 @@ public class ProvaPaneMenu extends Application {
 			
 			@Override
 			public void handle(long now) {
-				s.update();
+//				s.update();
 //				subscene.update();
+//				h.update();
 			}
 		}.start();
 //		PausePane p = new PausePane();

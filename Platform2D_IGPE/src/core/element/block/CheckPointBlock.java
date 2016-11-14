@@ -23,8 +23,6 @@ public class CheckPointBlock extends AbstractBlock {
 //		if (c.getY() + c.getHeight() < this.getY()) {
 //			collided = true;
 //		}
-		System.out.println("sono checkpoint block e chiamo la funzione");
-		System.out.println("vorrei settare questo " + (this.getX() + c.getWidth() / 2)+" "+ (this.getY() - this.getHEIGHT()/2));
 		c.setLastSpawnPoint(this.getX() + c.getWidth() / 2, this.getY() - this.getHEIGHT());
 
 	}

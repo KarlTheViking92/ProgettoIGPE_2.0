@@ -3,12 +3,14 @@ package core.World;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.element.Bullet;
 import core.element.Item;
 import core.element.Position;
 import core.element.block.Block;
 import core.element.block.MoveableBlock;
 import core.element.block.SuperJumpBlock;
 import core.element.character.Character;
+import core.element.character.Direction;
 import core.element.character.Player;
 import core.gameManagers.PlayManager;
 import javafx.geometry.Point2D;
@@ -22,17 +24,15 @@ public class AbstractWorld implements World {
 
 	protected List<Player> players;
 
-	private int levelKeys;
-	private int levelGemNumber;
+	// Modificare la parte del codice in caso di aggiunta del multiplayer(serve
+	// la lista)
+	private Player player;
+
 	private List<Item> gems;
-	private List<Character> enemis;
+	private List<Character> enemies;
 	private String level;
 
 	public AbstractWorld() {
-		// this.map = new BlockMap(map);
-
-		// init mappa
-		// initialize();
 
 	}
 
@@ -59,7 +59,7 @@ public class AbstractWorld implements World {
 
 	@Override
 	public List<Character> getEnemies() {
-		return enemis;
+		return enemies;
 	}
 
 	@Override
@@ -71,40 +71,24 @@ public class AbstractWorld implements World {
 		this.width = (float) (map.getColumns() * map.getBlockSize());
 		this.height = (float) (map.getRows() * map.getBlockSize());
 		this.players = new ArrayList<>();
-		this.enemis = map.enemies;
-		// for (Player player : players) {
-		//// player = new Player("giocatore1", new
-		// Position(map.getSpawnPoint().getX(), map.getSpawnPoint().getY()), 10,
-		// 1, this);
-		// }
-		PlayManager.getInstance().getPlayer()
-				.setPosition(new Position(map.getSpawnPoint().getX(), map.getSpawnPoint().getY()));
+		this.enemies = map.enemies;
 
+		player = PlayManager.getInstance().getPlayer();
+		player.setPosition(new Position(map.getSpawnPoint().getX(), map.getSpawnPoint().getY()));
 		System.out.println("inizializzo il mondo");
-		this.levelKeys = 3;
-		this.levelGemNumber = map.getGems();
 		this.gems = map.getGemsList();
-		// spawn point non ancora definito
-		// this.player = new Player(new
-		// Position((float)map.getSpawnPoint().getX(),
-		// (float)map.getSpawnPoint().getY()), 7, 1, 50, 50);
 
 	}
 
 	@Override
 	public void update() {
 
-		// TODO Auto-generated method stub
 		for (Block b : map.getBlockList()) {
 			b.update();
 		}
 
 	}
 
-	@Override
-	public void reset() {
-		// forse si può cacciare
-	}
 
 	@Override
 	public void loadMap(String path) {
@@ -118,40 +102,8 @@ public class AbstractWorld implements World {
 	}
 
 	@Override
-	public List<Block> getNearBlocks() {
-		//
-		// int x = (int) (player.getX()/50);
-		// int y = (int) (player.getY()/50);
-		//
-		// double xd = (player.getX());
-		// double yd = (player.getY());
-
-		// System.out.println("player sta in x : " + xd + " y: " + yd);
-		Block[][] matrix = getMatrix();
-		List<Block> result = new ArrayList<>();
-
-		/*
-		 * if ( matrix[y][x+1] != null )// destra result.add(matrix[y][x+1]); if
-		 * ( matrix[y][x-1] != null ) // sinistra result.add(matrix[y][x-1]); if
-		 * ( matrix[y-1][x] != null ) // sopra result.add(matrix[y-1][x]); if (
-		 * matrix[y+1][x] != null ){// sotto result.add(matrix[y+1][x]); //
-		 * player.setGrounded(true); System.out.println(" y + 1 " + (y+1) +
-		 * " x " + x); } // else // player.setGrounded(false); if (
-		 * matrix[y-1][x+1] != null ) // in alto a destra
-		 * result.add(matrix[y-1][x+1]); if ( matrix[y-1][x-1] != null ) // in
-		 * alto a sinistra result.add(matrix[y-1][x-1]); if ( matrix[y+1][x-1]
-		 * != null ) // in basso a sinistra result.add(matrix[y+1][x-1]); if (
-		 * matrix[y+1][x+1] != null ) // in basso a destra
-		 * result.add(matrix[y+1][x+1]);
-		 */
-		return map.getBlockList();
-
-	}
-
-	@Override
 	public boolean checkPlayerCollision(Character p, double x, double y) {
 		boolean collide = false;
-		// System.out.println("player x " + x + " player y " + y);
 
 		for (Block b : map.getBlockList()) {
 			if (b.collision(x, y, p.getHeight(), p.getWidth())) {
@@ -164,7 +116,6 @@ public class AbstractWorld implements World {
 
 	@Override
 	public Point2D getCheckPoint() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -174,7 +125,7 @@ public class AbstractWorld implements World {
 	}
 
 	@Override
-	public List getGems() {
+	public List<Item> getGems() {
 		return gems;
 	}
 
@@ -191,6 +142,62 @@ public class AbstractWorld implements World {
 				}
 				return true;
 			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkVisibility(Character e, double enemyX, double enemyY, double playerX, double playerY) {
+
+		int direction = 1;
+
+		if (enemyX > playerX) {
+			direction = -1;
+		}
+
+		if (direction > 0) {
+
+			while (enemyX + e.getWidth() < playerX) {
+
+				if (checkPlayerCollision(e, enemyX, enemyY)) {
+					return false;
+				}
+
+				enemyX += direction;
+			}
+
+		} else {
+			while (enemyX > playerX) {
+
+				if (checkPlayerCollision(e, enemyX, enemyY)) {
+					return false;
+				}
+
+				enemyX += direction;
+
+			}
+
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean checkBulletBlockCollision(Bullet b, double x, double y, int h, int w) {
+		for (Block block : map.getBlockList()) {
+			if (block.collision(x, y, h, w)) {
+				return true;
+			}
+		}
+		for (Character character : enemies) {
+			if (b.collide(character.getX(), character.getY(), character.getWidth(), character.getHeight())) {
+				character.kill();
+				return true;
+			}
+		}
+		if (b.collide(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
+			player.kill();
+			return true;
 		}
 		return false;
 	}

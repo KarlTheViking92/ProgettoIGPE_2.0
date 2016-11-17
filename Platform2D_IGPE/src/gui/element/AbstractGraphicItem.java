@@ -5,8 +5,8 @@ import javafx.scene.image.ImageView;
 
 public class AbstractGraphicItem extends ImageView implements GraphicElement {
 
-	Item logicItem;
-	
+	protected Item logicItem;
+	protected boolean destroyed = false;
 	public AbstractGraphicItem(Item item)  {
 		logicItem = item;
 		this.setLayoutX(logicItem.getX());
@@ -17,8 +17,10 @@ public class AbstractGraphicItem extends ImageView implements GraphicElement {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	@Override
+	public boolean destroy() {
+		return destroyed;
+	}
 }

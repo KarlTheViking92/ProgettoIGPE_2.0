@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class KeyboardPressedEvent implements EventHandler<KeyEvent>{
+public class KeyboardPressedEvent implements EventHandler<KeyEvent> {
 
 	private PlayManager manager;
 	private SinglePlayerPane gamePane;
@@ -19,42 +19,46 @@ public class KeyboardPressedEvent implements EventHandler<KeyEvent>{
 
 	@Override
 	public void handle(KeyEvent event) {
-//		System.out.println("ciao");
 		KeyCode keyPressed = event.getCode();
-		
+
 		switch (keyPressed) {
 		case RIGHT:
-//			System.out.println("muovo destra");
 			manager.movePlayer(Direction.RIGHT);
 			break;
 		case LEFT:
-//			System.out.println("muovo sinistra");
-			manager.movePlayer(Direction.LEFT);			
+			manager.movePlayer(Direction.LEFT);
+			break;
+		case D:
+			if (manager.getPlayer().getCanShoot()
+					&& System.currentTimeMillis() - manager.getPlayer().getLast() >= 200) {
+				manager.getPlayer().shoot();
+				manager.getPlayer().restartCanShoot();
+
+			}
 			break;
 		case SPACE:
-			//manager.movePlayer(Direction.UP);
 			manager.playerJump();
 			break;
-			
+
 		case I:
-			gamePane.cameraPosition[1]-=10;
+			gamePane.cameraPosition[1] -= 10;
 			break;
 		case L:
-			gamePane.cameraPosition[0]+=10;
+			gamePane.cameraPosition[0] += 10;
 			break;
 		case J:
-			gamePane.cameraPosition[0]-=10;
+			gamePane.cameraPosition[0] -= 10;
 			break;
 		case K:
-			gamePane.cameraPosition[1]+=10;
+			gamePane.cameraPosition[1] += 10;
 			break;
-			
+
 		case P:
 			manager.pause();
 			break;
 		default:
 			break;
 		}
-		
+
 	}
 }

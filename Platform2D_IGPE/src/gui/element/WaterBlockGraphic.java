@@ -9,5 +9,4 @@ public class WaterBlockGraphic extends AbstractGraphicBlock {
 		super(logic);
 		this.setImage(ImageProvider.getInstance().getSpecialBlock("WaterBlock"));
 	}
-
 }

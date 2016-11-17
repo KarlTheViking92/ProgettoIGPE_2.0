@@ -143,8 +143,8 @@ public class ChoicePane extends Pane {
 	private void addItem() {
 		List<String> cubes = ImageProvider.getInstance().getItemPaths();
 		for (int i = 0; i < cubes.size(); i++) {
-			AbstractObject abstractObject = new AbstractObject(
-					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
+			System.out.println("cubes: " + ImageProvider.getInstance().getImageTypes(cubes.get(i)));
+			AbstractObject abstractObject = new AbstractObject(ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getItems(cubes.get(i)));
 			addEvent(abstractObject);
 			items.addObject(abstractObject);
@@ -156,8 +156,7 @@ public class ChoicePane extends Pane {
 		List<String> cubes = ImageProvider.getInstance().getEnemyPaths();
 		for (int i = 0; i < cubes.size(); i++) {
 			System.out.println("Sto caricando " + cubes.get(i));
-			AbstractObject abstractObject = new AbstractObject(
-					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
+			AbstractObject abstractObject = new AbstractObject(ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getEnemy(cubes.get(i)));
 			addEvent(abstractObject);
 			enemies.addObject(abstractObject);
@@ -170,8 +169,7 @@ public class ChoicePane extends Pane {
 		List<String> cubes = ImageProvider.getInstance().getAnimatedPaths();
 		for (int i = 0; i < cubes.size(); i++) {
 			System.out.println("cube: " + cubes.get(i));
-			AbstractObject abstractObject = new AbstractObject(
-					ImageProvider.getInstance().getImageTypes(cubes.get(i)),
+			AbstractObject abstractObject = new AbstractObject(ImageProvider.getInstance().getImageTypes(cubes.get(i)),
 					ImageProvider.getInstance().getSpecialBlock(cubes.get(i)));
 			addEvent(abstractObject);
 			animatedBlock.addObject(abstractObject);
@@ -203,7 +201,7 @@ public class ChoicePane extends Pane {
 
 	private void addEvents() {
 		this.back.setOnMouseClicked(e -> {
-//			EditorManager.getInstance().goToWorldSize(worldSize);
+			// EditorManager.getInstance().goToWorldSize(worldSize);
 			MenuManager.getInstance().previousPage();
 		});
 		this.save.setOnMousePressed(e -> {

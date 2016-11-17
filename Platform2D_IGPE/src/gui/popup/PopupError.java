@@ -8,24 +8,28 @@ import javafx.scene.text.Text;
 
 public class PopupError extends AbstractPopup {
 
-	
 	private Button ok;
 	private boolean exit = false;
-	
+
 	public PopupError(double width, double height) {
 		super(width, height);
 		message = new Text("MAPPA INCOMPLETA");
-		message.setLayoutX(this.getWidth() * 0.5 - (message.getBoundsInLocal().getWidth()/2));
-		message.setLayoutY(getHeight()*0.2);
+		message.setLayoutX(this.getWidth() * 0.5 - (message.getBoundsInLocal().getWidth() / 2));
+		message.setLayoutY(getHeight() * 0.2);
 		ok = new Button("ok");
-		ok.setTranslateX(width /2);
+		ok.setTranslateX(width / 2);
 		ok.setTranslateY(height - (height / 2));
 		message.setFont(POPUP_FONT);
-//		t.setFill(Color.BLACK);
+		// t.setFill(Color.BLACK);
 		ok.setOnAction(e -> {
 			delete = true;
+
 		});
 		this.getChildren().addAll(message, ok);
+	}
+
+	public void setText(String t) {
+		message.setText(t);
 	}
 
 	public boolean isClicked() {

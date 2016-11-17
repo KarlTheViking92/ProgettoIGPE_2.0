@@ -3,7 +3,6 @@ package core.element.block;
 import core.World.World;
 import core.element.Position;
 import core.element.character.Character;
-import core.element.character.Direction;
 
 public class AbstractBlock implements Block {
 
@@ -30,11 +29,14 @@ public class AbstractBlock implements Block {
 		return HEIGHT;
 	}
 
-	// TODO posizione da fare intera probabilmente
+	public void setWidth(double width) {
+		this.WIDTH = width;
+	}
+
 	protected Position position;
 
 	public AbstractBlock(World w, Position position, int code) {
-		world = w;
+		this.world = w;
 		this.position = position;
 		this.code = code;
 	}
@@ -76,13 +78,11 @@ public class AbstractBlock implements Block {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void restart() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -126,6 +126,11 @@ public class AbstractBlock implements Block {
 	public void setY(double y) {
 		position.setY(y);
 
+	}
+
+	@Override
+	public int getMovingDirection() {
+		return 1;
 	}
 
 }

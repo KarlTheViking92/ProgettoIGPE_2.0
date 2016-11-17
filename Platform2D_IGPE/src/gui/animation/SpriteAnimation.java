@@ -33,7 +33,7 @@ public class SpriteAnimation {
 	}
 
 	public Image nextFrame() {
-		Image frame = frames[currentIndex % numberFrames]; //array circolare sciampè
+		Image frame = frames[currentIndex % numberFrames];
 
 		if (System.currentTimeMillis() >= lastMillis + deltaMillis) {
 			lastMillis = System.currentTimeMillis();

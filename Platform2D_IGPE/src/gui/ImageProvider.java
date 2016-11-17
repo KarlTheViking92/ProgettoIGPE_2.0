@@ -14,7 +14,6 @@ public class ImageProvider {
 	private static ImageProvider instance;
 	private HashMap<Integer, String> blockTypes;
 	private HashMap<String, Integer> imageTypes;
-	private HashMap<Integer, String> codes = new HashMap<>();
 	private HashMap<String, Image> images = new HashMap<>();
 	private HashMap<String, Image> worldElements = new HashMap<>();
 	private HashMap<String, Image> editorElements = new HashMap<>();
@@ -22,8 +21,10 @@ public class ImageProvider {
 	private HashMap<String, Image> simpleBlock = new HashMap<>();
 	private HashMap<String, Image> enemy = new HashMap<>();
 	private HashMap<String, Image> items = new HashMap<>();
+	private HashMap<String, Image> bullets = new HashMap<>();
 	private HashMap<String, Image> menu = new HashMap<>();
 	private List<String> worldPaths = new ArrayList<>();
+	private List<String> bulletPaths = new ArrayList<>();
 	private List<String> editorPaths = new ArrayList<>();
 	private List<String> enemyPaths = new ArrayList<>();
 	private List<String> coloredPaths = new ArrayList<>();
@@ -50,13 +51,11 @@ public class ImageProvider {
 		Pattern regex = Pattern.compile("(\\w+)..*");
 		for (String image : properties.getCubes()) {
 			String[] token = image.split("/");
-//			System.out.println("sto caricando " + image);
 			if (token[3].equals("SpecialCube")) {
 				match = regex.matcher(token[4]);
 				if (match.find()) {
 					animatedPaths.add(match.group(1));
 					specialBlock.put(match.group(1), new Image("file:" + image));
-
 				}
 			} else if (token[3].contains("Cube")) {
 				match = regex.matcher(token[4]);
@@ -72,7 +71,6 @@ public class ImageProvider {
 			} else if (token[2].contains("enemies")) {
 				match = regex.matcher(token[3]);
 				if (match.find()) {
-					System.out.println(match.group(1));
 					enemyPaths.add(match.group(1));
 					enemy.put(match.group(1), new Image("file:" + image));
 				}
@@ -88,21 +86,22 @@ public class ImageProvider {
 					editorPaths.add(match.group(1));
 					editorElements.put(match.group(1), new Image("file:" + image));
 				}
-			}
-			else if (token[2].contains("character")) {
+			} else if (token[2].contains("character")) {
 				match = regex.matcher(token[3]);
-//				System.out.println(token[3]);
 				if (match.find()) {
 					images.put(match.group(1), new Image("file:" + image));
+				}
+			} else if (token[2].contains("bullet")) {
+				match = regex.matcher(token[3]);
+				if (match.find()) {
+					bulletPaths.add(match.group(1));
+					bullets.put(match.group(1), new Image("file:" + image));
 				}
 			}
 		}
 	}
 
 	public Image getImage(String code) {
-	/*	if (codes.containsKey(code)) {
-			return images.get(codes.get(code));
-		}*/
 		return images.get(code);
 	}
 
@@ -118,6 +117,10 @@ public class ImageProvider {
 
 	public Image getSpecialBlock(String cube) {
 		return specialBlock.get(cube);
+	}
+
+	public Image getBulletsImage(String item) {
+		return bullets.get(item);
 	}
 
 	public Image getMenuImage(String name) {
@@ -172,5 +175,13 @@ public class ImageProvider {
 
 	public HashMap<Integer, String> getBlockTypes() {
 		return blockTypes;
+	}
+
+	public HashMap<String, Image> getBullets() {
+		return bullets;
+	}
+
+	public List<String> getBulletPaths() {
+		return bulletPaths;
 	}
 }

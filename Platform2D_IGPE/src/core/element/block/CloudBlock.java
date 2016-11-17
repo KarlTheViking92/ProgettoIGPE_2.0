@@ -7,7 +7,7 @@ import core.gameManagers.PlayManager;
 public class CloudBlock extends AbstractBlock {
 
 	public CloudBlock(World w, Position position) {
-		super(w,position,7);
+		super(w, position, 6);
 		this.setHeight(5);
 	}
 
@@ -15,11 +15,12 @@ public class CloudBlock extends AbstractBlock {
 	public boolean collision(double x, double y, int height, int width) {
 		if (super.collide(x, y, height, width))
 			inside = true;
-		else inside = false;
+		else
+			inside = false;
 		if (PlayManager.getInstance().getPlayer().getY() + height > getY()) {
 			return false;
 		} else
-			return collide(x, y, height, width);
-	}
+			return super.collision(x, y, height, width);
 
+	}
 }

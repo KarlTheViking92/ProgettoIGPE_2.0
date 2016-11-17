@@ -15,18 +15,12 @@ public class EndingLevelBlock extends AbstractBlock {
 	protected boolean collide(double x, double y, int height, int width) {
 		if (super.collide(x, y, height, width)) {
 
-			double Y = y + height / 2;
 			double X = x + width / 2;
 			if (X >= getX() && X <= getX() + WIDTH && y < getY()) {
 				PlayManager.getInstance().finishLevel();
 			}
 		}
 		return super.collide(x, y, height, width);
-
-	}
-
-	@Override
-	public void setPlayerState(Character c) {
 
 	}
 }

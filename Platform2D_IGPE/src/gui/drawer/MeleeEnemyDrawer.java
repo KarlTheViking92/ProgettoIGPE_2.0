@@ -7,24 +7,29 @@ public class MeleeEnemyDrawer extends AbstractDrawer {
 
 	public MeleeEnemyDrawer(Character c) {
 		super(c);
-		// TODO Auto-generated constructor stub
+		this.setFitHeight(90);
+		this.setFitWidth(100);
 	}
 
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
 		super.draw();
+		this.setLayoutY(character.getY() - 7.5);
+		rotation.setPivotX(this.getX() + (character.getWidth()));
 
-		// if (character.isJumping() || character.isDoubleJumping() ||
-		// character.isSuperJumping()){
-		// this.setImage(animation.getCharacterJumpAnimation());
-		// }else if(character.isFalling()){
-		// this.setImage(animation.getCharacterFallAnimation());
-		// }else
 		if (character.getDirection() == Direction.STOP)
 			this.setImage(animation.getCharacterIdleAnimation());
-		else
+		if (character.isAttacking()) {
+			this.setImage(animation.getCharacterAttackAnimation());
+		}
+		if ((character.getDirection() == Direction.RIGHT || character.getDirection() == Direction.LEFT)
+				&& !character.isAttacking())
 			this.setImage(animation.getCharacterMoveAnimation());
+		if (character.isDead()) {
+			this.setImage(animation.getCharacterDieAnimation());
+			if (animation.animationFinished())
+				destroy = true;
+		}
 	}
 
 }

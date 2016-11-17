@@ -2,7 +2,6 @@ package gui.gameMenu;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javafx.animation.FadeTransition;
@@ -12,7 +11,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-//import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -32,37 +30,19 @@ public class GameMenuMain extends Application {
 	private GameMenu gameMenu;
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
 
-	private Stage primaryStage;
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		// slideshow con i vari loghi
-		// main menu music
-		// final URL resource =
-		// getClass().getResource("resources/music/mm.mp3");
-		// URL ciccioriolo = new URL("res/music/mm.mp3");
-		// System.out.println(getClass().getResource("mm.mp3"));
-		// System.out.println(resource.getClass());
-		// System.out.println(resource.toString());
-		//
-		// URL resource = music.toURL();
-
-		// System.out.println(getClass().getResource("mm.mp3"));
 		File music = new File("resources/music/mm.mp3");
 		final Media media = new Media(music.toURI().toString());
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setStartTime(Duration.millis(525));
 		mediaPlayer.play();
 
-		// TODO Auto-generated method stub
 		Pane root = new Pane();
 		root.resize(screen.getWidth(), screen.getHeight());
-		// root.resize(width, height);
 		System.out.println("root " + root.getHeight() + "  " + root.getWidth());
 
-		// eseguo un input stream e prendo la mia immagine, una volta finito
-		// chiudo lo stream.
 		InputStream is = Files.newInputStream(Paths.get("resources/images/menu/Animated.gif"));
 		Image img = new Image(is);
 
@@ -97,13 +77,6 @@ public class GameMenuMain extends Application {
 		gameMenu.setVisible(false);
 
 		root.getChildren().addAll(imgView, gameMenu, about);
-		// root.getChildren().addAll(gameMenu, about);
-
-		// scene.setOnKeyPressed(event -> {
-		// if (event.getCode() == KeyCode.ESCAPE){
-		//
-		// }
-		// });
 
 		scene.setOnKeyPressed(event -> {
 			if (KeyEvent.KEY_TYPED != null) {
@@ -133,7 +106,6 @@ public class GameMenuMain extends Application {
 
 		System.out.println("scene " + scene.getHeight() + "  " + scene.getWidth());
 		primaryStage.setScene(scene);
-		// primaryStage.setFullScreen(true);
 		primaryStage.show();
 
 	}

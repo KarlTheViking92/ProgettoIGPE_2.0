@@ -13,9 +13,8 @@ public class CloudBlockGraphic extends AbstractGraphicBlock {
 
 	@Override
 	public void update() {
-		if(logicBlock.isPlayerInsideBlock()){
-			// set opacity di player da fare dopo
+		if (logicBlock.isPlayerInsideBlock()) {
 		}
 	}
-	
+
 }

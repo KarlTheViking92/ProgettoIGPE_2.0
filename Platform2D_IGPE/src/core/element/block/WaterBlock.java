@@ -3,14 +3,13 @@ package core.element.block;
 import core.World.World;
 import core.element.Position;
 import core.element.character.Character;
-import core.gameManagers.PlayManager;
 
 public class WaterBlock extends AbstractBlock {
 
 	private double Y;
 
-	public WaterBlock(World w,Position position) {
-		super(w,position, 13);
+	public WaterBlock(World w, Position position) {
+		super(w, position, 13);
 		this.setHeight(10);
 		Y = getY() + 40;
 	}

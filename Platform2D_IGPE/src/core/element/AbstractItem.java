@@ -5,12 +5,14 @@ public class AbstractItem implements Item {
 	private double x;
 	private double y;
 
-	private double height;
-	private double width;
-	
+	protected int height;
+	protected int width;
+
+	protected boolean collided = false;
 	protected boolean collected = false;
-	
-	public AbstractItem(double x, double y, double width, double height) {
+	protected boolean created = false;
+
+	public AbstractItem(double x, double y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -44,12 +46,71 @@ public class AbstractItem implements Item {
 
 	@Override
 	public boolean collide(double x, double y, double width, double height) {
-		return false;
+		if ((this.getX() + getWidth()) < x)
+			return false;
+		if (this.getX() > (x + width))
+			return false;
+		if ((this.getY() + getHeight()) < y)
+			return false;
+		if (this.getY() > (y + height))
+			return false;
+
+		return true;
 	}
 
 	@Override
 	public void collect() {
-//		System.out.println("ho preso la gemma");
 		collected = true;
+	}
+
+	@Override
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	@Override
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	@Override
+	public void update() {
+
+	}
+
+	@Override
+	public boolean isCreated() {
+		return created;
+	}
+
+	@Override
+	public void create() {
+		created = true;
+	}
+
+	@Override
+	public void setWidth(int w) {
+		width = w;
+	}
+
+	@Override
+	public void setHeight(int h) {
+		height = h;
+	}
+
+	@Override
+	public boolean hasCollided() {
+		return collided;
+	}
+
+	@Override
+	public void setItemPosition(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public boolean getType() {
+		return false;
 	}
 }

@@ -22,13 +22,11 @@ public class CustomListObject extends StackPane {
 		name = s;
 		t = new Text(s);
 
-		// this.item = new Rectangle(width*0.8, height*0.1);
-		// this.item.setFill(value);
 		this.background.setOnMouseEntered(e -> {
 			this.background.setFill(STROKE_COLOR);
 		});
 		this.background.setOnMouseExited(e -> {
-			if (list.getSelectedMap() == null || !name.equals(list.getSelectedMap())){
+			if (list.getSelectedMap() == null || !name.equals(list.getSelectedMap())) {
 				this.background.setFill(BACKGROUND_COLOR);
 			}
 		});
@@ -55,7 +53,8 @@ public class CustomListObject extends StackPane {
 	public String getName() {
 		return name;
 	}
-	public void resetBackground(){
+
+	public void resetBackground() {
 		this.background.setFill(BACKGROUND_COLOR);
 	}
 

@@ -1,10 +1,12 @@
 package core.gameManagers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import core.World.AbstractWorld;
 import core.World.World;
+import core.element.Bullet;
 import core.element.Item;
 import core.element.block.Block;
 import core.element.character.Character;
@@ -13,8 +15,13 @@ import core.element.character.MeleeEnemy;
 import core.element.character.Player;
 import game.GameSelector;
 import gui.panel.singlePlayer.SinglePlayerPane;
+import gui.popup.Popup;
+import gui.popup.PopupError;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 
 public class PlayManager {
 
@@ -22,15 +29,13 @@ public class PlayManager {
 
 	private World world;
 
-//	private boolean running = false;
 	private boolean finishLevel = false;
 	private boolean pause = false;
 
 	private List<Player> players = new ArrayList<>();
 	private Player currentPlayer;
+	private List<Item> bullets = new ArrayList<>();
 	private List<Character> currentEnemy = new ArrayList<>();
-	private boolean isDead = false;
-
 	private long lastMillis;
 	private long current;
 
@@ -45,7 +50,7 @@ public class PlayManager {
 	}
 
 	public void init(GameSelector game) {
-		
+
 		System.out.println("ricarico il manager");
 		world = new AbstractWorld();
 
@@ -60,7 +65,7 @@ public class PlayManager {
 	}
 
 	public void start() {
-//		running = true;
+		// running = true;
 	}
 
 	public void pause() {
@@ -68,48 +73,54 @@ public class PlayManager {
 	}
 
 	public void resume() {
-		if (pause){
+		if (pause) {
 			pause = false;
-			
+
 		}
 	}
-	
-	public void restart(){
+
+	public void restart() {
 		resume();
 		finishLevel = false;
 		world = null;
 		currentEnemy.clear();
 		players.clear();
 	}
-	
-	public boolean isPaused(){
+
+	public boolean isPaused() {
 		return pause;
 	}
 
-	public void finishLevel(){
-		if(currentPlayer.getCollectedGems() >= 3)
+	public void finishLevel() {
+		if (currentPlayer.getCollectedGems() >= 3)
 			finishLevel = true;
 	}
-	
+
 	public void update() {
 		world.update();
-		for (Character meleeenemy : currentEnemy) {
-			meleeenemy.searchPlayer(currentPlayer);
-			meleeenemy.update();
+
+		for (Character enemy : currentEnemy) {
+			enemy.searchPlayer(currentPlayer);
+			checkBullet(enemy);
+			enemy.update();
 		}
 		for (Player player : players) {
 			if (!player.isDead()) {
+				checkBullet(player);
 				player.update();
 				lastMillis = System.currentTimeMillis();
 			} else {
-				// System.out.println("sei morto");
 				current = System.currentTimeMillis();
 
 				if (current - lastMillis >= 1000)
 					player.respawn();
 			}
 		}
-
+		for (Item b : bullets) {
+			b.update();
+		}
+		removeBullet();
+		removeEnemy();
 	}
 
 	public void movePlayer(Direction direction) {
@@ -124,20 +135,15 @@ public class PlayManager {
 		return world.getHeight();
 	}
 
-	// public List<Block> getBlocks() {
-	// return world.getBlocks();
-	// }
-
 	public Block[][] getBlocksMatrix() {
 		return world.getMatrix();
 	}
 
 	public Player getPlayer() {
 		return currentPlayer; // temporaneamente null
-		// return players;
 	}
 
-	public List<Character> getMeleeEnemy() {
+	public List<Character> getEnemies() {
 		return currentEnemy;
 	}
 
@@ -155,6 +161,41 @@ public class PlayManager {
 
 	public boolean isFinished() {
 		return finishLevel;
+	}
+
+	public void checkBullet(Character c) {
+		List<Bullet> tmp = c.getBullet();
+		if (!tmp.isEmpty()) {
+			Iterator i = tmp.iterator();
+			while (i.hasNext()) {
+				Bullet bullet = (Bullet) i.next();
+				bullets.add(bullet);
+				i.remove();
+			}
+		}
+	}
+
+	private void removeBullet() {
+		Iterator i = bullets.iterator();
+		while (i.hasNext()) {
+			Bullet bullet = (Bullet) i.next();
+			if (bullet.hasCollided())
+				i.remove();
+		}
+	}
+
+	private void removeEnemy() {
+		Iterator i = currentEnemy.iterator();
+		while (i.hasNext()) {
+			Character enemy = (Character) i.next();
+			if (enemy.isDead()) {
+				i.remove();
+			}
+		}
+	}
+
+	public List<Item> getBullets() {
+		return bullets;
 	}
 
 }

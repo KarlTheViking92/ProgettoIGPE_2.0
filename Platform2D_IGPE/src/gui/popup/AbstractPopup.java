@@ -8,24 +8,24 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class AbstractPopup extends Pane implements Popup{
+public class AbstractPopup extends Pane implements Popup {
 
 	protected static final Font POPUP_FONT = Font.loadFont("file:resources/font/Engcomica.otf", 30);
 	protected Text message = new Text();
 	protected boolean delete = false;
 	protected Rectangle background;
-	
+
 	protected double width;
 	protected double height;
-	
-	public AbstractPopup(double width , double height) {
+
+	public AbstractPopup(double width, double height) {
 		this.width = width;
 		this.height = height;
 		this.setWidth(width);
 		this.setHeight(height);
 		this.background = new Rectangle(width, height);
 		this.getStyleClass().add("popup");
-		setBackground(ImageProvider.getInstance().getEditorImage("popupBackground"));
+		this.setBackground(ImageProvider.getInstance().getEditorImage("popupBackground"));
 		this.getChildren().add(background);
 	}
 
@@ -41,8 +41,8 @@ public class AbstractPopup extends Pane implements Popup{
 
 	@Override
 	public void setPosition(double x, double y) {
-		this.setLayoutX(x - (width/2));
-		this.setLayoutY(y - (height/2));
+		this.setLayoutX(x - (width / 2));
+		this.setLayoutY(y - (height / 2));
 	}
 
 	@Override

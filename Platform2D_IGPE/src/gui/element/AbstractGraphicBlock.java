@@ -5,8 +5,9 @@ import javafx.scene.image.ImageView;
 
 public class AbstractGraphicBlock extends ImageView implements GraphicElement {
 
-	Block logicBlock;
-	
+	protected Block logicBlock;
+	protected boolean destroyed = false;
+
 	public AbstractGraphicBlock(Block logic) {
 		logicBlock = logic;
 		this.setLayoutX(logicBlock.getX() - 7.5);
@@ -14,11 +15,14 @@ public class AbstractGraphicBlock extends ImageView implements GraphicElement {
 		this.setFitHeight(65);
 		this.setFitWidth(65);
 	}
-	
+
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 
 	}
 
+	@Override
+	public boolean destroy() {
+		return destroyed;
+	}
 }

@@ -1,17 +1,22 @@
 package core.element.character;
 
+import java.util.List;
+
+import core.element.Bullet;
 import core.element.Position;
 
 public interface Character {
 
 	public abstract void hurt();
 
+	public abstract boolean collide(Character c);
+
 	public abstract boolean isDead();
 
 	public abstract void kill();
 
 	public abstract void setPosition(Position p);
-	
+
 	public abstract void moveCharacter(double spostamento);
 
 	public abstract Direction getDirection();
@@ -23,6 +28,8 @@ public interface Character {
 	public abstract String getType();
 
 	public abstract double getX();
+
+	public abstract boolean isAttacking();
 
 	public abstract double getY();
 
@@ -77,9 +84,29 @@ public interface Character {
 	public abstract boolean canSuperJump();
 
 	public abstract float getVelocityX();
-	
+
 	public abstract void setX(double x);
-	
+
 	public abstract void searchPlayer(Player p);
+
+	public abstract void setHeight(int h);
+
+	public abstract void setWidth(int w);
+
+	public abstract List<Bullet> getBullet();
+
+	public abstract boolean isShooting();
+
+	public abstract boolean isRespawned();
+
+	public abstract void notRespawned();
+	
+	public abstract void noShooting();
+	
+	public abstract boolean getCanShoot();
+	
+	public abstract long getLast();
+	
+	public abstract void restartCanShoot ();
 
 }

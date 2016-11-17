@@ -11,8 +11,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
-public class AbstractGamePage extends Pane implements GamePage{
-	
+public class AbstractGamePage extends Pane implements GamePage {
+
 	protected Rectangle2D screen = Screen.getPrimary().getBounds();
 	protected Rectangle background;
 	protected Text title = new Text();
@@ -27,13 +27,13 @@ public class AbstractGamePage extends Pane implements GamePage{
 		this.title.setStrokeWidth(2);
 		this.title.setStroke(Color.BLACK);
 		this.title.setFill(Color.web("#DC8014"));
-		this.title.setLayoutY(screen.getHeight()*0.2);
+		this.title.setLayoutY(screen.getHeight() * 0.2);
 		this.getChildren().add(background);
 	}
 
 	@Override
 	public void nextPage() {
-		MenuManager.getInstance().nextPage();		
+		MenuManager.getInstance().nextPage();
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class AbstractGamePage extends Pane implements GamePage{
 
 	@Override
 	public void update() {
-		
+
 	}
 
 	@Override
 	public void setBackground(String name) {
-		background.setFill(new ImagePattern(new Image("file:resources/images/backgrounds/"+name)));
+		background.setFill(new ImagePattern(new Image("file:resources/images/backgrounds/" + name)));
 	}
 
 	@Override

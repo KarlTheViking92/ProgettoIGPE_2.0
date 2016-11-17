@@ -56,8 +56,6 @@ public class AbstractGameState implements GameState {
 
 	@Override
 	public void loadState() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

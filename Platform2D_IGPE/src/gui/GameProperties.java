@@ -13,16 +13,12 @@ import java.util.Set;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
-//se qualcosa non funge chiedere a Paola
 public class GameProperties {
 
 	private HashMap<Integer, String> blockTypes = new HashMap<>();
-	private HashMap<String,Integer> imageTypes = new HashMap<>();
+	private HashMap<String, Integer> imageTypes = new HashMap<>();
 	private List<String> imagePaths = new ArrayList<>();
 	private List<String> cubePaths = new ArrayList<>();
-	// private List<String> playerPaths = new ArrayList<>();
-	// private List<String> enemyPaths = new ArrayList<>();
-	// private List<String> itemPaths = new ArrayList<>();
 
 	public GameProperties() {
 		loadCubeTypes();
@@ -36,17 +32,12 @@ public class GameProperties {
 			File[] listFiles = file.listFiles();
 			Arrays.sort(listFiles);
 			for (int i = 0; i < listFiles.length; i++) {
-//				System.out.println(string + "/" + listFiles[i].getName());
 				cubePaths.add(string + "/" + listFiles[i].getName());
 
 			}
 
 		}
 	}
-
-/*	public static void main(String[] args) {
-		GameProperties p = new GameProperties();
-	}*/
 
 	private void loadImagePaths() {
 		Properties properties = null;
@@ -61,7 +52,6 @@ public class GameProperties {
 			try {
 				fileInput.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -87,7 +77,6 @@ public class GameProperties {
 			try {
 				fileInput.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -97,12 +86,6 @@ public class GameProperties {
 			blockTypes.put(Integer.parseInt((String) object), value);
 			imageTypes.put(value, Integer.parseInt((String) object));
 		}
-
-		/*
-		 * for (int i : blockTypes.keySet()) { System.out.println("codice " + i
-		 * + " cubo " + blockTypes.get(i)); }
-		 */
-		// java.util.Collections.sort (imagePaths);
 	}
 
 	public List<String> getCubes() {
@@ -113,7 +96,7 @@ public class GameProperties {
 		return blockTypes;
 	}
 
-	public HashMap<String, Integer> getImageTypes(){
+	public HashMap<String, Integer> getImageTypes() {
 		return imageTypes;
 	}
 }

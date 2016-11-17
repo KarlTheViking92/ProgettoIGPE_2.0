@@ -3,7 +3,7 @@ package gui.element;
 import core.element.Item;
 import gui.ImageProvider;
 
-public class GraphicGem extends AbstractGraphicItem{
+public class GraphicGem extends AbstractGraphicItem {
 
 	public GraphicGem(Item logicGem) {
 		super(logicGem);

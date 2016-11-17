@@ -2,73 +2,65 @@ package core.element.character;
 
 import core.World.World;
 import core.element.Position;
+import core.gameManagers.PlayManager;
 
 public class MeleeEnemy extends AbstractCharacter {
 
-	// private Direction dir = Direction.STOP;
-	private int direction = 1;
 	private double delta = 1;
-	private boolean flag = false;
-	private double X;
 
 	public MeleeEnemy(String name, int life, int damage, World w, Position p) {
 		super(name, life, damage, w);
 		this.setPosition(p);
 		this.setType("MeleeEnemy");
+		this.setWidth(50);
+		this.setHeight(80);
 	}
 
 	@Override
-	public void searchPlayer(Player p) {
-		// se il player e il mostro sono sulla stessa x e non vi sono pareti in
-		// mezzo il mostro farà di tutto per raggiungere il player
-		// sotto deve avere un blocco questo grandissimo maiale
+	public void setPosition(Position p) {
+		double x = p.getX();
+		double y = p.getY();
 
-		if (p.getY() > this.getY() && p.getY() < this.getY() + this.getHeight()) {
-			if (p.getX() > this.getX()) {
-				direction = 1;
-				X = p.getX();
-				setDirection(Direction.RIGHT);
-				// System.out.println("x del player mannaia a dio è: " +
-				// p.getX());
-			} else {
-				direction = -1;
-				X = p.getX();
-				setDirection(Direction.LEFT);
-				// System.out.println("x del player mannaia la madonna è: " +
-				// p.getX());
-			}
-			flag = true;
-		} else {
-			setDirection(Direction.STOP);
-			flag = false;
-		}
+		this.position = new Position(x, y);
+	}
+
+	@Override
+	public boolean collide(Character c) {
+		if (this.getX() + c.getWidth() * 2.5 < c.getX())
+			return false;
+
+		if (this.getX() + c.getWidth() > c.getX() + c.getWidth())
+			return false;
+
+		if (this.getY() + this.getHeight() < c.getY())
+			return false;
+
+		if (this.getY() + c.getHeight() > c.getY() + c.getHeight())
+			return false;
+		return true;
 	}
 
 	@Override
 	public void update() {
-
-		double Y = this.getY();
+		double y = this.getY();
 		double x = this.getX();
 
-		if (flag) {
+		switch (direction) {
+		case LEFT:
+			x += delta * directionNum;
+			break;
+		case RIGHT:
+			x += delta * directionNum;
+			break;
 
-			if (X == this.getX()) {
-				this.setX(X);
-				// System.out.println("muori e la x del nemico è: " + X);
-				return;
-			}
-			// System.out.println("x del nemico: " + x + " x del player: " + X);
-
-			if (world.checkPlayerCollision(this, x, this.getY())) {
-				direction *= -1;
-
-			}
-			x = this.getX() + (delta * direction);
+		default:
+			break;
 		}
 
 		if (falling) {
-			if (!world.checkPlayerCollision(this, x, getY() + currentFallSpeed)) {
-				Y = position.getY() + currentFallSpeed;
+			if (!world.checkPlayerCollision(this, x, y + currentFallSpeed)) {
+
+				y = position.getY() + currentFallSpeed;
 				if (currentFallSpeed <= MAXFALLSPEED) {
 					currentFallSpeed += 0.1;
 				}
@@ -78,12 +70,21 @@ public class MeleeEnemy extends AbstractCharacter {
 				falling = false;
 			}
 		}
-
-		if (!world.checkPlayerCollision(this, x, getY() + currentFallSpeed)) {
+		if (!world.checkPlayerCollision(this, x, y + currentFallSpeed)) {
 			falling = true;
 		}
+		if (!world.checkPlayerCollision(this, x, y) && !this.isDead()) {
 
-		this.setX(x);
+			position.setY(y);
+			position.setX(x);
+
+			Player p = PlayManager.getInstance().getPlayer();
+			if (this.collide(p)) {
+				attacking = true;
+				p.kill();
+			} else {
+				attacking = false;
+			}
+		}
 	}
-
 }

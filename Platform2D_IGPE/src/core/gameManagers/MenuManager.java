@@ -12,14 +12,10 @@ import gui.panel.UpdatablePane;
 import gui.panel.singlePlayer.SelectMap;
 import gui.panel.singlePlayer.SelectPlayer;
 import gui.panel.singlePlayer.SinglePlayerPane;
+import gui.popup.PopupError;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Camera;
 import javafx.scene.Node;
-import javafx.scene.ParallelCamera;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import mapEditor.MapEditor;
 import mapEditor.WorldSizeSelector;
@@ -30,7 +26,7 @@ public class MenuManager {
 	private GameMain game;
 
 	private UpdatablePane currentPane;
-	// private Pane lastPane = new Pane();
+	private PopupError p = new PopupError(screen.getWidth() * 0.8, screen.getHeight() * 0.8);
 
 	private GameState actualState;
 
@@ -60,15 +56,23 @@ public class MenuManager {
 		this.game = game;
 		try {
 			this.menu = new GameMenu(game.getScene());
-			// System.out.println("inizializzo menu " + menu);
 			currentPane = menu;
 			root.getChildren().add(menu);
 			singlePlayer = new SinglePlayerPane(game.getScene());
-			// System.out.println(menu.getChildren());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void addExceptionPopup(String s) {
+		if (!root.getChildren().contains(p)) {
+			root.getChildren().add(p);
+			p.setText(s);
+		}
+		if (p.isDeleted()) {
+			root.getChildren().remove(p);
+		}
 	}
 
 	public void updateGame() {
@@ -82,29 +86,23 @@ public class MenuManager {
 	}
 
 	public void nextPage() {
-		// currentPane.nextPage();
 		GamePage next = actualState.getNextPage();
 		if (next != null) {
 			root.getChildren().clear();
 			root.getChildren().add((Node) next);
-			// System.out.println("pagina successiva");
 		} else {
 			actualState.loadState();
 		}
 	}
 
 	public void previousPage() {
-		// currentPane.prevoiusPage();
 		GamePage prev = actualState.getPreviousPage();
 		if (prev != null) {
 			root.getChildren().clear();
 			root.getChildren().add((Node) prev);
 		} else {
-			// System.out.println("vai al menù principale");
 			goToMainMenu();
-			// System.out.println(root.getChildren());
 		}
-		// System.out.println("pagina precedente");
 	}
 
 	public void goToMainMenu() {
@@ -116,7 +114,6 @@ public class MenuManager {
 	}
 
 	public void goToSinglePlayer() {
-		System.out.println("go to singleplayer");
 		menu.stopMusic();
 		root.getChildren().clear();
 		singleGameState = new SinglePlayerState(new SelectPlayer(), new SelectMap());
@@ -126,19 +123,16 @@ public class MenuManager {
 	}
 
 	public void startGame() {
-		// Pane p = new Pane();
 		matchManager.restart();
 		matchManager.init(actualState.getSelector());
-		if (singlePlayer != null){
+		if (singlePlayer != null) {
 			singlePlayer.restart();
 		}
-
 
 		currentPane = singlePlayer;
 		game.getScene().setOnKeyPressed(new KeyboardPressedEvent(singlePlayer));
 		game.getScene().setOnKeyReleased(new KeyboardReleasedEvent(singlePlayer));
 		singlePlayer.draw();
-		// p.getChildren().add(singlePlayer);
 		root.getChildren().clear();
 		root.getChildren().add(singlePlayer);
 		System.out.println(singlePlayer.getChildren());

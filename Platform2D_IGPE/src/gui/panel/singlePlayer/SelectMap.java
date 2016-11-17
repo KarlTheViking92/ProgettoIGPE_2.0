@@ -25,9 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class SelectMap extends AbstractGamePage {
-	private ListView<String> list;
 	private List<String> l = new ArrayList<>();
-	private int levelIndex = 0;
 	private Map<String, String> levelMap = new HashMap<>();
 	private final String levelPath = "resources/Levels/staticLevel";
 	private final String customLevelPath = "resources/Levels/customLevel";
@@ -42,24 +40,18 @@ public class SelectMap extends AbstractGamePage {
 	private Text levelName;
 
 	public SelectMap() {
-		
-		// this.setBackground("SelectMapMenu.png");
+
 		this.next.setImage(new Image("file:resources/images/editor/Button_Next.png"));
 		this.back.setImage(new Image("file:resources/images/editor/Button_Back.png"));
 
-		// this.info.setFont(FONT_BIG);
-		// this.info.setStrokeWidth(1);
-		// this.info.setStroke(Color.BLACK);
-		// this.info.setFill(Color.web("#DC8014"));
 		this.title.setText("Select a level");
 		this.title.setLayoutX(screen.getWidth() * 0.5 - (title.getBoundsInLocal().getWidth() / 2));
-		// this.info.setLayoutY(screen.getHeight()*0.2);
 		next.setOnMouseClicked(e -> {
-			if(((CustomListView) this.listview).getSelectedMap() != null){
-				state.setMapName(this.actualPath+"/"+((CustomListView) this.listview).getSelectedMap());
+			if (((CustomListView) this.listview).getSelectedMap() != null) {
+				state.setMapName(this.actualPath + "/" + ((CustomListView) this.listview).getSelectedMap());
 			}
-			
-			 nextPage();
+
+			nextPage();
 		});
 		this.back.setOnMouseClicked(e -> {
 			previousPage();
@@ -83,16 +75,8 @@ public class SelectMap extends AbstractGamePage {
 		levelName.setFill(Color.web("#A13C3F"));
 		levelName.setStrokeWidth(2);
 		levelName.setStroke(Color.web("#D99F5D"));
-		// this.list = new ListView<>();
-		// this.list.setPrefWidth(screen.getWidth()*0.2);
-		// this.list.setPrefHeight(screen.getHeight()*0.2);
-		// this.list.setLayoutX(screen.getWidth()*0.5 - list.getPrefWidth()/2);
-		// this.list.setLayoutY(screen.getHeight()*0.5 -
-		// list.getPrefHeight()/2);
 		readFolders(levelPath);
 		this.showLevelList();
-		// levelName.setText("Level name : " + l.get(levelIndex));
-		// list.setItems(FXCollections.observableArrayList(l));
 		loadButtons();
 		this.getChildren().addAll(next, back, title, (Node) listview);
 	}
@@ -112,14 +96,12 @@ public class SelectMap extends AbstractGamePage {
 		this.customLevelButton.setImage(new Image("file:resources/images/buttongatto.png"));
 
 		this.standardLevelButton.setOnMouseClicked(e -> {
-			// this.levelIndex++;
 			readFolders(levelPath);
 			this.actualPath = levelPath;
 			this.showLevelList();
 
 		});
 		this.customLevelButton.setOnMouseClicked(e -> {
-			// this.levelIndex--;
 			readFolders(customLevelPath);
 			this.actualPath = customLevelPath;
 			this.showLevelList();

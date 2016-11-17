@@ -13,10 +13,9 @@ public class BlockFactory {
 
 	private HashMap<Integer, String> blockSet;
 	private GameProperties properties = new GameProperties();
+
 	public BlockFactory() {
 		this.blockSet = properties.getBlockTypes();
-//		loadTypes("resources/config/blockTypes");
-
 	}
 
 	// load block types from config file
@@ -42,41 +41,30 @@ public class BlockFactory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-//		System.out.println(" ho caricato i tipi di blocco " + blockSet.size());
+
 	}
 
-	// factory method reflection 
-	public Block makeBlock(World w,int code, Position pos) {
+	// factory method reflection
+	public Block makeBlock(World w, int code, Position pos) {
 
 		try {
-//			System.out.println(code);
-//			System.out.println("core.element.block." + blockSet.get(code));
-//			System.out.println("logic Block: "+blockSet.get(code));
 			Class block = Class.forName("core.element.block." + blockSet.get(code));
-			
-			return (Block) block.getConstructor(World.class,Position.class).newInstance(w,pos);
+
+			return (Block) block.getConstructor(World.class, Position.class).newInstance(w, pos);
 
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

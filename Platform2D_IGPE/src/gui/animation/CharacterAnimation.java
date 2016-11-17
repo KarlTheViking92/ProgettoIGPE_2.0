@@ -1,19 +1,28 @@
 package gui.animation;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 
 public interface CharacterAnimation {
 
-	public Image getCharacterMoveAnimation();
-	public Image getCharacterIdleAnimation();
-	public Image getCharacterJumpAnimation();
-	public Image getCharacterFallAnimation();
-	
+	public abstract Image getCharacterMoveAnimation();
 
+	public abstract Image getCharacterIdleAnimation();
+
+	public abstract Image getCharacterJumpAnimation();
+
+	public abstract Image getCharacterFallAnimation();
+
+	public abstract Image getCharacterAttackAnimation();
+
+	public abstract Image getCharacterDieAnimation();
 	
-	public double getValueX();
-	public double getValueY();
-	public double getWidth();
-	public double getHeight();
+	public abstract boolean animationFinished();
+
+	public abstract double getValueX();
+
+	public abstract double getValueY();
+
+	public abstract double getWidth();
+
+	public abstract double getHeight();
 }

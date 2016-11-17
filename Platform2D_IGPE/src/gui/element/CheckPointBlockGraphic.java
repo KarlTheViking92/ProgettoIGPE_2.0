@@ -15,7 +15,7 @@ public class CheckPointBlockGraphic extends AbstractGraphicBlock {
 			new Image(ANIMATION_PATH + "/6.png"), new Image(ANIMATION_PATH + "/7.png"),
 			new Image(ANIMATION_PATH + "/8.png"), new Image(ANIMATION_PATH + "/9.png"),
 			new Image(ANIMATION_PATH + "/10.png"), new Image(ANIMATION_PATH + "/11.png"),
-			new Image(ANIMATION_PATH + "/12.png")};
+			new Image(ANIMATION_PATH + "/12.png") };
 
 	public CheckPointBlockGraphic(Block logic) {
 		super(logic);
@@ -28,9 +28,9 @@ public class CheckPointBlockGraphic extends AbstractGraphicBlock {
 
 	@Override
 	public void update() {
-		if (logicBlock.isAnimated()){
+		if (logicBlock.isAnimated()) {
 			this.setImage(moving_flag.nextFrame());
-				if(moving_flag.isFinished())
+			if (moving_flag.isFinished())
 				moving_flag.setLoop(6);
 		}
 

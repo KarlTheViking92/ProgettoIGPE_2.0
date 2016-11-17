@@ -4,15 +4,15 @@ import core.element.character.Direction;
 import gui.panel.singlePlayer.SinglePlayerPane;
 import net.java.games.input.Event;
 
-public class GamepadPressedEvent extends AbstractGamepadEvent{
-	
+public class GamepadPressedEvent extends AbstractGamepadEvent {
+
 	public GamepadPressedEvent(SinglePlayerPane game) {
 		super(game);
 	}
-	
+
 	@Override
 	public void handle(Event event) {
-		switch(event.getComponent().getName()){
+		switch (event.getComponent().getName()) {
 		case "Pulsante 1":
 			System.out.println("case 1 hai premuto " + event.getComponent().getName());
 			manager.playerJump();
@@ -28,13 +28,13 @@ public class GamepadPressedEvent extends AbstractGamepadEvent{
 			break;
 		case "Hat Switch":
 			System.out.println("case hat switch " + event.getComponent().getPollData());
-			if(event.getComponent().getPollData() == 1.0)
+			if (event.getComponent().getPollData() == 1.0)
 				manager.movePlayer(Direction.LEFT);
 
-			if(event.getComponent().getPollData() == 0.5)
+			if (event.getComponent().getPollData() == 0.5)
 				manager.movePlayer(Direction.RIGHT);
 			break;
-			
+
 		case "Pulsante 9":
 			manager.pause();
 			break;

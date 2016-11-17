@@ -12,8 +12,8 @@ public class AbstractDrawer extends ImageView implements Drawer {
 	protected CharacterAnimation animation;
 	protected Direction oldDirection;
 	protected Rotate rotation = new Rotate();
+	protected boolean destroy = false;
 
-	
 	public AbstractDrawer(Character c) {
 		character = c;
 		animation = loadAnimation(c);
@@ -23,20 +23,20 @@ public class AbstractDrawer extends ImageView implements Drawer {
 		this.setFitWidth(character.getWidth());
 		this.setFitHeight(character.getHeight());
 	}
-	
+
 	@Override
 	public void draw() {
 		this.setLayoutX(character.getX());
 		this.setLayoutY(character.getY());
-		
-		rotation.setPivotX(this.getX()+(character.getWidth()/2));
-		
-		if(oldDirection == Direction.RIGHT && character.getDirection() == Direction.LEFT){
+
+		rotation.setPivotX(this.getX() + (character.getWidth() / 2));
+
+		if (oldDirection == Direction.RIGHT && character.getDirection() == Direction.LEFT) {
 			rotation.setAngle(180);
 			oldDirection = character.getDirection();
 		}
-		
-		if(oldDirection == Direction.LEFT && character.getDirection() == Direction.RIGHT){
+
+		if (oldDirection == Direction.LEFT && character.getDirection() == Direction.RIGHT) {
 			rotation.setAngle(0);
 			oldDirection = character.getDirection();
 		}
@@ -47,7 +47,6 @@ public class AbstractDrawer extends ImageView implements Drawer {
 	public CharacterAnimation loadAnimation(Character c) {
 
 		String name = "gui.animation." + c.getType() + "Animation";
-		System.out.println("name: "+name+ "  "+c.getType());
 		Class animation;
 		try {
 
@@ -55,16 +54,18 @@ public class AbstractDrawer extends ImageView implements Drawer {
 			return (CharacterAnimation) animation.newInstance();
 
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean toDestroy() {
+		return destroy;
 	}
 
 }

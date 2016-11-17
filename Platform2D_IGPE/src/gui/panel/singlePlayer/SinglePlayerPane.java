@@ -17,13 +17,6 @@ import javafx.stage.Screen;
 
 public class SinglePlayerPane extends Pane implements UpdatablePane {
 
-	// resolution variables
-	// private final double FULLHDRESOLUTION = 1000;
-	// private final double HDRESOLUTION = 500;
-	// private boolean resolution = false; // false for HD, true for FULLHD
-	// private Point2D cameraDistance;
-	// private Point2D widthLimit;
-	// private Point2D heightLimit;
 	private PlayManager manager;
 
 	private GameField subscene;
@@ -31,11 +24,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private PausePane pause = new PausePane(this);
 	private FinishPane finishLevel = new FinishPane(this);
 
-	private Gamepad controller = new Gamepad(this);
-	private boolean gamepad = true;
-	
-	// nemico provvisorio
-	private ImageView ciccioCattivo;
+	private Gamepad controller = new Gamepad(null);
+	private boolean gamepad = false;
 
 	// --------------------------------
 
@@ -44,7 +34,6 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private double height = 0;
 
 	// private Rectangle player;
-	private ImageView player;
 
 	private Scene scene;
 
@@ -55,32 +44,18 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private double SCALEFACTOR = 2;
 
 	public SinglePlayerPane(Scene s) {
-
-		// if (Screen.getPrimary().getBounds().getHeight() < 1080)
-		// resolution = true;
-
 		scene = s;
-		// this.getChildren().add(group);
 
 		manager = PlayManager.getInstance();
-		// manager.init();
 
 		this.background = new Rectangle(Screen.getPrimary().getBounds().getWidth(),
 				Screen.getPrimary().getBounds().getHeight());
 		background.setFill(new ImagePattern(new Image("file:resources/images/backgrounds/bkgrImg.png")));
-		// this.background.setFill(new ImagePattern(new
-		// Image("file:resources/images/bkgrImg.png")));
 		this.setWidth(width);
 		this.setHeight(height);
 		subscene = new GameField(this, Screen.getPrimary().getBounds().getWidth(),
 				Screen.getPrimary().getBounds().getHeight());
 		hud = new Hud();
-		// cameraDistance = new Point2D(700.0, 700.0);
-		// widthLimit = new Point2D(width*0.2, width*0.8); // con 100.00,50.00
-		// funziona in questo caso almeno
-		// heightLimit = new Point2D(height*0.2, height*0.8);
-		// this.setOnKeyPressed(new KeyboardPressedEvent(this));
-		// this.setOnKeyReleased(new KeyboardReleasedEvent(this));
 		this.getChildren().addAll(background, subscene, hud);
 	}
 
@@ -97,11 +72,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 	@Override
 	public void update() {
-		if(gamepad){
+		if (gamepad) {
 			// aggiorno gli eventi?
 			controller.update();
 		}
-		
+
 		if (!manager.isPaused()) {
 			manager.update();
 			subscene.update();
@@ -127,17 +102,13 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 	public void removePanel(Node n) {
 		if (this.getChildren().contains(n)) {
-			System.out.println("remove pause pane" + n.getClass());
 			this.getChildren().remove(n);
 		}
 	}
 
 	public void restart() {
-		// this.getChildren().remove(subscene);
-		// subscene = null;
 		subscene.clearSubscene();
 		hud.reset();
-		// subscene.drawWorld();
 	}
 
 	public void resume() {

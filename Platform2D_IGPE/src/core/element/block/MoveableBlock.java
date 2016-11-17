@@ -20,6 +20,11 @@ public class MoveableBlock extends AbstractBlock {
 	}
 
 	@Override
+	public int getMovingDirection() {
+		return direction;
+	}
+
+	@Override
 	public boolean collision(double x, double y, int height, int width) {
 		if (super.collision(x, y, height, width)) {
 			if ((x >= this.getX()) && (x <= (this.getX() + this.getWIDTH())) && (int) (y + height) <= this.getY()) {

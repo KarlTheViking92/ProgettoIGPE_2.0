@@ -19,30 +19,26 @@ public class MenuButton extends StackPane {
 		text.setFont(Font.font(20));
 		text.setFill(Color.WHITE);
 
-		// bg sta per background
-		Rectangle bg = new Rectangle(250, 30);
-		bg.setOpacity(0.6);
-		bg.setFill(Color.BLACK);
-		bg.setEffect(new GaussianBlur(3.5));
+		Rectangle background = new Rectangle(250, 30);
+		background.setOpacity(0.6);
+		background.setFill(Color.BLACK);
+		background.setEffect(new GaussianBlur(3.5));
 
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setRotate(0.5);
-		this.getChildren().addAll(bg, text);
-
-		// settiamo adesso cosa succede se il mouse seleziona il pannello
+		this.getChildren().addAll(background, text);
 
 		this.setOnMouseEntered(event -> {
-//			playSound("switch");
-			bg.setTranslateX(10);
+			background.setTranslateX(10);
 			text.setTranslateX(10);
-			bg.setFill(Color.WHITE);
+			background.setFill(Color.WHITE);
 			text.setFill(Color.BLACK);
 		});
 
 		this.setOnMouseExited(event -> {
-			bg.setTranslateX(0);
+			background.setTranslateX(0);
 			text.setTranslateX(0);
-			bg.setFill(Color.BLACK);
+			background.setFill(Color.BLACK);
 			text.setFill(Color.WHITE);
 		});
 

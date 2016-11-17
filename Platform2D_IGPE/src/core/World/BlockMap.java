@@ -10,10 +10,10 @@ import core.element.Item;
 import core.element.Position;
 import core.element.block.Block;
 import core.element.block.BlockFactory;
-import core.element.block.SpawnBlock;
 import core.element.block.StandardBlock;
 import core.element.character.Character;
 import core.element.character.MeleeEnemy;
+import core.element.character.RangedEnemy;
 import core.gameManagers.PlayManager;
 import javafx.geometry.Point2D;
 
@@ -31,9 +31,6 @@ public class BlockMap {
 
 	private Point2D spawnPoint;
 
-	private float playerX;
-	private float playerY;
-
 	// map path
 	private String path;
 
@@ -44,23 +41,19 @@ public class BlockMap {
 	private String[][] coloredMap;
 	// block factory
 
-	BlockFactory factory;
+	private BlockFactory factory;
 
-	// blocks
-	// matrice o lista?
 	private Block[][] blocks;
 	private List<Block> blocklist = new ArrayList<>();
 
 	// map gems
 
 	private int gems = 0;
-	// private List<Point2D> gemPosition = new ArrayList<>();
 	private List<Item> gemList = new ArrayList<>();
 	public List<Character> enemies = new ArrayList<>();
 
 	private World world;
 
-	// constructor
 	public BlockMap(String path, World w) {
 		this.world = w;
 		this.factory = new BlockFactory();
@@ -69,7 +62,6 @@ public class BlockMap {
 
 	// add different block in map
 	public void addBlocks() {
-		// TODO
 
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < columns; x++) {
@@ -77,16 +69,21 @@ public class BlockMap {
 				if (logicalMap[y][x] == 0) {
 					blocks[y][x] = null;
 				} else if (logicalMap[y][x] == 3) { // conta una gemma
-					// gemPosition.add(new Point2D(x, y));
 					gemList.add(new Gem(x * BLOCKSIZE, y * BLOCKSIZE, 50, 50));
 					gems++;
-				}else if(logicalMap[y][x] == 16){
-					System.out.println("c'è un ciccioriolo");
-					System.out.println(x * BLOCKSIZE+" "+ y * BLOCKSIZE);
-					MeleeEnemy enemy = new MeleeEnemy("MeleeEnemy", 5, 5, world, new Position(x * BLOCKSIZE, y * BLOCKSIZE));
-					enemies.add(enemy);
+				} else if (logicalMap[y][x] == 16) {
+					MeleeEnemy meleeEnemy = new MeleeEnemy("MeleeEnemy", 5, 5, world,
+							new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					meleeEnemy.setPosition(new Position(meleeEnemy.getX(),
+							meleeEnemy.getY() - (meleeEnemy.getHeight() - BLOCKSIZE) - 5));
+					enemies.add(meleeEnemy);
+				} else if (logicalMap[y][x] == 17) {
+					RangedEnemy rangedEnemy = new RangedEnemy("RangedEnemy", 5, 5, world,
+							new Position(x * BLOCKSIZE, y * BLOCKSIZE));
+					rangedEnemy.setPosition(new Position(rangedEnemy.getX(),
+							rangedEnemy.getY() - (rangedEnemy.getHeight() - BLOCKSIZE) - 5));
+					enemies.add(rangedEnemy);
 				} else {
-					// forse la position Ã¨ sbagliata
 					blocks[y][x] = factory.makeBlock(world, logicalMap[y][x],
 							new Position(x * BLOCKSIZE, y * BLOCKSIZE));
 					if (blocks[y][x] instanceof StandardBlock) {
@@ -96,18 +93,11 @@ public class BlockMap {
 						blocklist.add(blocks[y][x]);
 					}
 				}
-				
 				if (logicalMap[y][x] == 15) { // player
 					spawnPoint = new Point2D(
 							(x * BLOCKSIZE) + (BLOCKSIZE / 2) - PlayManager.getInstance().getPlayer().getWidth() / 2,
 							y * BLOCKSIZE - BLOCKSIZE);
 				}
-
-//				if (logicalMap[y][x] == 16) { // melee enemey
-//					meleeEnemyList
-//							.add(new MeleeEnemy("Ginetto", 1, 1, world, new Position(x * BLOCKSIZE, y * BLOCKSIZE)));
-//				}
-
 			}
 		}
 	}
@@ -150,7 +140,6 @@ public class BlockMap {
 		}
 
 		this.addBlocks();
-		// blockSize = blocks[0][0].getWIDTH();
 	}
 
 	public double getBlockSize() {

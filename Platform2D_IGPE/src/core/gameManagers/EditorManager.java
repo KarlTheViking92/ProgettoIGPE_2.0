@@ -3,12 +3,6 @@ package core.gameManagers;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import gui.panel.UpdatablePane;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
-import mapEditor.MainWorldSizeProva;
 import mapEditor.MapEditor;
 import mapEditor.WorldSizeSelector;
 

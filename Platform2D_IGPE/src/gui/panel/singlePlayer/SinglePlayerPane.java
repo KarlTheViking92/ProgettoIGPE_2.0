@@ -65,11 +65,11 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 	@Override
 	public void update() {
-		if (gamepad) {
-			controller.update();
-		}
 
 		if (!manager.isPaused()) {
+			if (gamepad) {
+				controller.update();
+			}
 			manager.update();
 			subscene.update();
 

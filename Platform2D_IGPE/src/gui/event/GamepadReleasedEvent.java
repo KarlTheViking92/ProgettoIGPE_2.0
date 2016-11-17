@@ -13,6 +13,9 @@ public class GamepadReleasedEvent extends AbstractGamepadEvent{
 	@Override
 	public void handle(Event event) {
 		switch(event.getComponent().getName()){
+		case "Pulsante 0":
+			manager.getPlayer().noShooting();
+			break;
 		case "Pulsante 1":
 			System.out.println("hai premuto " + event.getComponent().getName());
 			break;

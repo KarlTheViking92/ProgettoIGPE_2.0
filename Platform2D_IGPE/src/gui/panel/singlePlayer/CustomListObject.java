@@ -22,19 +22,21 @@ public class CustomListObject extends StackPane {
 		name = s;
 		t = new Text(s);
 
-		this.background.setOnMouseEntered(e -> {
+		this.setOnMouseEntered(e -> {
 			this.background.setFill(STROKE_COLOR);
 		});
-		this.background.setOnMouseExited(e -> {
+		
+		this.setOnMouseExited(e -> {
 			if (list.getSelectedMap() == null || !name.equals(list.getSelectedMap())) {
 				this.background.setFill(BACKGROUND_COLOR);
 			}
 		});
-
+		
 		this.setOnMouseClicked(e -> {
 			this.background.setFill(STROKE_COLOR);
 			list.selectMap(this);
 		});
+		
 		this.setOnMouseReleased(e -> {
 		});
 		this.background.setArcHeight(20);

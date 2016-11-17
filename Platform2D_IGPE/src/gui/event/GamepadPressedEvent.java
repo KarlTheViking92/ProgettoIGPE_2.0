@@ -13,21 +13,23 @@ public class GamepadPressedEvent extends AbstractGamepadEvent {
 	@Override
 	public void handle(Event event) {
 		switch (event.getComponent().getName()) {
+		case "Pulsante 0":
+			if (manager.getPlayer().getCanShoot()
+					&& System.currentTimeMillis() - manager.getPlayer().getLast() >= 200) {
+				manager.getPlayer().shoot();
+				manager.getPlayer().restartCanShoot();
+			}
+			break;
 		case "Pulsante 1":
-			System.out.println("case 1 hai premuto " + event.getComponent().getName());
 			manager.playerJump();
 			break;
 		case "Pulsante 2":
-			System.out.println("case 2 hai premuto " + event.getComponent().getName());
 			break;
 		case "Pulsante 3":
-			System.out.println("case 3 hai premuto " + event.getComponent().getName());
 			break;
 		case "Pulsante 4":
-			System.out.println("case 1 hai premuto " + event.getComponent().getName());
 			break;
 		case "Hat Switch":
-			System.out.println("case hat switch " + event.getComponent().getPollData());
 			if (event.getComponent().getPollData() == 1.0)
 				manager.movePlayer(Direction.LEFT);
 
@@ -36,7 +38,10 @@ public class GamepadPressedEvent extends AbstractGamepadEvent {
 			break;
 
 		case "Pulsante 9":
-			manager.pause();
+			if(manager.isPaused())
+				manager.resume();
+			else
+				manager.pause();
 			break;
 		default:
 			break;

@@ -48,7 +48,7 @@ public class SelectPlayer extends AbstractGamePage {
 				this.state.setPlayer(nameField.getText(), characterType.get(previewIndex));
 				nextPage();
 			} else {
-				error = true;
+				manager.addExceptionPopup("ERRORE: Inserisci il nome del player");
 			}
 		});
 		this.back.setOnMouseClicked(e -> {
@@ -70,9 +70,9 @@ public class SelectPlayer extends AbstractGamePage {
 	@Override
 	public void update() {
 		preview.setImage(previews.get(previewIndex));
-		if (error) {
+		/*if (error) {
 			manager.addExceptionPopup("ERRORE: Inserisci il nome del player");
-		}
+		}*/
 	}
 
 	private void initComponent() {
@@ -111,5 +111,4 @@ public class SelectPlayer extends AbstractGamePage {
 		this.back.setFitHeight(screen.getWidth() * 0.08);
 
 	}
-
 }

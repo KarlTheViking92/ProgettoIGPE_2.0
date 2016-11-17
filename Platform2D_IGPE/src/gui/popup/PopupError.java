@@ -1,5 +1,6 @@
 package gui.popup;
 
+import core.gameManagers.MenuManager;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -22,14 +23,14 @@ public class PopupError extends AbstractPopup {
 		message.setFont(POPUP_FONT);
 		// t.setFill(Color.BLACK);
 		ok.setOnAction(e -> {
-			delete = true;
-
+			MenuManager.getInstance().remove(this);
 		});
 		this.getChildren().addAll(message, ok);
 	}
 
 	public void setText(String t) {
 		message.setText(t);
+		message.setLayoutX(this.getWidth() * 0.5 - (message.getBoundsInLocal().getWidth() / 2));
 	}
 
 	public boolean isClicked() {

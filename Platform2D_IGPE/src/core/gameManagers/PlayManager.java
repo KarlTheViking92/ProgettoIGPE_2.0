@@ -29,7 +29,7 @@ public class PlayManager {
 
 	private World world;
 
-	private boolean finishLevel = false;
+	public boolean finishLevel = false;
 	private boolean pause = false;
 
 	private List<Player> players = new ArrayList<>();
@@ -80,11 +80,12 @@ public class PlayManager {
 	}
 
 	public void restart() {
-		resume();
+		System.out.println("restart playmanager");
 		finishLevel = false;
 		world = null;
 		currentEnemy.clear();
 		players.clear();
+		resume();
 	}
 
 	public boolean isPaused() {
@@ -140,7 +141,7 @@ public class PlayManager {
 	}
 
 	public Player getPlayer() {
-		return currentPlayer; // temporaneamente null
+		return currentPlayer;
 	}
 
 	public List<Character> getEnemies() {

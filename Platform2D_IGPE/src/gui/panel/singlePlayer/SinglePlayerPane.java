@@ -9,7 +9,6 @@ import gui.panel.finishPanel.MatchInfo;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -27,21 +26,13 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	private Gamepad controller = new Gamepad(null);
 	private boolean gamepad = false;
 
-	// --------------------------------
-
 	public double[] cameraPosition = { 0.0, 0.0 };
 	private double width = 0;
 	private double height = 0;
 
-	// private Rectangle player;
-
 	private Scene scene;
-
 	private Rectangle background;
-	Rectangle r = new Rectangle(10, 10);
-	// private Background background;
-
-	private double SCALEFACTOR = 2;
+	Rectangle r = new Rectangle();
 
 	public SinglePlayerPane(Scene s) {
 		scene = s;
@@ -60,6 +51,8 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	}
 
 	public void draw() {
+		if(this.getChildren().contains(finishLevel))
+			this.getChildren().remove(finishLevel);
 		width = manager.getLevelWidth();
 		height = manager.getLevelHeight();
 		subscene.drawWorld();
@@ -73,7 +66,6 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 	@Override
 	public void update() {
 		if (gamepad) {
-			// aggiorno gli eventi?
 			controller.update();
 		}
 
@@ -90,7 +82,7 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 		hud.update();
 
 		if (manager.isFinished()) {
-			System.out.println("HAI FINITO!!!");
+			System.out.println("hai finito");
 			if (!this.getChildren().contains(finishLevel)) {
 				finishLevel.init(new MatchInfo(manager.getPlayer().getName(), hud.getLevelTime(),
 						manager.getPlayer().getCollectedGems()));
@@ -113,5 +105,9 @@ public class SinglePlayerPane extends Pane implements UpdatablePane {
 
 	public void resume() {
 		hud.resume();
+	}
+	
+	public void setGamepad(){
+		gamepad = true;
 	}
 }

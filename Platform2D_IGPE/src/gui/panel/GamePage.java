@@ -18,4 +18,6 @@ public interface GamePage extends UpdatablePane {
 	public void setGameState(GameState state);
 
 	public abstract void setBackground(String path);
+	
+	public void reset();
 }

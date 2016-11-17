@@ -61,4 +61,17 @@ public class AbstractCustomComponent extends Pane implements CustomComponent {
 		this.getChildren().add(n);
 	}
 
+	@Override
+	public void resetChoice() {
+	}
+	
+	@Override
+	public void addAll(Node...nodes) {
+		for (Node node : nodes) {
+			this.getChildren().add(node);
+		}
+		
+	}
+
+
 }

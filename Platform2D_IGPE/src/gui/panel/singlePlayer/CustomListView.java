@@ -53,8 +53,16 @@ public class CustomListView extends AbstractCustomComponent {
 	}
 
 	public void selectMap(CustomListObject selected) {
-		if(selectedItem != null)
+		if (selectedItem != null)
 			selectedItem.resetBackground();
 		selectedItem = selected;
+	}
+
+	@Override
+	public void resetChoice() {
+		if (selectedItem != null) {
+			selectedItem.resetBackground();
+			selectedItem = null;
+		}
 	}
 }

@@ -26,7 +26,7 @@ public class MenuManager {
 	private GameMain game;
 
 	private UpdatablePane currentPane;
-	private PopupError p = new PopupError(screen.getWidth() * 0.8, screen.getHeight() * 0.8);
+	private PopupError p = new PopupError(screen.getWidth() * 0.5, screen.getHeight() * 0.5);
 
 	private GameState actualState;
 
@@ -59,6 +59,7 @@ public class MenuManager {
 			currentPane = menu;
 			root.getChildren().add(menu);
 			singlePlayer = new SinglePlayerPane(game.getScene());
+			p.setPosition(screen.getWidth()*0.5, screen.getHeight()*0.5);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -117,6 +118,7 @@ public class MenuManager {
 		menu.stopMusic();
 		root.getChildren().clear();
 		singleGameState = new SinglePlayerState(new SelectPlayer(), new SelectMap());
+		singlePlayer.setGamepad();
 		singleGameState.initState();
 		actualState = singleGameState;
 		root.getChildren().add((Node) actualState.getCurrentPage());
@@ -135,7 +137,6 @@ public class MenuManager {
 		singlePlayer.draw();
 		root.getChildren().clear();
 		root.getChildren().add(singlePlayer);
-		System.out.println(singlePlayer.getChildren());
 	}
 
 	public void goToEditor() {
@@ -159,6 +160,11 @@ public class MenuManager {
 
 	public void exitGame() {
 		System.exit(0);
+	}
+	
+	public void remove(Node n){
+		if(root.getChildren().contains(n))
+			root.getChildren().remove(n);
 	}
 
 }

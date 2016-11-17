@@ -33,7 +33,6 @@ public class KeyboardPressedEvent implements EventHandler<KeyEvent> {
 					&& System.currentTimeMillis() - manager.getPlayer().getLast() >= 200) {
 				manager.getPlayer().shoot();
 				manager.getPlayer().restartCanShoot();
-
 			}
 			break;
 		case SPACE:

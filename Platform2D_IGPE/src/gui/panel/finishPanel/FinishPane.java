@@ -1,6 +1,9 @@
 package gui.panel.finishPanel;
 
+import com.sun.glass.ui.Menu;
+
 import core.gameManagers.MenuManager;
+import core.gameManagers.PlayManager;
 import gui.panel.CustomComponent;
 import gui.panel.singlePlayer.CustomTextButton;
 import gui.panel.singlePlayer.SinglePlayerPane;
@@ -81,7 +84,10 @@ public class FinishPane extends Pane {
 
 	private void addEvents() {
 		levelSelector.setOnMouseReleased(e -> {
-			// game.removePanel(this);
+			game.removePanel(this);
+			PlayManager.getInstance().finishLevel = false;
+			MenuManager.getInstance().previousPage();
+			game.removePanel(this);
 		});
 		restart.setOnMouseReleased(e -> {
 			game.removePanel(this);

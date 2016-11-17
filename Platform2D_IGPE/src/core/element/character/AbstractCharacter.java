@@ -510,4 +510,8 @@ public abstract class AbstractCharacter implements Character {
 		canShoot = true;
 	}
 
+	@Override
+	public void setWorld(World w) {
+		this.world = w;
+	}
 }

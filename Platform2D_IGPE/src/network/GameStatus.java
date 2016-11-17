@@ -1,0 +1,5 @@
+package network;
+
+public enum GameStatus {
+	DISCONNECTED, CONNECTED, LOADING_MAP, CREATED_MATCH, WAITING_OPPONENT, GAME_STARTED;
+}

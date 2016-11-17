@@ -2,6 +2,7 @@ package core.element.character;
 
 import java.util.List;
 
+import core.World.World;
 import core.element.Bullet;
 import core.element.Position;
 
@@ -108,5 +109,7 @@ public interface Character {
 	public abstract long getLast();
 	
 	public abstract void restartCanShoot ();
+	
+	public void setWorld(World w);
 
 }

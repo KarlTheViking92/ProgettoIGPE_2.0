@@ -55,5 +55,9 @@ public class AbstractGamePage extends Pane implements GamePage {
 	public void setGameState(GameState state) {
 		this.state = state;
 	}
+	
+	@Override
+	public void reset() {		
+	}
 
 }

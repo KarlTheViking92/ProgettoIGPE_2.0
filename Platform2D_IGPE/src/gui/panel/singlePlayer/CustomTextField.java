@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
 public class CustomTextField extends StackPane {
-	private static final Font FONT_SMALL = Font.loadFont("file:resources/font/Engcomica.otf", 30);
+	private static final Font FONT_SMALL = Font.loadFont("file:resources/font/Engcomica.otf", Screen.getPrimary().getBounds().getWidth()*0.019);
 	private Rectangle2D screen = Screen.getPrimary().getBounds();
 	Rectangle background = new Rectangle();
 	TextField nameField;
@@ -39,5 +39,14 @@ public class CustomTextField extends StackPane {
 
 	public void resetText() {
 		nameField.clear();
+	}
+	
+	public void setBackgroundColor(Color c, Color stroke){
+		this.background.setFill(c);
+		this.background.setStroke(stroke);
+	}
+	
+	public void setTextColor(String hex){
+		this.nameField.setStyle("-fx-background: null; -fx-background-color: null; -fx-text-fill:#"+hex+";");
 	}
 }

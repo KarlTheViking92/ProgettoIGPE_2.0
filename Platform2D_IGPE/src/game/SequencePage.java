@@ -27,6 +27,7 @@ public class SequencePage extends ArrayList<GamePage> {
 			return null;
 
 		GamePage next = this.get(index);
+		next.reset();
 		return next;
 	}
 
@@ -36,6 +37,7 @@ public class SequencePage extends ArrayList<GamePage> {
 			return null;
 
 		GamePage prev = this.get(index);
+		prev.reset();
 		return prev;
 	}
 

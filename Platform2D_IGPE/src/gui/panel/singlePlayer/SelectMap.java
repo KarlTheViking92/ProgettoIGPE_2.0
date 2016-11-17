@@ -138,5 +138,10 @@ public class SelectMap extends AbstractGamePage {
 	public void update() {
 		// levelName.setText("Level name : " + l.get(levelIndex));
 	}
+	
+	@Override
+	public void reset() {
+		listview.resetChoice();
+	}
 
 }

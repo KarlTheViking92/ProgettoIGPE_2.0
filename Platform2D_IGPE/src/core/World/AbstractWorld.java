@@ -19,18 +19,18 @@ public class AbstractWorld implements World {
 
 	protected BlockMap map;
 
-	private float width = 0;
-	private float height = 0;
+	protected float width = 0;
+	protected float height = 0;
 
 	protected List<Player> players;
 
 	// Modificare la parte del codice in caso di aggiunta del multiplayer(serve
 	// la lista)
-	private Player player;
+	protected Player player;
 
-	private List<Item> gems;
-	private List<Character> enemies;
-	private String level;
+	protected List<Item> gems;
+	protected List<Character> enemies;
+	protected String level;
 
 	public AbstractWorld() {
 
